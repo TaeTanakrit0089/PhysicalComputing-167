@@ -83,10 +83,20 @@ gdb --version
 
 **1. Writing the Code**
 
-- **คอมคณะ:** ใน Desktop ของเครื่องที่ห้องแลป 203 จะมีโฟลเดอร์ "PhysicalCom" ที่มีไฟโค้ดภาษา C ชื่อว่า `main.c`, ถ้าไม่มีให้สร้างไฟล์ชื่อ `main.c` ขึ้นมาและก็อบโค้ดด้านล่างไปใส่
+- **คอมคณะ:** ใน Desktop ของเครื่องที่ห้องแลป 203 จะมีโฟลเดอร์ "PhysicalCom" ที่มีไฟล์โค้ดภาษา C ชื่อว่า `main.c`, ถ้าไม่มีให้ทำตาม Private Computer (Windows)
 - **Private Computer (Windows)**: ให้สร้างไฟล์ชื่อ `main.c` โดยข้างในไฟล์ต้องมีโค้ดเหมือนกับตัวอย่างด้านล่าง
-- **Private Computer (MacOS)**: 
+  ```bash
+  mkdir "%USERPROFILE%\Desktop\PhysicalCom"
+  curl -o "%USERPROFILE%\Desktop\PhysicalCom\main.c" "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs03-gdb/files/main.c"
+  ```
 
+- **Private Computer (MacOS)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน Terminal ได้เลย โดยที่คำสั่งนี้จะสร้างโฟลเดอร์ `PhysicalCom` ที่ Desktop และสร้างๆ ไฟล์ให้อัตโนมัติ 
+  ```bash
+  mkdir -p ~/Desktop/PhysicalCom
+  curl -o ~/Desktop/PhysicalCom/main.c "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs03-gdb/files/main.c"
+  ```
+
+ให้ลองเปิดไฟล์ที่สร้างขึ้นมาใหม่ดู ข้างในไฟล์ต้องมีโค้ดดังนี้:
 
 ```c
 #include "stdio.h"
