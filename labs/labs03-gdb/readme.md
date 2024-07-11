@@ -66,8 +66,6 @@ echo "alias gdb='x86_64-elf-gdb'" >> ~/.zshrc
 source ~/.zshrc
 ```
 
-You should see the version information for the installed GDB.
-
 ### Verify Installation
 
 * **Open Cygwin Terminal**
@@ -81,17 +79,23 @@ gdb --version
 
 ![gdb-command-tutorial.jpg](files/CheckGDBVersion.png)
 
+## Starting Debugging with GDB
+
 **1. Writing the Code**
 
-Create a file named `main.c` inside the "PhysicalCom" folder with the following code:
+- **คอมคณะ:** ใน Desktop ของเครื่องที่ห้องแลป 203 จะมีโฟลเดอร์ "PhysicalCom" ที่มีไฟโค้ดภาษา C ชื่อว่า `main.c`, ถ้าไม่มีให้สร้างไฟล์ชื่อ `main.c` ขึ้นมาและก็อบโค้ดด้านล่างไปใส่
+- **Private Computer (Windows)**: ให้สร้างไฟล์ชื่อ `main.c` โดยข้างในไฟล์ต้องมีโค้ดเหมือนกับตัวอย่างด้านล่าง
+- **Private Computer (MacOS)**: 
+
 
 ```c
 #include "stdio.h"
 
 int main() {
-    int a = 17, b = 25, c = 50, d = 10;
+    int a = 10, b = 20, c = 30, d = 40;
 
-    // Assignment Statements of Each Question
+    d = a++ + b++ + c++;
+    d = ++a + ++b + ++c;
 
     return 0;
 }
