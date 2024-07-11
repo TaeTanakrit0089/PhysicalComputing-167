@@ -90,7 +90,7 @@ gdb --version
   curl -o "%USERPROFILE%\Desktop\PhysicalCom\main.c" "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs03-gdb/files/main.c"
   ```
 
-- **Private Computer (MacOS)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน Terminal ได้เลย โดยที่คำสั่งนี้จะสร้างโฟลเดอร์ `PhysicalCom` ที่ Desktop และสร้างๆ ไฟล์ให้อัตโนมัติ 
+- **Private Computer (MacOS)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน Terminal ได้เลย โดยที่คำสั่งนี้จะสร้างโฟลเดอร์ `PhysicalCom` ที่ Desktop และสร้างไฟล์ให้อัตโนมัติ 
   ```bash
   mkdir -p ~/Desktop/PhysicalCom
   curl -o ~/Desktop/PhysicalCom/main.c "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs03-gdb/files/main.c"
@@ -111,79 +111,105 @@ int main() {
 }
 ```
 
-**3. Compiling with GCC**
+## Debugging C Code: A Step-by-Step Guide with `main.c` Example
 
-Open a Cygwin terminal and navigate to your "PhysicalCom" directory using the `cd` command.
+This tutorial will guide you through debugging the provided `main.c` code using a debugger. We'll cover how to check variable values, print statements, and set breakpoints to understand the code's execution flow.
 
-Compile the code using GCC with debugging symbols enabled:
+**Understanding the Code:**
 
-```bash
-gcc -g main.c -o main
-```
+The `main.c` code demonstrates the use of increment operators (`++`) in C. It initializes four integer variables (`a`, `b`, `c`, `d`) and performs two calculations involving these variables.
 
-This will create an executable file named `main`.
+**Debugging Tools:**
 
-**4. Running GDB**
+For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugger).
 
-Start GDB by typing:
+**Steps:**
 
-```bash
-gdb main
-```
+1. **Compile the Code:**
 
-You'll be presented with the GDB prompt (gdb).
+   Before debugging, compile your code using a C compiler (like GCC) with debugging symbols enabled:
 
-**5. Setting Breakpoints**
+   ```bash
+   gcc -g main.c -o main
+   ```
 
-Breakpoints halt the program execution at a specific line. To set a breakpoint, use the `break` command followed by the
-line number:
+   The `-g` flag tells the compiler to generate debugging information, which is essential for the debugger.
 
-```gdb
-break 5
-```
+2. **Start the Debugger:**
 
-This sets a breakpoint at line 5 of your code.
+   Run the debugger with the compiled executable:
 
-**6. Running the Program**
+   ```bash
+   gdb main
+   ```
 
-Start the program execution with:
+3. **Set Breakpoints:**
 
-```gdb
-run
-```
+   Breakpoints halt the program's execution at a specific line. To set a breakpoint, use the `break` command followed by the line number:
 
-The program will run until it hits the breakpoint you set.
+   ```gdb
+   break 6
+   ```
 
-**7. Examining Variables**
+   This sets a breakpoint at line 6 of your code.
 
-Use the `print` command to examine the value of a variable:
+4. **Run the Program:**
 
-```gdb
-print a
-```
+   Start the program execution:
 
-This will print the value of the variable `a`.
+   ```gdb
+   run
+   ```
 
-**8. Stepping Through Code**
+   The program will run until it hits the breakpoint you set.
 
-* **`next`:** Executes the next line of code.
-* **`step`:** Executes the next line of code, stepping into any function calls.
-* **`continue`:** Continues execution until the next breakpoint or the end of the program.
+5. **Check Variable Values:**
 
-**9. Quitting GDB**
+   Use the `print` command to display the value of a variable:
 
-Exit GDB with:
+   ```gdb
+   print a
+   print b
+   print c
+   print d
+   ```
 
-```gdb
-quit
-```
+   This will show you the current values of variables `a`, `b`, `c`, and `d`.
 
-**Additional GDB Commands**
+6. **Step Through the Code:**
 
-* `info breakpoints`: Lists all set breakpoints.
-* `delete <breakpoint_number>`: Deletes a breakpoint.
-* `help`: Displays help information for GDB commands.
+   Use the following commands to step through the code line by line:
 
-This tutorial provides a basic introduction to using GDB for debugging C code in a Cygwin environment. For more advanced
-debugging techniques and GDB features, refer to the official GDB
-documentation: [https://sourceware.org/gdb/](https://sourceware.org/gdb/).
+    * `next`: Executes the current line and moves to the next.
+    * `step`: Executes the current line and steps into any function calls.
+    * `continue`: Continues execution until the next breakpoint or the program ends.
+
+7. **Examine the Call Stack:**
+
+   The call stack shows the order of function calls. Use the `backtrace` command to view the call stack:
+
+   ```gdb
+   backtrace
+   ```
+
+8. **Remove Breakpoints:**
+
+   To remove a breakpoint, use the `delete` command followed by the breakpoint number:
+
+   ```gdb
+   delete 1
+   ```
+
+9. **Quit the Debugger:**
+
+   Exit the debugger with the `quit` command:
+
+   ```gdb
+   quit
+   ```
+
+**Analyzing the `main.c` Code:**
+
+By following these steps, you can analyze the execution flow of the `main.c` code and understand how the increment operators affect the variable values. Pay attention to the values of `a`, `b`, `c`, and `d` at different stages of execution.
+
+
