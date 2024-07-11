@@ -1,10 +1,12 @@
 ## Setting Up a C/C++ Development Environment with Cygwin
 
-This tutorial will guide you through installing Cygwin and the GCC compiler on Windows, allowing you to compile and run C/C++ programs.
+This tutorial will guide you through installing Cygwin and the GCC compiler on Windows, allowing you to compile and run
+C/C++ programs.
 
 ### What is Cygwin?
 
-Cygwin is a powerful open-source software suite that provides a Unix-like environment within Windows. It achieves this by acting as a POSIX emulation layer.
+Cygwin is a powerful open-source software suite that provides a Unix-like environment within Windows. It achieves this
+by acting as a POSIX emulation layer.
 
 **Benefits of Cygwin:**
 
@@ -70,20 +72,22 @@ Cygwin is a powerful open-source software suite that provides a Unix-like enviro
 
 ### Basic Cygwin Commands
 
-| Command | Description                     | Example                                    |
-|---------|---------------------------------|--------------------------------------------|
-| `pwd`    | Print working directory           | `pwd`                                     |
-| `cd`     | Change directory               | `cd /cygdrive/c/Users/YourUsername`        |
-| `ls`     | List files and directories      | `ls -l` (detailed listing)                 |
-| `mkdir`  | Create a directory            | `mkdir MyProject`                        |
-| `touch`  | Create an empty file          | `touch myfile.txt`                        |
-| `rm`     | Delete a file or directory       | `rm myfile.txt`, `rm -r MyDirectory`     |
-| `mv`     | Move or rename a file/directory | `mv oldname.txt newname.txt`                |
-| `cp`     | Copy a file or directory       | `cp source.txt destination.txt`          |
+| Command | Description                     | Example                              |
+|---------|---------------------------------|--------------------------------------|
+| `pwd`   | Print working directory         | `pwd`                                |
+| `cd`    | Change directory                | `cd /cygdrive/c/Users/YourUsername`  |
+| `ls`    | List files and directories      | `ls -l` (detailed listing)           |
+| `mkdir` | Create a directory              | `mkdir MyProject`                    |
+| `touch` | Create an empty file            | `touch myfile.txt`                   |
+| `rm`    | Delete a file or directory      | `rm myfile.txt`, `rm -r MyDirectory` |
+| `mv`    | Move or rename a file/directory | `mv oldname.txt newname.txt`         |
+| `cp`    | Copy a file or directory        | `cp source.txt destination.txt`      |
 
-##  The GCC Command: Compiling C and C++ Code in Detail
+## The GCC Command: Compiling C and C++ Code in Detail
 
-The **GNU Compiler Collection (GCC)** is a powerful and versatile suite of compilers for various programming languages, including C and C++.  Let's break down the `gcc` command and its common options to give you more control over your compilation process.
+The **GNU Compiler Collection (GCC)** is a powerful and versatile suite of compilers for various programming languages,
+including C and C++. Let's break down the `gcc` command and its common options to give you more control over your
+compilation process.
 
 **Basic Syntax:**
 
@@ -93,8 +97,8 @@ gcc [options] [source_files] [-o output_file]
 
 * **`[options]`:**  Flags that modify the compiler's behavior (we'll cover many important ones below).
 * **`[source_files]`:** The C/C++ files you want to compile (e.g., `myprogram.c`, `helper.cpp`).
-* **`[-o output_file]`:**  Specifies the name of the executable file to be generated. If omitted, the default output file is usually `a.out` (or `a.exe` on Windows).
-
+* **`[-o output_file]`:**  Specifies the name of the executable file to be generated. If omitted, the default output
+  file is usually `a.out` (or `a.exe` on Windows).
 
 **Debugging:**
 
@@ -102,12 +106,15 @@ gcc [options] [source_files] [-o output_file]
 
 **Linking:**
 
-* **`-lm`:**  Link the math library (`libm`).  Required if your code uses functions from `math.h` like `sin()`, `cos()`, `sqrt()`, etc.
-* **`-l<library_name>`:** Link against other libraries. Replace `<library_name>` with the library's name (e.g., `-lpthread` for the pthreads library).
+* **`-lm`:**  Link the math library (`libm`). Required if your code uses functions from `math.h`
+  like `sin()`, `cos()`, `sqrt()`, etc.
+* **`-l<library_name>`:** Link against other libraries. Replace `<library_name>` with the library's name (
+  e.g., `-lpthread` for the pthreads library).
 
 **Assembly Output:**
 
-* **`-S`:** Generate assembly code (`*.s` files) instead of object files. Helpful for understanding the low-level instructions produced by the compiler.
+* **`-S`:** Generate assembly code (`*.s` files) instead of object files. Helpful for understanding the low-level
+  instructions produced by the compiler.
 
 **Important Notes:**
 
@@ -119,4 +126,5 @@ gcc [options] [source_files] [-o output_file]
 
 **Further Exploration:**
 
-* **Online Documentation:** The GCC project provides excellent online documentation: [https://gcc.gnu.org/](https://gcc.gnu.org/)
+* **Online Documentation:** The GCC project provides excellent online
+  documentation: [https://gcc.gnu.org/](https://gcc.gnu.org/)
