@@ -45,34 +45,38 @@ gdb --version
 
 ### MacOS
 
-เนื่องจาก Apple ได้เปลี่ยนสถาปัตยกรรมของ CPU ใน Mac รุ่นใหม่จาก X86_64 ไปเป็นแบบ ARM ทำให้ไม่สามารถใช้ GDB ในการ debugging ได้ 
+เนื่องจาก Apple ได้เปลี่ยนสถาปัตยกรรมของ CPU ใน Mac รุ่นใหม่จาก X86_64 ไปเป็นแบบ ARM ทำให้ไม่สามารถใช้ GDB ในการ
+debugging ได้
 
-ซึ่งผู้ใช้ Mac ARM นั้นสามารถใช้โปรแกรม `lldb` ในการ debugging ซึ่งสามารถเช็คว่าได้ทำการติดตั้งลงเครื่องหรือยังผ่านคำสั่ง
+ซึ่งผู้ใช้ Mac ARM นั้นสามารถใช้โปรแกรม `lldb` ในการ debugging
+ซึ่งสามารถเช็คว่าได้ทำการติดตั้งลงเครื่องหรือยังผ่านคำสั่ง
 
 ```bash
 lldb --version
 ```
 
 ถ้าหากว่าในเครื่องได้มีโปรแกรมอยู่แล้ว จะขึ้นข้อความดังนี้
+
    ```
    lldb-1500.0.404.7
    Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
    ```
 
-
-
 ## Starting Debugging with GDB
 
 **1. Writing the Code**
 
-- **คอมคณะ:** ใน Desktop ของเครื่องที่ห้องแลป 203 จะมีโฟลเดอร์ "PhysicalCom" ที่มีไฟล์โค้ดภาษา C ชื่อว่า `main.c`, ถ้าไม่มีให้ทำตาม Private Computer (Windows)
-- **Private Computer (Windows)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน cmd.exe ได้เลยหรือให้สร้างไฟล์ชื่อ `main.c` โดยข้างในไฟล์ต้องมีโค้ดเหมือนกับตัวอย่างด้านล่าง
+- **คอมคณะ:** ใน Desktop ของเครื่องที่ห้องแลป 203 จะมีโฟลเดอร์ "PhysicalCom" ที่มีไฟล์โค้ดภาษา C ชื่อว่า `main.c`,
+  ถ้าไม่มีให้ทำตาม Private Computer (Windows)
+- **Private Computer (Windows)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน cmd.exe ได้เลยหรือให้สร้างไฟล์ชื่อ `main.c`
+  โดยข้างในไฟล์ต้องมีโค้ดเหมือนกับตัวอย่างด้านล่าง
   ```bash
   mkdir "%USERPROFILE%\Desktop\PhysicalCom"
   curl -o "%USERPROFILE%\Desktop\PhysicalCom\main.c" "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs03-gdb/files/main.c"
   ```
 
-- **Private Computer (MacOS)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน Terminal ได้เลย โดยที่คำสั่งนี้จะสร้างโฟลเดอร์ `PhysicalCom` ที่ Desktop และสร้างไฟล์ให้อัตโนมัติ 
+- **Private Computer (MacOS)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน Terminal ได้เลย
+  โดยที่คำสั่งนี้จะสร้างโฟลเดอร์ `PhysicalCom` ที่ Desktop และสร้างไฟล์ให้อัตโนมัติ
   ```bash
   mkdir -p ~/Desktop/PhysicalCom
   curl -o ~/Desktop/PhysicalCom/main.c "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs03-gdb/files/main.c"
@@ -93,33 +97,32 @@ int main() {
 }
 ```
 
-## Debugging C Code: A Step-by-Step Guide with `main.c` Example
+## Debugging C Code with GDB: A Step-by-Step Guide with `main.c` Example
 
-This tutorial will guide you through debugging the provided `main.c` code using a debugger. We'll cover how to check variable values, print statements, and set breakpoints to understand the code's execution flow.
+ในส่วนนี้จะทำการสอนวิธีการ debugging ด้วย GDB ในโค้ดไฟล์ที่มีชื่อว่า `main.c`  โดยจะมีวิธีตรวจสอบค่าตัวแปร,
+การแสดงผลลัพธ์, และการ breakpoint เพื่อเข้าใจกระบวนการทำงานของภาษา C
 
-**Understanding the Code:**
-
-The `main.c` code demonstrates the use of increment operators (`++`) in C. It initializes four integer variables (`a`, `b`, `c`, `d`) and performs two calculations involving these variables.
-
-**Debugging Tools:**
-
-For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugger).
+โค้ด `main.c` แสดงการใช้งานตัวดำเนินการเพิ่มค่า (`++`) ในภาษา C มันจะเริ่มต้นตัวแปร integer ทั้งหมด 4
+ตัว (`a`, `b`, `c`, `d`)
 
 **Steps:**
 
 1. **Compile the Code:**
 
-   Before debugging, compile your code using a C compiler (like GCC) with debugging symbols enabled:
+   ก่อนที่จะเริ่มการ debugging ให้ compile ไฟล์ `main.c` โดยใช้ GCC โดยต้องเติม option `-g`:
 
    ```bash
    gcc -g main.c -o main
    ```
 
-   The `-g` flag tells the compiler to generate debugging information, which is essential for the debugger.
+    - The `-g` flag tells the compiler to generate debugging information.
+    - The `-o <file>` flag tells the compiler to write output to <file>.
+
 
 2. **Start the Debugger:**
 
-   Run the debugger with the compiled executable:
+   เมื่อ compile เสร็จแล้วจะได้ไฟล์ที่มีชื่อว่า `main` และในการรัน debugging สามารถรันได้โดยพิมพืคำสั่ง gdb
+   ตามด้วยชื่อไฟล์:
 
    ```bash
    gdb main
@@ -127,27 +130,32 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
 
 3. **Set Breakpoints:**
 
-   Breakpoints halt the program's execution at a specific line. To set a breakpoint, use the `break` command followed by the line number:
+   Breakpoints ตือขั้นตอนหนึ่งในโปรแกรมที่มีคำสั่งให้คอมพิวเตอร์พักการปฏิบัติการชั่วคราว (pause)
+
+   ในการตั้งจุด breakpoints สามารถใช้คำสั่ง `break` ตามด้วย line number ของบรรทัดที่ต้องการจะหยุด:
 
    ```gdb
    (gdb) break 6
    ```
 
-   This sets a breakpoint at line 6 of your code.
+   จากคำสั่ด้านบนจะเป็นการสร้าง breakpoint ที่บรรทัดที่ 6
+
 
 4. **Run the Program:**
 
-   Start the program execution:
+   เริ่มการทำงานของโปรแกรมโดยใช้คำสั่ง `run`:
 
    ```gdb
    (gdb) run
    ```
 
-   The program will run until it hits the breakpoint you set.
+   โปรแกรมจะทำงานไปจนกว่าถึงจุด breakpoint ที่ตั้งเอาไว้ เมื่อถึงจุด breakpoint (บรรทัดที่ 6)
+   โปรแกรมจะหยุดการทำงานชั่วคราวและจะรอรับคำสั่งในการ debug จากเรา
+
 
 5. **Check Variable Values:**
 
-   Use the `print` command to display the value of a variable:
+   ใช้คำสั่ง `print` ในการแสดงค่าของตัวแปรแต่ละตัว:
 
    ```gdb
    (gdb) print a
@@ -156,7 +164,15 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
    (gdb) print d
    ```
 
-   This will show you the current values of variables `a`, `b`, `c`, and `d`.
+   คำสั่งด้านบนจะแสดงผลลัพธ์ของค่าตัวแปร a, b, c และ d ผลลัพธ์จะขึ้นดังนี้
+
+      ```gdb
+      (int) 10
+      (int) 20
+      (int) 30
+      (int) 40
+      ```
+
 
 6. **Step Through the Code:**
 
@@ -192,7 +208,8 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
 
 **Analyzing the `main.c` Code:**
 
-By following these steps, you can analyze the execution flow of the `main.c` code and understand how the increment operators affect the variable values. Pay attention to the values of `a`, `b`, `c`, and `d` at different stages of execution.
-
+By following these steps, you can analyze the execution flow of the `main.c` code and understand how the increment
+operators affect the variable values. Pay attention to the values of `a`, `b`, `c`, and `d` at different stages of
+execution.
 
 ]
