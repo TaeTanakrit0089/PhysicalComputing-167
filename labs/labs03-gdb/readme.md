@@ -66,7 +66,7 @@ lldb --version
 
 **1. Writing the Code**
 
-- **คอมคณะ:** ใน Desktop ของเครื่องที่ห้องแลป 203 จะมีโฟลเดอร์ "PhysicalCom" ที่มีไฟล์โค้ดภาษา C ชื่อว่า `main.c`,
+- **คอมคณะ:** ใน Desktop ของเครื่องที่ห้องแลป 203 จะมีโฟลเดอร์ "PhysicalCom" ที่มีไฟล์โค้ดภาษา C ชื่อว่า `main.c`
   ถ้าไม่มีให้ทำตาม Private Computer (Windows)
 - **Private Computer (Windows)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน cmd.exe ได้เลยหรือให้สร้างไฟล์ชื่อ `main.c`
   โดยข้างในไฟล์ต้องมีโค้ดเหมือนกับตัวอย่างด้านล่าง
@@ -182,15 +182,7 @@ int main() {
     * `step`: Executes the current line and steps into any function calls.
     * `continue`: Continues execution until the next breakpoint or the program ends.
 
-7. **Examine the Call Stack:**
-
-   The call stack shows the order of function calls. Use the `backtrace` command to view the call stack:
-
-   ```gdb
-   (gdb) backtrace
-   ```
-
-8. **Remove Breakpoints:**
+7. **Remove Breakpoints:**
 
    To remove a breakpoint, use the `delete` command followed by the breakpoint number:
 
@@ -198,7 +190,7 @@ int main() {
    (gdb) delete 1
    ```
 
-9. **Quit the Debugger:**
+ 8. **Quit the Debugger:**
 
    Exit the debugger with the `quit` command:
 
