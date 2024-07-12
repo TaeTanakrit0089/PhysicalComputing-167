@@ -151,6 +151,8 @@ int main() {
    โปรแกรมจะทำงานไปจนกว่าถึงจุด breakpoint ที่ตั้งเอาไว้ เมื่อถึงจุด breakpoint (บรรทัดที่ 6)
    โปรแกรมจะหยุดการทำงานชั่วคราวและจะรอรับคำสั่งในการ debug จากเรา
 
+   ![gdb-command-tutorial.jpg](files/run-01.png)
+
 
 5. **Check Variable Values:**
 
@@ -165,12 +167,37 @@ int main() {
 
    คำสั่งด้านบนจะแสดงผลลัพธ์ของค่าตัวแปร a, b, c และ d ผลลัพธ์จะขึ้นดังนี้
 
-      ```gdb
-      (int) 10
-      (int) 20
-      (int) 30
-      (int) 40
-      ```
+   ![gdb-command-tutorial.jpg](files/run-02.png)
+   
+   [//]: # (      ```gdb)
+   
+   [//]: # (      &#40;int&#41; 10)
+   
+   [//]: # (      &#40;int&#41; 20)
+   
+   [//]: # (      &#40;int&#41; 30)
+   
+   [//]: # (      &#40;int&#41; 40)
+   
+   [//]: # (      ```)
+
+   ให้พิมพ์คำสั่ง next เพื่อรันบรรทัดต่อไปและลองตรวจสอบค่าของตัวแปรดู จะสังเกตได้ว่าค่าของตัวแปรนั้นได้เปลี่ยนแปลงจากบรรทัดก่อนหน้า
+   ```gdb
+   (gdb) next
+   ```
+   ![gdb-command-tutorial.jpg](files/run-03.png)
+
+   ถ้าต้องการให้โปรแกรมทำงานต่อให้พิมพ์คำสั่งว่า continue
+   ```gdb
+   (gdb) continue
+   ```
+   ![gdb-command-tutorial.jpg](files/run-04.png)
+
+   ถ้าต้องการออกจากตัวโปรแกรมให้พิมพ์ว่า quit
+   ```gdb
+   (gdb) quit
+   ```
+   
 
 
 6. **Step Through the Code:**
@@ -191,16 +218,8 @@ int main() {
 
 8. **Quit the Debugger:**
 
-Exit the debugger with the `quit` command:
-
-```gdb
-(gdb) quit
-```
-
-**Analyzing the `main.c` Code:**
-
-By following these steps, you can analyze the execution flow of the `main.c` code and understand how the increment
-operators affect the variable values. Pay attention to the values of `a`, `b`, `c`, and `d` at different stages of
-execution.
-
-]
+   Exit the debugger with the `quit` command:
+   
+   ```gdb
+   (gdb) quit
+   ```
