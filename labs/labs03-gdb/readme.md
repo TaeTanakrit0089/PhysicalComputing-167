@@ -17,6 +17,19 @@ Fortran
 
 ## How to install GDB
 
+### Verify GDB Installation
+
+* **Open Cygwin Terminal**
+* **Check GDB Version by enter the following command:**
+
+```bash
+gdb --version
+```
+
+ถ้าใน Shell มีการติดตั้ง Cygwin อยู่แล้ว จะขึ้นผลลัพธ์ดังรูป ถ้าไม่ขึ้นแบบนี้ให้ติดตั้งก่อนใช้
+
+![gdb-command-tutorial.jpg](files/CheckGDBVersion.png)
+
 ### Windows
 
 สามารถใช้ Cygwin ในการรันได้เลยโดยจะต้องติดตั้ง Package ดังนี้ (https://www.cygwin.com/)
@@ -32,52 +45,21 @@ Fortran
 
 ### MacOS
 
-ในการลงนั้นจำเป็นจะต้องใช้ Homebrew
+เนื่องจาก Apple ได้เปลี่ยนสถาปัตยกรรมของ CPU ใน Mac รุ่นใหม่จาก X86_64 ไปเป็นแบบ ARM ทำให้ไม่สามารถใช้ GDB ในการ debugging ได้ 
 
-**1. Install Homebrew**
-
-ถ้าหากว่าในเครื่องน้องยังไม่ได้ลง Homebrew ให้ลงผ่านลิงก์นี้ก่อน : [https://brew.sh/](https://brew.sh/).
-
-**2. Install GDB**
-
-ให้เปิด Terminal ใน Mac ขึ้นมาและใส่คำสั่งนี้ลงไป:
+ซึ่งผู้ใช้ Mac ARM นั้นสามารถใช้โปรแกรม `lldb` ในการ debugging ซึ่งสามารถเช็คว่าได้ทำการติดตั้งลงเครื่องหรือยังผ่านคำสั่ง
 
 ```bash
-brew install x86_64-elf-gdb
+lldb --version
 ```
 
-คำสั่งนี้จะดาวน์โหลดและติดตั้งแพคเกจ `x86_64-elf-gdb`
+ถ้าหากว่าในเครื่องได้มีโปรแกรมอยู่แล้ว จะขึ้นข้อความดังนี้
+   ```
+   lldb-1500.0.404.7
+   Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+   ```
 
-**3. Configure Your Shell**
 
-เพื่อความสะดวกและรวดเร็วในการเข้าถึง GDB จาก Terminal ให้เพิ่มบรรทัดต่อไปนี้ในไฟล์กำหนดค่า Shell ของน้อง
-
-```bash
-echo "alias gdb='x86_64-elf-gdb'" >> ~/.zshrc
-```
-
-คำสั่งจะสร้าง alias ที่ชื่อว่า gdb ซึ่งชี้ไปที่คำสั่ง `x86_64-elf-gdb` ใน `$PATH`
-
-**4. Source Your Shell Configuration**
-
-หลังจากเพิ่ม alias แล้ว ต้องรันคำสั่งนี้เพื่อ refresh shell:
-
-```bash
-source ~/.zshrc
-```
-
-### Verify Installation
-
-* **Open Cygwin Terminal**
-* **Check GDB Version by enter the following command:**
-
-```bash
-gdb --version
-```
-
-ถ้าใน Shell มีการติดตั้ง Cygwin อยู่แล้ว จะขึ้นผลลัพธ์ดังรูป ถ้าไม่ขึ้นแบบนี้ให้ติดตั้งก่อนใช้
-
-![gdb-command-tutorial.jpg](files/CheckGDBVersion.png)
 
 ## Starting Debugging with GDB
 
@@ -148,7 +130,7 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
    Breakpoints halt the program's execution at a specific line. To set a breakpoint, use the `break` command followed by the line number:
 
    ```gdb
-   break 6
+   (gdb) break 6
    ```
 
    This sets a breakpoint at line 6 of your code.
@@ -158,7 +140,7 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
    Start the program execution:
 
    ```gdb
-   run
+   (gdb) run
    ```
 
    The program will run until it hits the breakpoint you set.
@@ -168,10 +150,10 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
    Use the `print` command to display the value of a variable:
 
    ```gdb
-   print a
-   print b
-   print c
-   print d
+   (gdb) print a
+   (gdb) print b
+   (gdb) print c
+   (gdb) print d
    ```
 
    This will show you the current values of variables `a`, `b`, `c`, and `d`.
@@ -189,7 +171,7 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
    The call stack shows the order of function calls. Use the `backtrace` command to view the call stack:
 
    ```gdb
-   backtrace
+   (gdb) backtrace
    ```
 
 8. **Remove Breakpoints:**
@@ -197,7 +179,7 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
    To remove a breakpoint, use the `delete` command followed by the breakpoint number:
 
    ```gdb
-   delete 1
+   (gdb) delete 1
    ```
 
 9. **Quit the Debugger:**
@@ -205,7 +187,7 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
    Exit the debugger with the `quit` command:
 
    ```gdb
-   quit
+   (gdb) quit
    ```
 
 **Analyzing the `main.c` Code:**
@@ -213,3 +195,4 @@ For this tutorial, we'll assume you're using a debugger like **GDB** (GNU Debugg
 By following these steps, you can analyze the execution flow of the `main.c` code and understand how the increment operators affect the variable values. Pay attention to the values of `a`, `b`, `c`, and `d` at different stages of execution.
 
 
+]
