@@ -6,5 +6,7 @@ int main() {
     d = a++ + b++ + c++;
     d = ++a + ++b + ++c;
 
+    printf("Hello, IT-KMITL");
+
     return 0;
 }
