@@ -1,4 +1,4 @@
-# Debugging C Code with GDB on Windows (Cygwin)
+# Lab03: Debugging C Code with GDB on Windows (Cygwin)
 
 ## What is GDB?
 
