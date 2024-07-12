@@ -1,130 +1,150 @@
-## Setting Up a C/C++ Development Environment with Cygwin
+# Lab02: Introduction to Cygwin
 
-This tutorial will guide you through installing Cygwin and the GCC compiler on Windows, allowing you to compile and run
-C/C++ programs.
+###    
 
-### What is Cygwin?
+**Cygwin** เป็นชุดโปรแกรมซอฟต์แวร์โอเพนซอร์ส (Open-Source Software) ที่มีเป้าหมายหลักคือทำให้ระบบปฏิบัติการ Windows
+ทำงานคล้ายกับระบบ Unix. Cygwin ทำหน้าที่เป็นเลเยอร์จำลอง POSIX บน Windows
 
-Cygwin is a powerful open-source software suite that provides a Unix-like environment within Windows. It achieves this
-by acting as a POSIX emulation layer.
+**ข้อดีของ Cygwin:**
 
-**Benefits of Cygwin:**
+* สามารถติดตั้งและใช้งานโปรแกรม Unix บน Windows ได้โดยไม่ต้องติดตั้งระบบปฏิบัติการใหม่
+* สามารถเขียนโปรแกรมบน Windows ที่สามารถทำงานบน Unix ได้โดยไม่ต้องแก้ไขโค้ด
+* สามารถใช้งานเครื่องมือ Unix ยอดนิยม เช่น bash, grep, sed, awk, ssh บน Windows ได้
 
-* **Run Unix programs on Windows:** Use familiar tools like bash, grep, sed, awk, and ssh.
-* **Write portable code:** Develop programs on Windows that can run seamlessly on Unix systems.
-* **Avoid dual-booting:** Access Unix functionality without needing a separate operating system installation.
+**ข้อเสียของ Cygwin:**
 
-### Installing Cygwin and GCC
+* **อาจมีปัญหาความ Compatibility:**
+    * บางโปรแกรม Unix ที่พัฒนาโดยเฉพาะสำหรับ Cygwin อาจไม่ทำงานได้ดีบน Windows
+    * บางโปรแกรม Windows อาจไม่ทำงานได้ดีบน Cygwin.
+* **ความเร็ว:**
+    * Cygwin อาจทำงานช้ากว่า Windows Native CMD เนื่องจาก Cygwin ต้องทำการจำลองระบบ Unix บน Windows.
 
-1. **Download the Cygwin installer:**
-    - Visit the official Cygwin website: [https://www.cygwin.com/](https://www.cygwin.com/)
-    - Scroll down to the "Installing Cygwin" section.
-    - Download the appropriate installer for your system (e.g., `setup-x86_64.exe` for 64-bit Windows).
+### Unix:
 
-2. **Run the installer:**
-    - Locate the downloaded file (usually in your "Downloads" folder).
-    - Double-click to launch the installer.
-    - Follow the on-screen instructions. You can generally accept the default settings.
+- Unix เป็นระบบปฏิบัติการที่ถูกพัฒนาขึ้นโดย Bell Labs ในปี ค.ศ. 1969
 
-3. **Choose a download site:**
-    - Select a mirror site close to your location for faster downloads (e.g., Hong Kong, China).
+- ภาษา C ถูกใช้พัฒนา Unix เพราะมีประสิทธิภาพสูง เรียนรู้ได้ง่าย และสามารถเขียนโปรแกรมควบคุมฮาร์ดแวร์ได้โดยตรงและโปรแกรม Unix ดั้งเดิมส่วนใหญ่เขียนด้วยภาษา C.
 
-4. **Select packages:**
-    - In the package selection window, use the search bar to find and select the following essential packages:
-        - `gcc-core`
-        - `gcc-g++`
-        - `libgcc1`
-        - `gdb`
-        - `libgdbm-devel`
-        - `libgdbm4`
-        - `libgdbm6`
-        - `libgdbm_compat4`
-    - To select a package, click on the "Skip" word in the "New" column and choose the latest version.
+### Cygwin Tools:
 
-5. **Complete the installation:**
-    - Click "Next" to start downloading and installing the selected packages.
+Cygwin Tools เป็นชุดโปรแกรม Unix ที่พอร์ตมาใช้งานบน Windows.
 
-### Verifying GCC Installation
+**ตัวอย่างคำสั่ง Unix ที่สามารถใช้บน Cygwin ได้:**
 
-1. **Open Cygwin:** You can find it in your start menu.
-2. **Type the following command and press Enter:**
-   ```bash
-   gcc --help
-   ```
-    - If GCC is installed correctly, you'll see a list of available options for the `gcc` command.
+* **`ls`, `cp`, `mv`:** คำสั่งพื้นฐานสำหรับการจัดการไฟล์และตำแหน่งไดเรกทอรี
+* **`bash`, `sh`:** สำหรับรันคำสั่งและสคริปต์
+* **`vim`:** โปรแกรมแก้ไขข้อความ
+* **`gcc`:** คอมไพเลอร์ภาษา C
+* **`gdb`:** ดีบักเกอร์สำหรับแก้ไขปัญหาในโปรแกรม
 
-### Windows Directory Structure in Cygwin
+### วิธีการติดตั้ง Cygwin และ gcc บน Windows:
 
-- Cygwin uses a Unix-like file system.
-- Your Windows "C:" drive is located at `/cygdrive/c/` within Cygwin.
-- To navigate to your "C:" drive in Cygwin, use the `cd` command:
-   ```bash
-   cd /cygdrive/c/
-   ```
+1. **ดาวน์โหลดไฟล์ติดตั้ง:** ไปที่เว็บไซต์ https://www.cygwin.com/ และเลื่อนลงมาหาหัวข้อ “Installing Cygwin” และกดที่ "
+   setup-x86_64.exe"
+2. **เปิดไฟล์ติดตั้ง:** เมื่อโหลดเสร็จแล้ว เปิดไฟล์ "setup-x86_64.exe" ที่ดาวน์โหลดมา
+3. **เลือก Download Sites:**  หน้าต่างจะขึ้นมาให้เลือก Download Sites (เว็บไซต์ที่ให้บริการในการดาวน์โหลดไฟล์).
+   เลือกเว็บไซต์ที่อยู่ใกล้ เช่น Hong Kong, China
+4. **เลือก Package:**
+    * ในหน้าต่าง Package Selection,
+    * ใช้ช่อง Search เพื่อค้นหา Package ที่ต้องการ.
+    * ในตารางด้านล่าง,
+    * กดที่คำว่า "Skip" ในคอลัมน์ New ของแถว Package.
+    * เลือก Version ล่าสุด.
+    * Package ที่ต้องลง:
+        * gcc-core
+        * gcc-g++
+        * libgcc1
+        * gdb
+        * libgdbm-devel
+        * libgdbm4
+        * libgdbm6
+        * libgdbm_compat4
+5. **เริ่มดาวน์โหลด:** กด Next เพื่อเริ่มดาวน์โหลดไฟล์ Package.
+6. **เช็คว่า gcc นั้นทำงานอยู่ไหม:** พิมพ์ `gcc --help` ใน Cygwin.
 
-### Working with Cygwin
+### Windows Directory Structure:
 
-- **Working Directory:** Your current working directory is the folder you are operating in.
-- **Home Directory:** The default working directory is your home directory, represented by the tilde symbol (`~`).
-- **Changing Directories:** Use the `cd` command to change your working directory.
-- **Listing Files:** Use the `ls` command to list files and directories.
-- **Creating Directories:** Use the `mkdir` command to create new directories.
+Windows Directory Structure คือโครงสร้างของระบบการจัดระเบียบไฟล์และโฟลเดอร์ในระบบปฏิบัติการ Windows.
 
-### Basic Cygwin Commands
+**โฟลเดอร์หลัก:**
 
-| Command | Description                     | Example                              |
-|---------|---------------------------------|--------------------------------------|
-| `pwd`   | Print working directory         | `pwd`                                |
-| `cd`    | Change directory                | `cd /cygdrive/c/Users/YourUsername`  |
-| `ls`    | List files and directories      | `ls -l` (detailed listing)           |
-| `mkdir` | Create a directory              | `mkdir MyProject`                    |
-| `touch` | Create an empty file            | `touch myfile.txt`                   |
-| `rm`    | Delete a file or directory      | `rm myfile.txt`, `rm -r MyDirectory` |
-| `mv`    | Move or rename a file/directory | `mv oldname.txt newname.txt`         |
-| `cp`    | Copy a file or directory        | `cp source.txt destination.txt`      |
+* **C:\:** ไดรฟ์หลักที่ใช้เก็บข้อมูลของระบบปฏิบัติการและโปรแกรมต่างๆ
+* **C:\Users\:** ใช้เก็บข้อมูลส่วนตัวของผู้ใช้แต่ละคน.
+* **C:\Users\<username>\:** โฟลเดอร์ของผู้ใช้แต่ละคน. (ถ้าผู้ใช้ใช้ชื่อว่า “Karn”, โฟลเดอร์ของผู้ใช้จะอยู่ที่ C:
+  \Users\Karn\)
+* **โฟลเดอร์ย่อยใน Users:** Desktop, Documents, Downloads, Pictures, Music, Videos, AppData
 
-## The GCC Command: Compiling C and C++ Code in Detail
+### Cygwin:
 
-The **GNU Compiler Collection (GCC)** is a powerful and versatile suite of compilers for various programming languages,
-including C and C++. Let's break down the `gcc` command and its common options to give you more control over your
-compilation process.
+เมื่อเปิด Cygwin ขึ้นมา, เราจะเจอหน้าต่าง Shell.
 
-**Basic Syntax:**
+**Working Directory:** คือโฟลเดอร์หรือตำแหน่งที่ปัจจุบันที่คำสั่งหรือโปรแกรมที่ทำงานในระบบคอมพิวเตอร์กำลังทำงานอยู่.
+Default คือ home directory. แทนด้วยสัญลักษณ์ตัวหนอน (tilde) “~”.
 
-```bash
-gcc [options] [source_files] [-o output_file]
+### การใส่คำสั่งใน Shell Command:
+
+**โครงสร้างพื้นฐานของคำสั่ง:**
+
+```
+command [options] [arguments]
 ```
 
-* **`[options]`:**  Flags that modify the compiler's behavior (we'll cover many important ones below).
-* **`[source_files]`:** The C/C++ files you want to compile (e.g., `myprogram.c`, `helper.cpp`).
-* **`[-o output_file]`:**  Specifies the name of the executable file to be generated. If omitted, the default output
-  file is usually `a.out` (or `a.exe` on Windows).
+* **Command:** คำสั่งที่ต้องการใช้งานเช่น cd, ls, gcc, vim, ssh
+* **Options:** เป็นเงื่อนไขทางเลือกที่ปรับเปลี่ยนพฤติกรรมของคำสั่ง โดยทั่วไปตัวเลือกจะขึ้นต้นด้วยhyphen (-) เช่น -l ใน
+  ls แสดงรายการไฟล์ในรูปแบบยาว
+* **Arguments:** เป็นการรับข้อมูลที่จำเป็นที่คำสั่งต้องใช้ในการดำเนินการ เช่น ชื่อไฟล์, ไดเรกทอรี
 
-**Debugging:**
+**ตัวอย่างของคำสั่ง:**
 
-* **`-g`:** Generate debugging information. **Essential for using debuggers like GDB.**
+* `gcc test.c -o output.exe` ใช้สำหรับคอมไพล์ไฟล์ test.c เพื่อสร้างโปรแกรมที่สามารถทำงานได้ชื่อ output.exe
+* `ls -l -a` ใช้สำหรับแสดงรายการของไฟล์และโฟลเดอร์ในไดเรกทอรีปัจจุบันด้วยรายละเอียดแบบยาว (-l) และไฟล์ที่ถูกซ่อน (-a)
+* `java -Xmx1G -Xms1G -jar Minecraft_server.jar nogui`
 
-**Linking:**
+### Cygwin File System:
 
-* **`-lm`:**  Link the math library (`libm`). Required if your code uses functions from `math.h`
-  like `sin()`, `cos()`, `sqrt()`, etc.
-* **`-l<library_name>`:** Link against other libraries. Replace `<library_name>` with the library's name (
-  e.g., `-lpthread` for the pthreads library).
+Cygwin File System เป็นชุดโปรแกรม Unix ที่พอร์ตมาใช้งานบน Windows ทำให้ระบบไฟล์ไม่เหมือนใน Windows.
 
-**Assembly Output:**
+**ตำแหน่งของไดร์ฟ C ใน Cygwin:**
 
-* **`-S`:** Generate assembly code (`*.s` files) instead of object files. Helpful for understanding the low-level
-  instructions produced by the compiler.
+* `/cygdrive/c/`
 
-**Important Notes:**
+**การเปลี่ยน Working Directory:**
 
-* **Case-Sensitivity:**  Options are case-sensitive (e.g., `-o` is different from `-O`).
-* **Multiple Files:** You can compile multiple C/C++ files at once. GCC will automatically link them together:
-   ```bash
-   gcc main.c util.c -o myprogram
-   ```
+* `cd /cygdrive/c/`  (เพื่อเข้าถึงไดรฟ์ C: ของ Windows)
+* `cd` (change directory) เป็นคำสั่งที่ใช้เพื่อเปลี่ยน Working Directory.
 
-**Further Exploration:**
+**ตัวอย่างการเปลี่ยน Working Directory:**
 
-* **Online Documentation:** The GCC project provides excellent online
-  documentation: [https://gcc.gnu.org/](https://gcc.gnu.org/)
+* **ไปที่ Desktop:**
+    * `cd Users`
+    * `cd <username>`
+    * `cd Desktop`
+
+### Compile with gcc:
+
+1. **สร้าง folder ใหม่:**
+    * ใน Cygwin, พิมพ์ `mkdir PhysicalCom` (หรือ `mkdir “PhysicalCom”`)
+2. **สร้างไฟล์ C:**
+    * เปิด folder PhysicalCom ใน vscode แล้วกด New file เพื่อสร้าง file C.
+3. **ตั้งชื่อไฟล์ C:**
+    * **อย่า** ใช้ช่องว่าง, เริ่มต้นชื่อด้วยตัวเลข, ใช้อักขระพิเศษ (ยกเว้น underscore), หรือใช้ชื่อไฟล์ที่ยาวเกินไป.
+4. **Sample Code:**
+
+```c
+#include <stdio.h>
+
+int main() {
+  printf("Hello, World!\n");
+  return 0;
+}
+```
+
+5. **Compile:**
+    * พิมพ์ `gcc Lab0.c` ใน Cygwin.
+    * ไฟล์ผลลัพธ์จะถูกตั้งชื่อเป็น `a.exe` อัตโนมัติ.
+    * **หรือ**  พิมพ์ `gcc Lab0.c –o run` เพื่อตั้งชื่อไฟล์ผลลัพธ์เป็น `run.exe`.
+6. **Run:**
+    * พิมพ์ `./a` หรือ `./run` เพื่อแสดงผลลัพธ์.
+
+
+
