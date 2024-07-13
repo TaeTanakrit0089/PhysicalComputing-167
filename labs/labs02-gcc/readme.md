@@ -1,6 +1,6 @@
 # Lab02: Introduction to Cygwin
 
-###           
+###            
 
 **Cygwin** เป็นชุดโปรแกรมซอฟต์แวร์โอเพนซอร์ส (Open-Source Software) ที่มีเป้าหมายหลักคือทำให้ระบบปฏิบัติการ Windows
 ทำงานคล้ายกับระบบ Unix. Cygwin ทำหน้าที่เป็นเลเยอร์จำลอง POSIX บน Windows
