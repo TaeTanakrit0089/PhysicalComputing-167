@@ -142,6 +142,7 @@ int main() {
    gdb main
    ```
    เมื่อเรียกใช้ gdb จะพบหน้าต่างดังรูป โดยเราสามารถพิมพ์คำสั่งต่อจาก `(gdb)` ได้เลย
+
    ![gdb-command-tutorial.jpg](files/run-00.png)
 
    เราสามารถใช้คำสั่ง list ในการแสดงโค้ดรอบๆ โดยการใช้งานคำสั่ง list สามารถใช้ได้ดังรูปแบบนี้
@@ -163,6 +164,7 @@ int main() {
    อีกรอบจะเกิด
    error แบบนี้
    ![gdb-command-tutorial.jpg](files/run-00-list02.png)
+
    นั่นก็เพราะว่าเราได้เรียกคำสั่ง list
    ไปจนถึงคำสั่งสุดท้ายแล้วและเมื่อเรียกอีกมันก็ไม่สามารถเรียกได้เพราะว่าโค้ดได้สิ้นสุดแล้ว วิธีแก้เลยคือต้องเติม
    Argument
@@ -170,6 +172,7 @@ int main() {
    ```gdb
    (gdb) list 0
    ```
+   
    ![gdb-command-tutorial.jpg](files/run-00-list03.png)
 
 
@@ -188,11 +191,27 @@ int main() {
     * **ที่อยู่หน่วยความจำ:** GDB จะหยุดการทำงานเมื่อมีการเข้าถึงที่อยู่หน่วยความจำนั้น
     * **เงื่อนไข:** GDB จะหยุดการทำงานเมื่อเงื่อนไขเป็นจริง เช่น `break main if i == 10`
 
-   คำสั่งด้านล่างใช้สำหรับสร้าง breakpoint ที่บรรทัดที่ 6
+   ให้น้องลองเขียนคำสั่งที่ใช้สำหรับสร้าง breakpoint ที่บรรทัดที่ 6 และ 11
    
    ```gdb
-   break 6
+   (gdb) break 6
+   (gdb) break 11
    ```
+   เมื่อเราสร้าง breakpoint ขึ้นมาแล้ว เราสามารถเช็ค breakpoint ทั้งหมดได้จากการรันคำสั่ง `info breakpoints`
+   คำสั่งนี้จะแสดงรายการของ breakpoint ทั้งหมดที่ตั้งค่าไว้ในโปรแกรมที่กำลัง debug อยู่ ข้อมูลที่แสดงจะประกอบไปด้วย:
+
+   * **Breakpoint Number:** หมายเลขลำดับของ breakpoint
+   * **Type:** ประเภทของ breakpoint (เช่น breakpoint ปกติ, watchpoint, catchpoint)
+   * **Disposition:** สถานะหลังจาก breakpoint ถูกกระตุ้น (เช่น keep: เก็บ breakpoint ไว้, delete: ลบ breakpoint)
+   * **Enabled:** สถานะของ breakpoint ว่าทำงานอยู่หรือไม่ (yes/no)
+   * **Address:** ที่อยู่ของ breakpoint ในหน่วยความจำ
+   * **What:** ข้อมูลระบุตำแหน่งของ breakpoint เช่น ชื่อไฟล์และหมายเลขบรรทัด
+
+   ```gdb
+   (gdb) info breakpoints
+   ```
+   ![gdb-command-tutorial.jpg](files/run-00-break01.png)
+   
 
 4. **Run the Program:**
 
@@ -229,10 +248,14 @@ int main() {
    ```
    ![gdb-command-tutorial.jpg](files/run-03.png)
 
-   ให้พิมพ์คำสั่ง `next` เพื่อรันบรรทัดต่อไปและลองตรวจสอบค่าของตัวแปรดู
-   จะสังเกตได้ว่าค่าของตัวแปรนั้นได้เปลี่ยนแปลงจากบรรทัดก่อนหน้า
+   ให้พิมพ์คำสั่ง `step` เพื่อรันบรรทัดต่อไปและลองตรวจสอบค่าของตัวแปรดู
+   จะสังเกตได้ว่าค่าของตัวแปรนั้นได้เปลี่ยนแปลงจากบรรทัดที่ 6 มาต่อที่บรรทัดที่ 7
    ```gdb
-   (gdb) next
+   (gdb) step
+   (gdb) print a
+   (gdb) print b
+   (gdb) print c
+   (gdb) print d
    ```
    ![gdb-command-tutorial.jpg](files/run-04.png)
 
@@ -240,7 +263,47 @@ int main() {
    ```gdb
    (gdb) continue
    ```
+   จะสังเกตได้ว่าโปรแกรมจะทำงานต่อมาจนถึงบรรทัดที่ 11 และได้หยุดการทำงานอีกรอบเพราะว่าเจอจุด breakpoint อีกตัว
+   
    ![gdb-command-tutorial.jpg](files/run-05.png)
+
+   ให้น้องลองเช็คค่าของตรวจแปรทุกตัวดูและลอง step ต่อไปทีละบรรทัดเรื่อยๆ จนกว่าจะจบการทำงาน (ให้ลองพิมพ์คำสั่งเองดูเพื่อให้ได้ผลลัพธ์ตามนี้)
+   ```gdb
+   $1 = 12
+   $2 = 22
+   (gdb) print c
+   $3 = 32
+   (gdb) print d
+   $4 = 66
+   (gdb) step
+   [New Thread 1756.0x1fdc]
+   12          c = ++a + ++c;
+   (gdb) print a
+   $5 = 79
+   (gdb) print b
+   $6 = 22
+   (gdb) print c
+   $7 = 32
+   (gdb) print d
+   $8 = 67
+   (gdb) step
+   14          return 0;
+   (gdb) step
+   15      }
+   (gdb) step
+   0x00007ffe92568093 in cygwin_dll_init () from /usr/bin/cygwin1.dll
+   (gdb) step
+   Single stepping until exit from function cygwin_dll_init,
+   which has no line number information.
+   Hello, IT-KMITL[Thread 1756.0x1b70 exited with code 0]
+   [Thread 1756.0x269c exited with code 0]
+   [Thread 1756.0x2258 exited with code 0]
+   [Thread 1756.0x1fdc exited with code 0]
+   [Inferior 1 (process 1756) exited normally]
+   (gdb)
+
+   ```
+
 
    พิมพ์คำสั่ง `quit` เพื่อออกจาก GDB
    ```gdb
