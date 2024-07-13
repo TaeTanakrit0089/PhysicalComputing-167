@@ -296,41 +296,74 @@ int main() {
    
    ![gdb-command-tutorial.jpg](files/run-05.png)
 
-   ให้น้องลองเช็คค่าของตรวจแปรทุกตัวดูและลอง step ต่อไปทีละบรรทัดเรื่อยๆ จนกว่าจะจบการทำงาน (ให้ลองพิมพ์คำสั่งเองดูเพื่อให้ได้ผลลัพธ์ตามนี้)
+
+7. **Watch the variable:**
+
+   คำสั่ง `watch` ใน GDB เป็นเครื่องมือที่มีประโยชน์อย่างมากในการตรวจสอบการเปลี่ยนแปลงของค่าในตัวแปรระหว่างการ Debugging ต่างจากคำสั่ง print ที่แสดงค่าของตัวแปร ณ จุดที่รันคำสั่งเท่านั้น 
+
+   `watch` จะคอยตรวจสอบนิพจน์ที่เรากำหนดไว้ตลอดเวลา และจะ**หยุดการทำงานของโปรแกรมทันทีที่ค่าของนิพจน์นั้นเปลี่ยนแปลง** มี Syntax ดังนี้
+
    ```gdb
-   Thread 1 "main" hit Breakpoint 2, main () at main.c:11
-   11          a = a++ + ++d;
-   (gdb) --??--
-   $1 = 12
-   (gdb) --??--
-   $2 = 22
-   (gdb) --??--
-   $3 = 32
-   (gdb) --??--
-   $4 = 66
-   (gdb) --??-- 
-   12          c = ++a + ++c;
-   (gdb) --??--
-   a = 79
-   b = 22
-   c = 32
-   d = 67
-   (gdb) --??-- 
-   14          return 0;
-   (gdb) --??-- 
-   15      }
-   (gdb) --??-- 
-   0x00007ffe92568093 in cygwin_dll_init () from /usr/bin/cygwin1.dll
-   (gdb) --??-- 
+   watch <expression>
+   ```
+   โดย `<expression>` คือ นิพจน์ที่เราต้องการเฝ้าดู เช่น:
+
+   * **ตัวแปร:** `watch num_a`, `watch num_b`
+   * **ค่าใน memory address:** `watch *(int*)0x12345678`
+   * **ผลลัพธ์ของฟังก์ชัน:** `watch strlen(my_string)`
+
+   จากตัวอย่างข้างบนที่น้องได้ทดลอง debugging มาและหยดที่บรรทัดที่ 11 ให้น้องลอง watch ตัวแปร `a` ดูโดยใช้คำสั่ง
+
+   ```gdb
+   (gdb) watch a
+   ```
+   ![gdb-command-tutorial.jpg](files/run-06-watch01.png)
+
+   เมื่อน้องรันคำสั่งนี้แล้ว มันจะสร้าง Watchpoint ขึ้นมาโดยสามารถเช็ค Watchpoint ทั้งหมดได้จากคำสั่ง
+   ```gdb
+   (gdb) info watchpoints
+   ```
+   ![gdb-command-tutorial.jpg](files/run-06-watch01-watchpoint.png)
+
+   การลบ Watchpoint ให้ใช้คำสั่ง `delete` ร่วมกับหมายเลขของ watchpoint ที่ต้องการลบ: `delete <watchpoint_number>`
+
+   เมื่อน้องสร้าง Watchpoint เรียบร้อยแล้วให้ลอง `step` แล้วดูผลลัพธ์ดู จะสังเกตได้ว่าจะมีบรรทัดขึ้นมาใหม่ที่บอกค่าก่อนและหลังจากที่ได้ทำงานบรรทัดที่ 11
+
+   ![gdb-command-tutorial.jpg](files/run-06-watch02.png)
+
+   ```gdb
+   Old Value = 12
+   New Value = 13
+   ```
+   
+   จากการทำงานของคำสั่ง step ด้านบนคือเกิดการเปลี่ยบแแปลงของตัวแปร a ที่โค้ด `a++` (เรียกใช้ a ก่อนแล้วค่อยเพิ่มค่า +1) ทำให้โปรแกรมหยุดทำงานทันทีเมื่อค่าตัว a ได้ถูกเปลี่ยนแปลงซึ่งถ้าน้องรันคำสั่ง `step` อีกรอบนึง
+   
+   ![gdb-command-tutorial.jpg](files/run-06-watch03.png)
+   ```gdb
+   Old Value = 13
+   New Value = 79
+   ```
+   
+   ค่าของ a จากเดิมที่เป็น 13 ได้กลายไปเป็น 79 เพราะว่าค่า a ได้ถูกเปลี่ยนแปลงอีกรอบที่โค้ดส่วน `a = a++ + ++d;` (a = 13 + 66) จึงทำให้โปรแกรมหยุดทำงาน
+   
+   อีกความเทพเลยก็คือ ปกติถ้าน้องรันคำสั่ง `continue` ไปแล้ว โปรแกรมก็จะทำงานไปเรื่อยๆ จนถุึงจุด Breakpoint อันต่อไปหรือถ้าไม่มีก็จะทำงานจนสิ้นสุดโปรแกรม แต่ถ้าน้องใส่ `watch` เข้าไปแล้ว คำสั่ง `continue` จะทำงานไปเรื่อยๆ จนกว่าค่าของตัวแปรที่น้องใส่จะถูกเปลี่ยนแปลง
+
+   ![gdb-command-tutorial.jpg](files/run-06-watch04.png)
+
+   ให้น้องลองดูการเปลี่ยนแปลงของค่า a ไปเรื่อยๆ จนจบการทำงานของโปรแกรม เมื่อการทำงานสิ้นสุดลงแล้วจะขึ้นมาเป็นข้อความแบบนี้
+
+   ```gdb
+   (gdb) step
    Single stepping until exit from function cygwin_dll_init,
    which has no line number information.
-   Hello, IT-KMITL[Thread 1756.0x1b70 exited with code 0]
-   [Thread 1756.0x269c exited with code 0]
-   [Thread 1756.0x2258 exited with code 0]
-   [Thread 1756.0x1fdc exited with code 0]
-   [Inferior 1 (process 1756) exited normally]
+   Hello, IT-KMITL[Thread 7020.0xae0 exited with code 0]
+   [Thread 7020.0x1904 exited with code 0]
+   [Thread 7020.0x12b8 exited with code 0]
+   [Thread 7020.0x214 exited with code 0]
+   [Inferior 1 (process 7020) exited normally]
    ```
-7. **Quit from the Debugger:**
+
+8. **Quit from the Debugger:**
 
    พิมพ์คำสั่ง `quit` เพื่อออกจาก GDB
    ```gdb
