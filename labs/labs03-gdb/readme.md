@@ -335,7 +335,7 @@ int main() {
 
    การลบ Watchpoint ให้ใช้คำสั่ง `delete` ร่วมกับหมายเลขของ watchpoint ที่ต้องการลบ: `delete <watchpoint_number>`
 
-   เมื่อน้องสร้าง Watchpoint เรียบร้อยแล้วให้ลอง `step` แล้วดูผลลัพธ์ดู
+   เมื่อน้องสร้าง Watchpoint เรียบร้อยแล้วให้ลอง `continue` แล้วดูผลลัพธ์ดู
    เราจะเห็นว่าจะมีบรรทัดขึ้นมาใหม่ที่บอกค่าก่อนและหลังจากที่ได้ทำงานบรรทัดที่ 11
 
    ![gdb-command-tutorial.jpg](files/run-06-watch02.png)
