@@ -269,30 +269,32 @@ int main() {
 
    ให้น้องลองเช็คค่าของตรวจแปรทุกตัวดูและลอง step ต่อไปทีละบรรทัดเรื่อยๆ จนกว่าจะจบการทำงาน (ให้ลองพิมพ์คำสั่งเองดูเพื่อให้ได้ผลลัพธ์ตามนี้)
    ```gdb
+   (gdb) --??--
    $1 = 12
+   (gdb) --??--
    $2 = 22
-   (gdb) print c
+   (gdb) --??--
    $3 = 32
-   (gdb) print d
+   (gdb) --??--
    $4 = 66
-   (gdb) step
+   (gdb) --??-- 
    [New Thread 1756.0x1fdc]
    12          c = ++a + ++c;
-   (gdb) print a
+   (gdb) --??--
    $5 = 79
-   (gdb) print b
+   (gdb) --??--
    $6 = 22
-   (gdb) print c
+   (gdb) --??--
    $7 = 32
-   (gdb) print d
+   (gdb) --??--
    $8 = 67
-   (gdb) step
+   (gdb) --??-- 
    14          return 0;
-   (gdb) step
+   (gdb) --??-- 
    15      }
-   (gdb) step
+   (gdb) --??-- 
    0x00007ffe92568093 in cygwin_dll_init () from /usr/bin/cygwin1.dll
-   (gdb) step
+   (gdb) --??-- 
    Single stepping until exit from function cygwin_dll_init,
    which has no line number information.
    Hello, IT-KMITL[Thread 1756.0x1b70 exited with code 0]
