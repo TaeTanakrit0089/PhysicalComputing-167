@@ -8,5 +8,8 @@ int main() {
 
     printf("Hello, IT-KMITL");
 
+    a = a++ + ++d;
+    c = ++a + ++c;
+
     return 0;
 }
