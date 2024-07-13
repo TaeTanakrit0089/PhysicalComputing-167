@@ -19,11 +19,11 @@ Fortran
 
 ### Verify GDB Installation
 
-  * เปิด Cygwin Terminal
-  * เช็คเวอร์ชันของ GDB เพื่อตรวจสอบว่า GDB ถูกลงในเครื่องแล้ว
-     ```bash
-     gdb --version
-     ```
+* เปิด Cygwin Terminal
+* เช็คเวอร์ชันของ GDB เพื่อตรวจสอบว่า GDB ถูกลงในเครื่องแล้ว
+   ```bash
+   gdb --version
+   ```
 
 ถ้าใน Shell มีการติดตั้ง Cygwin อยู่แล้ว จะขึ้นผลลัพธ์ดังรูป ถ้าไม่ขึ้นแบบนี้ให้ติดตั้งก่อน
 
@@ -31,7 +31,9 @@ Fortran
 
 ### Windows
 
-สามารถใช้ Cygwin ในการรันได้เลยโดยจะต้องติดตั้ง Package ดังนี้ (https://www.cygwin.com/) หรือกลับไปอ่าน Document ของสัปดาห์ที่ 2 [วิธีการติดตั้ง Cygwin และ gcc บน Windows:](../labs02-gcc/readme.md#วิธีการติดตัง-cygwin-และ-gcc-บน-windows)
+สามารถใช้ Cygwin ในการรันได้เลยโดยจะต้องติดตั้ง Package ดังนี้ (https://www.cygwin.com/) หรือกลับไปอ่าน Document
+ของสัปดาห์ที่
+2 [วิธีการติดตั้ง Cygwin และ gcc บน Windows:](../labs02-gcc/readme.md#วิธีการติดตัง-cygwin-และ-gcc-บน-windows)
 
 - `gcc-core`
 - `gcc-g++`
@@ -139,7 +141,7 @@ int main() {
    (gdb) break 6
    ```
 
-   จากคำสั่ด้านบนจะเป็นการสร้าง breakpoint ที่บรรทัดที่ 6
+   จากคำสั่งด้านบนจะเป็นการสร้าง breakpoint ที่บรรทัดที่ 6
 
 
 4. **Run the Program:**
@@ -170,58 +172,87 @@ int main() {
    คำสั่งด้านบนจะแสดงผลลัพธ์ของค่าตัวแปร a, b, c และ d ผลลัพธ์จะขึ้นดังนี้
 
    ![gdb-command-tutorial.jpg](files/run-02.png)
-   
-   [//]: # (      ```gdb)
-   
-   [//]: # (      &#40;int&#41; 10)
-   
-   [//]: # (      &#40;int&#41; 20)
-   
-   [//]: # (      &#40;int&#41; 30)
-   
-   [//]: # (      &#40;int&#41; 40)
-   
-   [//]: # (      ```)
 
-   ให้พิมพ์คำสั่ง `next` เพื่อรันบรรทัดต่อไปและลองตรวจสอบค่าของตัวแปรดู จะสังเกตได้ว่าค่าของตัวแปรนั้นได้เปลี่ยนแปลงจากบรรทัดก่อนหน้า
+   ในการแสดงโค้ดรอบๆ บรรทัดปัจจุบันให้ใช้คำสั่ง `list`
+   ```gdb
+   (gdb) list
+   ```
+   ![gdb-command-tutorial.jpg](files/run-03.png)
+
+   ให้พิมพ์คำสั่ง `next` เพื่อรันบรรทัดต่อไปและลองตรวจสอบค่าของตัวแปรดู
+   จะสังเกตได้ว่าค่าของตัวแปรนั้นได้เปลี่ยนแปลงจากบรรทัดก่อนหน้า
    ```gdb
    (gdb) next
    ```
-   ![gdb-command-tutorial.jpg](files/run-03.png)
+   ![gdb-command-tutorial.jpg](files/run-04.png)
 
    ถ้าต้องการให้โปรแกรมทำงานต่อให้พิมพ์คำสั่งว่า `continue`
    ```gdb
    (gdb) continue
    ```
-   ![gdb-command-tutorial.jpg](files/run-04.png)
+   ![gdb-command-tutorial.jpg](files/run-05.png)
 
    ถ้าต้องการออกจากตัวโปรแกรมให้พิมพ์ว่า `quit`
    ```gdb
    (gdb) quit
    ```
-   
 
 
 6. **Step Through the Code:**
 
-   Use the following commands to step through the code line by line:
+   น้องๆ สามารถใช้คำสั่งดังต่อไปนี้เพื่อที่จะทำการ Debugging ต่อไปได้
 
-    * `next`: Executes the current line and moves to the next.
-    * `step`: Executes the current line and steps into any function calls.
-    * `continue`: Continues execution until the next breakpoint or the program ends.
+    * `next`
+        - **การทำงาน:** สั่งให้โปรแกรมทำงานบรรทัดถัดไป โดย***ไม่***เข้าไปในฟังก์ชันที่ถูกเรียกใช้งาน
+        - **ตัวอย่าง:** หากบรรทัดปัจจุบันมีการเรียกใช้ฟังก์ชัน `calculate()` คำสั่ง next
+          จะทำงานจนจบฟังก์ชัน `calculate()` และหยุดที่บรรทัดถัดไปหลังจากนั้น
+    * `step`
+        - ดำเนินการโปรแกรมไปยังบรรทัดถัดไป โดย***เข้าไป***ภายในฟังก์ชันที่ถูกเรียกใช้
+        - หากบรรทัดปัจจุบันมีการเรียกใช้ฟังก์ชัน `calculate()` จะหยุดที่บรรทัดแรกภายในฟังก์ชันนั้นๆ
+    * `continue`
+        - สั่งให้โปรแกรมทำงานต่อเนื่อง จนกว่าจะพบ breakpoint หรือสิ้นสุดการทำงาน
 
-7. **Remove Breakpoints:**
+   | คำสั่ง | การทำงาน                                                     |  เหมาะสำหรับ                                      |
+               |---|---|---|
+   | `next` | ทำงานบรรทัดถัดไป ไม่เข้าฟังก์ชัน            | ข้ามฟังก์ชันที่มั่นใจว่าถูกต้อง                 |
+   | `step` | ทำงานบรรทัดถัดไป เข้าไปในฟังก์ชัน      | ตรวจสอบการทำงานของฟังก์ชันอย่างละเอียด |
+   | `continue` | ทำงานต่อเนื่องจนกว่าจะพบ breakpoint       | ผ่านโค้ดที่ไม่สนใจ, ไปยัง breakpoint ถัดไป |
 
-   To remove a breakpoint, use the `delete` command followed by the breakpoint number:
+7. **List all Breakpoints:**
+
+   คำสั่งในการแสดง Breakpoint ทั้งหมดใน GDB คือ `info breakpoints`
+   คำสั่งนี้จะแสดงรายการของ breakpoint ทั้งหมดที่ตั้งค่าไว้ในโปรแกรมที่กำลัง debug อยู่ ข้อมูลที่แสดงจะประกอบไปด้วย:
+
+    * **Breakpoint Number:** หมายเลขลำดับของ breakpoint
+    * **Type:** ประเภทของ breakpoint (เช่น breakpoint ปกติ, watchpoint, catchpoint)
+    * **Disposition:** สถานะหลังจาก breakpoint ถูกกระตุ้น (เช่น keep: เก็บ breakpoint ไว้, delete: ลบ breakpoint)
+    * **Enabled:** สถานะของ breakpoint ว่าทำงานอยู่หรือไม่ (yes/no)
+    * **Address:** ที่อยู่ของ breakpoint ในหน่วยความจำ
+    * **What:** ข้อมูลระบุตำแหน่งของ breakpoint เช่น ชื่อไฟล์และหมายเลขบรรทัด
+
+   **ตัวอย่างผลลัพธ์:**
+
+   ```gdb
+   (gdb) info breakpoints
+   
+   Num     Type           Disp Enb Address            What
+   1       breakpoint     keep y   0x0000000000400530 in main at main.c:10
+   2       breakpoint     keep y   0x0000000000400550 in calculate at main.c:25
+   ```
+
+
+8. **Remove Breakpoints:**
+
+   ในการลบ Breakpoints สามารถใช้คำสั่ง `delete` ตามด้วยหมายเลขของ breakpoint
 
    ```gdb
    (gdb) delete 1
    ```
 
-8. **Quit the Debugger:**
+9. **Quit the Debugger:**
 
-   Exit the debugger with the `quit` command:
-   
+Exit the debugger with the `quit` command:
+
    ```gdb
    (gdb) quit
    ```
