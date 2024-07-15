@@ -283,13 +283,18 @@ int main() {
    ให้พิมพ์คำสั่ง `step` เพื่อรันบรรทัดต่อไปและลองตรวจสอบค่าของตัวแปรดู
    เราจะเห็นว่าค่าของตัวแปรนั้นได้เปลี่ยนแปลงจากบรรทัดที่ 6 มาต่อที่บรรทัดที่ 7
 
-      ```gdb
-      (gdb) step
-      (gdb) print a
-      (gdb) print b
-      (gdb) print c
-      (gdb) print d
-      ```
+   ```gdb
+   (gdb) step
+   ```
+
+   เมื่อรันคำสั่ง `step` เสร็จแล้วให้ลองเช็คค่าตัวแปรแต่ละตัวดู
+
+   ```gdb
+   (gdb) print a
+   (gdb) print b
+   (gdb) print c
+   (gdb) print d
+   ```
 
    ![gdb-command-tutorial.jpg](files/run-04.png)
 
@@ -342,9 +347,13 @@ int main() {
    เมื่อน้องสร้าง Watchpoint เรียบร้อยแล้วให้ลอง `continue` แล้วดูผลลัพธ์ดู
    เราจะเห็นว่าจะมีบรรทัดขึ้นมาใหม่ที่บอกค่าก่อนและหลังจากที่ได้ทำงานบรรทัดที่ 11
 
+   ```gdb
+   (gdb) continue
+   ```
+
    ![gdb-command-tutorial.jpg](files/run-06-watch02.png)
 
-   ```gdb
+   ```text
    Old Value = 12
    New Value = 13
    ```
@@ -353,8 +362,12 @@ int main() {
    ก่อนแล้วค่อยเพิ่มค่า +1)
    ทำให้โปรแกรมหยุดทำงานทันทีเมื่อค่าตัว a ได้ถูกเปลี่ยนแปลงซึ่งถ้าน้องรันคำสั่ง `step` อีกรอบนึง
 
+    ```gdb
+   (gdb) continue
+   ```
+
    ![gdb-command-tutorial.jpg](files/run-06-watch03.png)
-   ```gdb
+   ```text
    Old Value = 13
    New Value = 79
    ```
@@ -368,7 +381,7 @@ int main() {
    เมื่อการทำงานสิ้นสุดลงแล้วจะขึ้นมาเป็นข้อความแบบนี้
 
    ```gdb
-   (gdb) step
+   (gdb) `continue` หรือ `step` 
    Single stepping until exit from function cygwin_dll_init,
    which has no line number information.
    Hello, IT-KMITL[Thread 7020.0xae0 exited with code 0]
