@@ -6,6 +6,36 @@
 ไฟล์ `main.c` จะแสดงให้เห็นถึงการใช้งานตัวดำเนินการเพิ่มค่า (`++`) ในภาษา C โดยจะมีการประกาศตัวแปร integer
 จำนวน 4 ตัว (`a`, `b`, `c`, `d`) และแสดงให้เห็นถึงผลลัพธ์ของการดำเนินการ `++` ในรูปแบบต่างๆ
 
+## Starting Debugging with GDB
+
+**1. Writing the Code**
+
+- **Private Computer (MacOS)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน Terminal ได้เลย
+  โดยที่คำสั่งนี้จะสร้างโฟลเดอร์ `PhysicalCom` ที่ Desktop และสร้างไฟล์ให้อัตโนมัติ
+  ```bash
+  mkdir -p ~/Desktop/PhysicalCom
+  curl -o ~/Desktop/PhysicalCom/main.c "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs03-gdb/files/main.c"
+  ```
+  ให้ลองเปิดไฟล์ที่สร้างขึ้นมาใหม่ดู ข้างในไฟล์ต้องมีโค้ดดังนี้:
+
+   ```c
+   #include "stdio.h"
+   
+   int main() {
+       int a = 10, b = 20, c = 30, d = 40;
+   
+       d = a++ + b++ + c++;
+       d = ++a + ++b + ++c;
+   
+       printf("Hello, IT-KMITL");
+   
+       a = a++ + ++d;
+       c = ++a + ++c;
+   
+       return 0;
+   }
+   ```
+
 **ขั้นตอน:**
 
 1. **คอมไพล์โค้ด:**
@@ -29,8 +59,6 @@
    ```
    LLDB จะถูกเรียกใช้งานและพร้อมรับคำสั่ง
 
-   ![lldb-command-tutorial.jpg](files/lldb-run-00.png)
-
    ใช้คำสั่ง `list` เพื่อแสดงโค้ดรอบๆ บรรทัดปัจจุบัน
    คำสั่ง list มีรูปแบบดังนี้
     - `list`: แสดงโค้ด 10 บรรทัด รอบๆ บรรทัดปัจจุบัน, หากใช้ `list` ซ้ำ LLDB จะแสดงโค้ด 10 บรรทัดถัดไป
@@ -40,23 +68,18 @@
 
    ลองใช้คำสั่ง `list`
    ```lldb
-   (lldb) list
+   (lldb) list 1
    ```
-   ![lldb-command-tutorial.jpg](files/lldb-run-00-list01.png)
 
    ในโค้ดตัวอย่าง main.c มี 15 บรรทัด การรัน `list` ครั้งแรกจะแสดงโค้ด 10 บรรทัดแรก
    และการรันครั้งที่สองจะแสดงโค้ดที่เหลือ
    หากรัน `list` อีกครั้งจะพบ error
-   ![lldb-command-tutorial.jpg](files/lldb-run-00-list02.png)
-
    เนื่องจากได้แสดงโค้ดทั้งหมดไปแล้ว
    การแก้ไขคือการระบุ Argument เพิ่มเติมให้กับคำสั่ง `list <หมายเลขบรรทัด>`
-   โดยให้ `<หมายเลขบรรทัด>` เป็นเลข 0 หมายถึงเริ่มต้นแสดงโค้ดใหม่ตั้งแต่บรรทัดที่ 0
+   โดยให้ `<หมายเลขบรรทัด>` เป็นเลข 1 หมายถึงเริ่มต้นแสดงโค้ดใหม่ตั้งแต่บรรทัดที่ 1
    ```lldb
-   (lldb) list 0
+   (lldb) list 1
    ```
-
-   ![lldb-command-tutorial.jpg](files/lldb-run-00-list03.png)
 
 3. **ตั้ง Breakpoint:**
 
@@ -96,8 +119,6 @@
    ```lldb
    (lldb) breakpoint list
    ```
-   ![lldb-command-tutorial.jpg](files/lldb-run-00-break01.png)
-
    การลบ Breakpoint ใช้คำสั่ง `breakpoint delete` หรือ `br de`  ตามด้วยหมายเลข breakpoint
    ```lldb
    (lldb) breakpoint delete <หมายเลข breakpoint>
@@ -114,8 +135,6 @@
    โปรแกรมจะทำงานจนกระทั่งถึง breakpoint แรก (บรรทัดที่ 6)
    จากนั้นจะหยุดทำงานชั่วคราวและรอรับคำสั่ง debug
 
-   ![lldb-command-tutorial.jpg](files/lldb-run-01.png)
-
 5. **ตรวจสอบค่าตัวแปร:**
 
    ใช้คำสั่ง `print` หรือ `p` เพื่อแสดงค่าของตัวแปร:
@@ -130,19 +149,17 @@
    คำสั่งข้างต้นจะแสดงผลลัพธ์ของค่าตัวแปร a, b, c และ d ตามลำดับ
    ผลลัพธ์ที่ได้
 
-   ![lldb-command-tutorial.jpg](files/lldb-run-02-01-print.png)
-
    นอกจากการ print ตัวแปรทีละตัวแล้ว ยังสามารถใช้คำสั่ง `frame variable` หรือ `fr v`
    เพื่อดูภาพรวมของตัวแปร local ทั้งหมดภายในฟังก์ชันที่กำลังทำงานอยู่ได้อย่างรวดเร็ว
 
-   ![lldb-command-tutorial.jpg](files/lldb-run-02-02-frame_variable.png)
+   ```lldb
+   (lldb) frame variable
+   ```
 
    ใช้คำสั่ง `list` เพื่อแสดงโค้ดรอบๆ บรรทัดปัจจุบัน
    ```lldb
    (lldb) list
    ```
-   ![lldb-command-tutorial.jpg](files/lldb-run-03.png)
-
 6. **เรียกใช้โค้ดทีละบรรทัด:**
 
    คำสั่งต่อไปนี้ใช้สำหรับการ Debug แบบทีละขั้นตอน:
@@ -161,7 +178,7 @@
           เหมาะสำหรับเมื่อต้องการออกจากฟังก์ชันปัจจุบันอย่างรวดเร็ว
 
    | คำสั่ง     | การทำงาน                                        | เหมาะสำหรับ                                                          |
-         |------------|-------------------------------------------------|----------------------------------------------------------------------|
+            |------------|-------------------------------------------------|----------------------------------------------------------------------|
    | `next`/`n` | ทำงานบรรทัดถัดไป ไม่เข้าไปในฟังก์ชัน            | ข้ามฟังก์ชันที่มั่นใจว่าถูกต้อง                                      |
    | `step`/`s` | ทำงานบรรทัดถัดไป เข้าไปในฟังก์ชันที่ถูกเรียกใช้ | ตรวจสอบการทำงานของฟังก์ชันอย่างละเอียด                               |
    | `continue`/`c` | ทำงานต่อเนื่องจนกว่าจะพบ breakpoint             | ผ่านโค้ดที่ไม่สนใจ, ไปยัง breakpoint ถัดไป                           |
@@ -178,17 +195,14 @@
    (lldb) print d
    ```
 
-![lldb-command-tutorial.jpg](files/lldb-run-04.png)
+   พิมพ์คำสั่ง `continue` เพื่อให้โปรแกรมทำงานต่อ
 
-พิมพ์คำสั่ง `continue` เพื่อให้โปรแกรมทำงานต่อ
+      ```lldb
+      (lldb) continue
+      ```
 
-   ```lldb
-   (lldb) continue
-   ```
+   โปรแกรมจะทำงานต่อจนถึง breakpoint ที่บรรทัดที่ 11 และหยุดทำงานอีกครั้ง
 
-โปรแกรมจะทำงานต่อจนถึง breakpoint ที่บรรทัดที่ 11 และหยุดทำงานอีกครั้ง
-
-![lldb-command-tutorial.jpg](files/lldb-run-05.png)
 
 7. **เฝ้าดูตัวแปร:**
 
@@ -213,14 +227,12 @@
    ```lldb
    (lldb) watchpoint set variable a
    ```
-   ![lldb-command-tutorial.jpg](files/lldb-run-06-watch01.png)
 
    คำสั่งนี้จะสร้าง Watchpoint ขึ้นมา
    สามารถตรวจสอบ Watchpoint ทั้งหมดได้จากคำสั่ง
    ```lldb
    (lldb) watchpoint list
    ```
-   ![lldb-command-tutorial.jpg](files/lldb-run-06-watch01-watchpoint.png)
 
    ลบ Watchpoint ด้วยคำสั่ง `watchpoint delete` หรือ `wa de` ร่วมกับหมายเลข watchpoint:
    `watchpoint delete <หมายเลข watchpoint>`
@@ -228,10 +240,21 @@
    หลังจากสร้าง Watchpoint แล้ว ลองใช้คำสั่ง `continue` และดูผลลัพธ์
    จะพบว่ามีข้อความใหม่แสดงค่าก่อนและหลังการทำงานของบรรทัดที่ 11
 
-   ![lldb-command-tutorial.jpg](files/lldb-run-06-watch02.png)
-
    ```
-   (int) a = 13
+   Watchpoint 1 hit:
+   old value: 12
+   new value: 13
+   Process 16414 stopped
+   * thread #1, queue = 'com.apple.main-thread', stop reason = watchpoint 1
+     frame #0: 0x0000000100003f4c main`main at main.c:11:15
+     8   	
+     9   	    printf("Hello, IT-KMITL");
+     10  	
+     -> 11  	    a = a++ + ++d;
+     12  	    c = ++a + ++c;
+     13  	
+     14  	    return 0;
+     Target 0: (main) stopped.
    ```
 
    การทำงานของคำสั่ง `continue` ด้านบนทำให้เกิดการเปลี่ยนแปลงค่าของตัวแปร `a` ที่โค้ด `a++` (เรียกใช้ค่า `a`
@@ -239,9 +262,21 @@
    ทำให้โปรแกรมหยุดทำงานทันทีที่ค่า `a` ถูกเปลี่ยนแปลง
    หากรันคำสั่ง `continue` อีกครั้ง
 
-   ![lldb-command-tutorial.jpg](files/lldb-run-06-watch03.png)
    ```
-   (int) a = 79
+   Watchpoint 1 hit:
+   old value: 13
+   new value: 79
+   Process 16414 stopped
+   * thread #1, queue = 'com.apple.main-thread', stop reason = watchpoint 1
+     frame #0: 0x0000000100003f60 main`main at main.c:12:9
+     9   	    printf("Hello, IT-KMITL");
+     10  	
+     11  	    a = a++ + ++d;
+     -> 12  	    c = ++a + ++c;
+     13  	
+     14  	    return 0;
+     15  	}
+     Target 0: (main) stopped.
    ```
 
    ค่าของ `a` เปลี่ยนจาก 13 เป็น 79 เพราะถูกเปลี่ยนแปลงอีกครั้งที่โค้ด `a = a++ + ++d;` (`a = 13 + 66`)
@@ -251,8 +286,6 @@
    หรือทำงานจนจบโปรแกรม
    แต่เมื่อมีการตั้งค่า `watchpoint` แล้ว
    คำสั่ง `continue` จะทำงานจนกระทั่งค่าของตัวแปรที่เฝ้าดูถูกเปลี่ยนแปลง
-
-   ![lldb-command-tutorial.jpg](files/lldb-run-06-watch04.png)
 
    ลองสังเกตการเปลี่ยนแปลงของค่า `a` ไปเรื่อยๆ จนจบการทำงานของโปรแกรม
    เมื่อโปรแกรมทำงานเสร็จสิ้น จะปรากฏข้อความดังนี้
