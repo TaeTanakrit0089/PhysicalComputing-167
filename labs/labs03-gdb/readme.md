@@ -415,7 +415,7 @@ int main() {
 ให้น้องๆ เข้ากลุ่ม Facebook ของวิชาด้วยนะครับ เพื่อใช้ในการติดต่อและสื่อสารกัน
 [Facebook Group (Physical Computing 1-67)](https://www.facebook.com/groups/399522399188275)
 
-![gdb-command-tutorial.jpg](files/Facebook-QRCode.webp)
+<img src="files/Facebook-QRCode.webp" width="512px" alt="gdb-command-tutorial">
 
 ## Resources
 
