@@ -397,6 +397,12 @@ int main() {
    (gdb) quit
    ```
 
+9. **gdb with** **beatiful** **mode:**
+   ```gdb
+   gdb -tui <name of the .exe file>
+   ```
+   ![img.png](img.png)
+
 ## Resources
 
 - **GDB documentation:** https://sourceware.org/gdb/current/onlinedocs/gdb/
