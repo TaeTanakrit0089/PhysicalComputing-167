@@ -417,6 +417,10 @@ int main() {
 
 <img src="files/Facebook-QRCode.webp" width="512px" alt="gdb-command-tutorial">
 
+## For Mac User
+[lldb-mac.md](lldb-mac.md)
+
+
 ## Resources
 
 - **GDB documentation:** https://sourceware.org/gdb/current/onlinedocs/gdb/
