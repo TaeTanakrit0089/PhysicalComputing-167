@@ -115,7 +115,7 @@ int main() {
 
 โค้ด `main.c` แสดงการใช้งานตัวดำเนินการเพิ่มค่า (`++`) ในภาษา C มันจะสร้างตัวแปร integer ทั้งหมด 4
 ตัว (`a`, `b`, `c`, `d`)
-
+---
 **Steps:**
 
 1. **Compile the Code:**
@@ -128,6 +128,8 @@ int main() {
 
     - The `-g` flag tells the compiler to generate debugging information.
     - The `-o <file>` flag tells the compiler to write output to <file>.
+
+---
 
 2. **Start the Debugger:**
 
@@ -171,6 +173,8 @@ int main() {
 
    ![gdb-command-tutorial.jpg](files/run-00-list03.png)
 
+---
+
 3. **Set Breakpoints:**
 
    Breakpoints เป็นจุดที่เราสั่งให้โปรแกรมหยุดการทำงานชั่วคราว
@@ -213,6 +217,8 @@ int main() {
    (gdb) delete <num>
    ```
 
+---
+
 4. **Run the Program:**
 
    เริ่มการทำงานของโปรแกรมโดยใช้คำสั่ง `run`:
@@ -225,6 +231,8 @@ int main() {
    โปรแกรมจะหยุดการทำงานชั่วคราวและจะรอรับคำสั่งในการ debug จากเรา
 
    ![gdb-command-tutorial.jpg](files/run-01.png)
+
+---
 
 5. **Check Variable Values:**
 
@@ -254,6 +262,8 @@ int main() {
    (gdb) list
    ```
    ![gdb-command-tutorial.jpg](files/run-03.png)
+
+---
 
 6. **Step Through the Code:**
 
@@ -306,6 +316,8 @@ int main() {
    เราจะเห็นว่าโปรแกรมจะทำงานต่อมาจนถึงบรรทัดที่ 11 และได้หยุดการทำงานอีกรอบเพราะว่าเจอจุด breakpoint อีกตัว
 
    ![gdb-command-tutorial.jpg](files/run-05.png)
+
+---
 
 7. **Watch the variable:**
 
@@ -390,12 +402,16 @@ int main() {
    [Inferior 1 (process 7020) exited normally]
    ```
 
+---
+
 8. **Quit from the Debugger:**
 
    พิมพ์คำสั่ง `quit` เพื่อออกจาก GDB
    ```gdb
    (gdb) quit
    ```
+
+---
 
 ### GDB Text User Interface
 
@@ -418,8 +434,8 @@ int main() {
 <img src="files/Facebook-QRCode.webp" width="512px" alt="gdb-command-tutorial">
 
 ## For Mac User
-[lldb-mac.md](lldb-mac.md)
 
+[lldb-mac.md](lldb-mac.md)
 
 ## Resources
 
