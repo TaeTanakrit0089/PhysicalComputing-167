@@ -61,16 +61,6 @@
 
 - `gdb --tui <file_name>`: เปิดใช้งาน UI แบบกราฟิกของ GDB
 
-**ข้อดีของการ debug ด้วย GDB:**
-
-- ช่วยในการเข้าใจการทำงานของโปรแกรมอย่างละเอียด.
-- ช่วยในการแก้ไขข้อผิดพลาดในโปรแกรมได้ง่ายขึ้น.
-- ช่วยในการตรวจสอบค่าของตัวแปรในขณะที่โปรแกรมกำลังทำงาน.
-
-**คำแนะนำ:**
-
-
-
 ---
 
 ## Debugging Expression
@@ -160,6 +150,145 @@ Variables) เพื่อสร้างค่าผลลัพธ์
 
    นิพจน์นี้จะตรวจสอบว่าตัวแปร `d` น้อยกว่าหรือเท่ากับค่า ASCII ของ `a` หรือไม่ และค่า ASCII ของ `A`
    มากกว่าหรือเท่ากับค่า `c` ลบ 30 หรือไม่
+
+## Debugging C Code with GDB Expression: A Step-by-Step Guide with `expression.c` Example
+
+ในส่วนนี้จะทำการสอนวิธีการ debugging ด้วย GDB ในโค้ดไฟล์ที่มีชื่อว่า `expression.c`  โดยจะมีวิธีตรวจสอบค่าตัวแปร,
+การแสดงผลลัพธ์, และการ breakpoint เพื่อเข้าใจกระบวนการทำงานของภาษา C
+
+โค้ด `main.c` แสดงการใช้งานตัวดำเนินการเพิ่มค่า (`++`) ในภาษา C มันจะสร้างตัวแปร integer ทั้งหมด 4
+ตัว (`a`, `b`, `c`, `d`)
+---
+**Steps:**
+
+**1. Writing the Code**
+
+- **คอมคณะ:** ใน Desktop ของเครื่องที่ห้องแลป 203 จะมีโฟลเดอร์ "PhysicalCom" ที่มีไฟล์โค้ดภาษา C ชื่อว่า `expression.c`
+  ถ้าไม่มีให้ทำตาม Private Computer (Windows)
+- **Private Computer (Windows)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน cmd.exe ได้เลยหรือให้สร้างไฟล์ชื่อ `expression.c`
+  โดยข้างในไฟล์ต้องมีโค้ดเหมือนกับตัวอย่างด้านล่าง
+  ```bash
+  mkdir "%USERPROFILE%\Desktop\PhysicalCom"
+  curl -o "%USERPROFILE%\Desktop\PhysicalCom\main.c" "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs04-gdb02/files/expression.c"
+  ```
+
+- **Private Computer (MacOS)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน Terminal ได้เลย
+  โดยที่คำสั่งนี้จะสร้างโฟลเดอร์ `PhysicalCom` ที่ Desktop และสร้างไฟล์ให้อัตโนมัติ
+  ```bash
+  mkdir -p ~/Desktop/PhysicalCom
+  curl -o ~/Desktop/PhysicalCom/main.c "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs04-gdb02/files/expression.c"
+  ```
+
+ให้ลองเปิดไฟล์ที่สร้างขึ้นมาใหม่ดู ข้างในไฟล์ต้องมีโค้ดดังนี้:
+
+```c
+#include "stdio.h"
+
+int main() {
+    int i=10, j=20;
+    float x=0.001, y=0.00, z=81.753;
+    char c='a', d='G';
+
+    (d <= 'a') && ('A' >= c-30);
+    z/j;
+    c=i+=j;
+
+    return 0;
+}
+```
+
+---
+
+2. **Compile the Code:**
+
+   ก่อนที่จะเริ่มการ debugging ให้ compile ไฟล์ `expression.c` โดยใช้ GCC **โดยต้องเติม option `-g`**:
+   ```bash
+   gcc -g expression.c -o expression
+   ```
+
+    - The `-g` flag tells the compiler to generate debugging information.
+    - The `-o <file>` flag tells the compiler to write output to <file>.
+
+---
+
+3. **Start the Debugger:**
+
+   เมื่อ compile เสร็จแล้วจะได้ไฟล์ที่มีชื่อว่า `main` และในการรัน debugging สามารถรันได้โดยพิมพ์คำสั่ง `gdb`
+   ตามด้วยชื่อไฟล์:
+
+   ```bash
+   gdb expression
+   ```
+   เมื่อเรียกใช้ gdb จะพบหน้าต่างดังรูป โดยเราสามารถพิมพ์คำสั่งต่อจาก `(gdb)` ได้เลย
+
+---
+
+4. **Set Breakpoints:**
+
+   ในรอบนี้ให้น้องลองตั้ง breakpoint ไว้ที่บรรทัดที่ 8 ซึ่งจะตรงกับโค้ดส่วนนี้ `(d <= 'a') && ('A' >= c-30)`
+   ```gdb
+   (gdb) b 8
+   ```
+
+---
+
+5. **Run the Program:**
+
+   เริ่มการทำงานของโปรแกรมโดยใช้คำสั่ง `run`:
+
+   ```gdb
+   (gdb) r
+   ```
+
+   โปรแกรมจะทำงานไปจนกว่าถึงจุด breakpoint ที่ตั้งเอาไว้ เมื่อถึงจุด breakpoint (บรรทัดที่ 8)
+   โปรแกรมจะหยุดการทำงานชั่วคราวและจะรอรับคำสั่งในการ debug จากเรา
+
+   เมื่อถึงโปรแกรมหยุดที่บรรทัดที่ 8 แล้วลองให้น้องปริ้นโค้ดบริเวณนั้นๆ ออกมาดู
+   ```gdb
+   (gdb) l
+   ```
+
+---
+
+6. **Check The Expression Values:**
+
+   `(d <= 'a') && ('A' >= c-30)` This is an expression, not an assignment!!!
+   ถ้าเราต้องการจะดูผลลัพธ์จาก expression เราสามารถใช้คำสั่ง `print` ตามด้วย expression
+   ไปได้เลย ([Using Expressions with GDB](#using-expressions-with-gdb))
+
+   ```gdb
+   (gdb) p (d <= 'a') && ('A' >= c-30)
+   ```
+   คำสั่งจะรันนิพจน์ทั้งหมดและพิมพ์ผลลัพธ์ ซึ่ง expression ข้างบนเป็น Logical Expressions ผลลัพธ์จะออกมาเป็น Boolean ค่า
+   True และ False
+    - 1 คือ True
+    - 0 คือ False
+
+---
+
+7. **Step Through the Code:**
+
+   ให้น้องรันคำสั่ง `next` เพื่อรันบรรทัดต่อไป
+   ```gdb
+   (gdb) n
+   ```
+
+   ในบรรทัดนี้จะมี expression `z/j` ถ้าน้องต้องการเช็คผลลัพธ์ก็สามารถใช้คำสั่ง `print` ตามด้วย expression ได้เลย
+   ```gdb
+   (gdb) p z/j
+   ```
+   ซึ่งผลลัพธ์ของค่า `z/j` ก็จะออกมา
+
+---
+
+8. **Quit from the Debugger:**
+
+   พิมพ์คำสั่ง `quit` เพื่อออกจาก GDB
+   ```gdb
+   (gdb) quit
+   ```
+
+---
 
 ## Reference
 
