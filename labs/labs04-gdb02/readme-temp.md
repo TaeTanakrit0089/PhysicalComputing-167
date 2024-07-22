@@ -1,6 +1,7 @@
 ## Debugging C code with GDB: A Step-by-Step Tutorial
 
-This tutorial will guide you through debugging the provided C code using GDB (GNU Debugger). We'll break down each assignment statement and demonstrate how to use GDB to inspect variables and track the program's execution.
+This tutorial will guide you through debugging the provided C code using GDB (GNU Debugger). We'll break down each
+assignment statement and demonstrate how to use GDB to inspect variables and track the program's execution.
 
 **1. Setting up GDB:**
 
@@ -201,4 +202,5 @@ Let's walk through each assignment statement and how to debug it using GDB:
 * **`print [expression]`:** Display the value of an expression.
 * **`quit`:** Exit GDB.
 
-By following these steps, you can effectively debug your C code using GDB to identify issues and understand how your program executes. Remember to refer to the GDB documentation for more advanced features and debugging techniques. 
+By following these steps, you can effectively debug your C code using GDB to identify issues and understand how your
+program executes. Remember to refer to the GDB documentation for more advanced features and debugging techniques. 

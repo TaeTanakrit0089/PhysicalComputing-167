@@ -30,7 +30,7 @@ sudo apt-get install build-essential gdb
 
 ![](files/linux/linux-02.png)
 
-##  Compile and Debug
+## Compile and Debug
 
 ให้น้องลองไปสร้างไฟล์ภาษา C ขึ้นมาและลองใช้ GCC คอมไพล์ดู
 
