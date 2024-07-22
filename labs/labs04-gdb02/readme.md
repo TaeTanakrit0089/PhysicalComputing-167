@@ -169,14 +169,14 @@ Variables) เพื่อสร้างค่าผลลัพธ์
   โดยข้างในไฟล์ต้องมีโค้ดเหมือนกับตัวอย่างด้านล่าง
   ```bash
   mkdir "%USERPROFILE%\Desktop\PhysicalCom"
-  curl -o "%USERPROFILE%\Desktop\PhysicalCom\main.c" "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs04-gdb02/files/expression.c"
+  curl -o "%USERPROFILE%\Desktop\PhysicalCom\expression.c" "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs04-gdb02/files/expression.c"
   ```
 
 - **Private Computer (MacOS)**: สามารถก็อบคำสั่งด้านล่างไปใส่ใน Terminal ได้เลย
   โดยที่คำสั่งนี้จะสร้างโฟลเดอร์ `PhysicalCom` ที่ Desktop และสร้างไฟล์ให้อัตโนมัติ
   ```bash
   mkdir -p ~/Desktop/PhysicalCom
-  curl -o ~/Desktop/PhysicalCom/main.c "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs04-gdb02/files/expression.c"
+  curl -o ~/Desktop/PhysicalCom/expression.c "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs04-gdb02/files/expression.c"
   ```
 
 ให้ลองเปิดไฟล์ที่สร้างขึ้นมาใหม่ดู ข้างในไฟล์ต้องมีโค้ดดังนี้:
@@ -229,7 +229,7 @@ int main() {
    ```gdb
    (gdb) b 8
    ```
-
+   ![gdb-03-gdb-b8.png](files/gdb-03-gdb-b8.png)
 ---
 
 5. **Run the Program:**
@@ -239,6 +239,7 @@ int main() {
    ```gdb
    (gdb) r
    ```
+   ![gdb-04-gdb-r.png](files/gdb-04-gdb-r.png)
 
    โปรแกรมจะทำงานไปจนกว่าถึงจุด breakpoint ที่ตั้งเอาไว้ เมื่อถึงจุด breakpoint (บรรทัดที่ 8)
    โปรแกรมจะหยุดการทำงานชั่วคราวและจะรอรับคำสั่งในการ debug จากเรา
@@ -247,6 +248,7 @@ int main() {
    ```gdb
    (gdb) l
    ```
+   ![gdb-05-gdb-l.png](files/gdb-05-gdb-l.png)
 
 ---
 
@@ -261,6 +263,7 @@ int main() {
    ```
    คำสั่งจะรันนิพจน์ทั้งหมดและพิมพ์ผลลัพธ์ ซึ่ง expression ข้างบนเป็น Logical Expressions ผลลัพธ์จะออกมาเป็น Boolean ค่า
    True และ False
+   ![gdb-06-gdb-p-expression.png](files/gdb-06-gdb-p-expression.png)
     - 1 คือ True
     - 0 คือ False
 
@@ -272,13 +275,17 @@ int main() {
    ```gdb
    (gdb) n
    ```
-
+   ![gdb-08-gdb-p-cij1.png](files/gdb-08-gdb-p-cij1.png)
    ในบรรทัดนี้จะมี expression `z/j` ถ้าน้องต้องการเช็คผลลัพธ์ก็สามารถใช้คำสั่ง `print` ตามด้วย expression ได้เลย
    ```gdb
    (gdb) p z/j
    ```
    ซึ่งผลลัพธ์ของค่า `z/j` ก็จะออกมา
+   ![gdb-07-gdb-p-zj.png](files/gdb-07-gdb-p-zj.png)
 
+   **ถ้าจะเอารูปผลลัพธ์ c=i+=j;**
+   ![gdb-08-gdb-p-cij1.png](files/gdb-08-gdb-p-cij1.png)
+   ![gdb-09-gdb-p-cij2.png](files/gdb-09-gdb-p-cij2.png)
 ---
 
 8. **Quit from the Debugger:**
@@ -287,7 +294,9 @@ int main() {
    ```gdb
    (gdb) quit
    ```
-
+****capture ไว้ให้ 2 ver.****
+   ![gdb-10-gdb-quit1.png](files/gdb-10-gdb-quit1.png)
+   ![gdb-10-gdb-quit2.png](files/gdb-10-gdb-quit2.png)
 ---
 
 ## Reference
