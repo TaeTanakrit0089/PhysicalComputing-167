@@ -435,7 +435,7 @@ int main() {
 
 ## For Mac User
 
-[lldb-mac.md](lldb-mac.md)
+[lldb-mac.md](macos)
 
 ## Resources
 
