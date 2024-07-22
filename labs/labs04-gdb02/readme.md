@@ -84,8 +84,7 @@ Variables) เพื่อสร้างค่าผลลัพธ์
 * c
 * s-1/7*f
 
-
-  ![gdb-02-expression.jpg](files/gdb-02-expression.jpg)
+![gdb-02-expression.jpg](files/gdb-02-expression.jpg)
 
 ### ประเภทของนิพจน์
 
@@ -97,22 +96,70 @@ Variables) เพื่อสร้างค่าผลลัพธ์
 * **นิพจน์ทศนิยม (Floating Expressions)**: สร้างผลลัพธ์เป็นทศนิยมหลังจากการแปลงข้อมูลโดยอัตโนมัติหรือโดยชัดแจ้ง เช่น
   `x+y`, `10.75`
 
-  
+
 * **นิพจน์เชิงสัมพันธ์ (Relational Expressions)**: ผลลัพธ์เป็นค่าตรรกะ (Boolean) ซึ่งมีค่าเป็นจริงหรือเท็จ
   เกิดจากการเปรียบเทียบค่าสองค่า เช่น `x<=y`, `x+y>2`
-* **นิพจน์เชิงตรรกะ (Logical Expressions)**:  รวมนิพจน์เชิงสัมพันธ์ 2 ค่าขึ้นไป และผลลัพธ์เป็นค่าตรรกะ (Boolean) เช่น `x>
+* **นิพจน์เชิงตรรกะ (Logical Expressions)**:  รวมนิพจน์เชิงสัมพันธ์ 2 ค่าขึ้นไป และผลลัพธ์เป็นค่าตรรกะ (Boolean)
+  เช่น `x>
   y && x==10`, `x==10 || y==5`
 
 
 * **นิพจน์ตัวชี้ (Pointer Expressions)**: สร้างค่าเป็นที่อยู่ เช่น `&x`, `ptr`, `ptr++`
-* **นิพจน์บิต (Bitwise Expressions)**: ใช้สำหรับการจัดการข้อมูลที่ระดับบิต เช่น `x<<3` (เลื่อนบิต 3 ตำแหน่งไปทางซ้าย),` y>>
+* **นิพจน์บิต (Bitwise Expressions)**: ใช้สำหรับการจัดการข้อมูลที่ระดับบิต เช่น `x<<3` (เลื่อนบิต 3
+  ตำแหน่งไปทางซ้าย),` y>>
   1` (เลื่อนบิต 1 ตำแหน่งไปทางขวา)
 * **นิพจน์แบบผสม (Compound Expressions)**:  การรวมกันของนิพจน์ประเภทต่างๆ
 
 **หมายเหตุ:**
 
 * นิพจน์สามารถใช้ร่วมกันได้ เช่น a+b*c เป็นนิพจน์แบบผสม (Compound Expressions)
-* นิพจน์แบบผสมมักมีลำดับการดำเนินการ (Operator Precedence) เช่น PEMDAS การคูณและการหารมีลำดับการดำเนินการสูงกว่าการบวกและการลบ
+* นิพจน์แบบผสมมักมีลำดับการดำเนินการ (Operator Precedence) เช่น PEMDAS
+  การคูณและการหารมีลำดับการดำเนินการสูงกว่าการบวกและการลบ
+
+### Using Expressions with GDB
+
+1. **Basic GDB Commands:** น้องๆ สามารถใช้คำสั่งย่อใน GDB ได้
+
+    - **Starting and Controlling Execution:**
+
+        * **`r`, `run`**: Start the program.
+        * **`c`, `continue`**: Continue execution.
+        * **`n`, `next`**: Execute the next line.
+        * **`s`, `step`**: Step into the next line including function calls.
+
+    - **Setting Breakpoints:**
+
+        * **`b <function>`**: Breakpoint at the specified function.
+        * **`b <line>`**: Breakpoint at the specified line number.
+
+    - **Inspecting and Printing:**
+
+        * **`p <expression>`, `print`**: Print the value of an expression.
+        * **`l`, `list`**: List source code around the current line.
+
+    - **Exiting GDB:**
+
+        * **`q`, `quit`**: Quit GDB.
+
+2. **Expressions in GDB**
+
+   น้องสามารถใช้ Expression ใน GDB เพื่อใช้ร่วมกับ operators, variables, and functions ได้
+
+    * **Basic arithmetic operators:** `+`, `-`, `*`, `/`, `%`.
+    * **Comparison operators:** `==`, `!=`, `<`, `>`, `<=`, `>=`.
+    * **Logical operators:** `&&` (AND), `||` (OR), `!` (NOT).
+    * **Bitwise operators:** `&` (AND), `|` (OR), `^` (XOR), `~` (NOT).
+    * **Variable access:** Use the variable name directly, e.g., `x`, `my_array[3]`.
+    * **Function calls:** `function_name(arguments)`.
+
+   **ตัวอย่าง:**
+
+   ```
+   (gdb) p (d <= 'a') && ('A' >= c - 30)
+   ```
+
+   นิพจน์นี้จะตรวจสอบว่าตัวแปร `d` น้อยกว่าหรือเท่ากับค่า ASCII ของ `a` หรือไม่ และค่า ASCII ของ `A`
+   มากกว่าหรือเท่ากับค่า `c` ลบ 30 หรือไม่
 
 ## Reference
 
