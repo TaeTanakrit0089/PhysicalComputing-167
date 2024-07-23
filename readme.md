@@ -4,7 +4,7 @@
 
 - [Lab02: Introduction to Cygwin](labs/labs02-gcc)
 - [Lab03: Debugging C Code with GDB on Windows (Cygwin)](labs/labs03-gdb)
-- [Lab04: Debugging C Code Expressions with GDB on Windows (Cygwin)](labs/lab04-gdb02)
+- [Lab04: Debugging C Code Expressions with GDB on Windows (Cygwin)](labs/labs04-gdb02)
 
 ## เงื่อนไขในการทำแลป
 
