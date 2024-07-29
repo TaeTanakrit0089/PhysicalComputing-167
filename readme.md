@@ -4,6 +4,7 @@
 
 - [Lab02: Introduction to Cygwin](labs/labs02-gcc)
 - [Lab03: Debugging C Code with GDB on Windows (Cygwin)](labs/labs03-gdb)
+- [Lab04: Debugging C Code Expressions with GDB on Windows (Cygwin)](labs/labs04-gdb02)
 
 ## เงื่อนไขในการทำแลป
 
@@ -26,4 +27,6 @@
 - คะแนนจะมีให้ทั้งโจทย์แลป และการบ้าน โดยคะแนนส่วนใหญ่จะอยู่ที่การบ้าน หากทำไม่ทันแนะนำให้ทำการบ้านก่อน
 
 รหัสเข้าคอร์สใน eJudge: `PhysicalPro`
+
+ลิงค์ Onlearn: https://onlearn.it.kmitl.ac.th/course/view.php?id=1413
 
