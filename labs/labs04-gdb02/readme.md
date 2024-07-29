@@ -65,7 +65,8 @@
 
 ## Debugging Expression
 
-**นิพจน์ (Expression)** ในโปรแกรม ซึ่งนิพจน์คือการรวมกันของ ตัวดำเนินการ (Operators), ค่าคงที่ (Constants), และตัวแปร (Variables) เพื่อสร้างค่าผลลัพธ์
+**นิพจน์ (Expression)** ในโปรแกรม ซึ่งนิพจน์คือการรวมกันของ ตัวดำเนินการ (Operators), ค่าคงที่ (Constants), และตัวแปร (
+Variables) เพื่อสร้างค่าผลลัพธ์
 
 ### ตัวอย่างนิพจน์:
 
@@ -147,8 +148,8 @@
   curl -o ~/Desktop/PhysicalCom/expression.c "https://raw.githubusercontent.com/TaeTanakrit0089/PhysicalComputing-167/main/labs/labs04-gdb02/files/expression.c"
   ```
 
-   ให้ลองเปิดไฟล์ที่สร้างขึ้นมาใหม่ดู ข้างในไฟล์ต้องมีโค้ดดังนี้:
-   
+  ให้ลองเปิดไฟล์ที่สร้างขึ้นมาใหม่ดู ข้างในไฟล์ต้องมีโค้ดดังนี้:
+
    ```c
    #include "stdio.h"
    

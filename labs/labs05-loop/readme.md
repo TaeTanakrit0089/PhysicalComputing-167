@@ -1,4 +1,4 @@
-# Lab05: โครงสร้างแบบวนซ้ำ (Loop Structure)
+# Lab05: โครงสร้างแบบวนซ้ำ (Loop Structure in C)
 
 ## Contexts
 
