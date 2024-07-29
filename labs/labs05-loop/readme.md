@@ -67,8 +67,10 @@ while (digitalRead(buttonPin) == HIGH) {
 * เป็นลูปแบบ Pre-test Loop
 * ตรวจสอบเงื่อนไขก่อน หากเงื่อนไขเป็นจริง จึงจะเข้าสู่ลูป
 * เหมาะสำหรับการใช้งานที่ไม่ทราบจำนวนรอบที่แน่นอน
-  ![while-loop-iter.png](files/while-loop-iter.png)
-  **รูปแบบ:**
+
+[//]: # (  ![while-loop-iter.png]&#40;files/while-loop-iter.png&#41;)
+
+* **รูปแบบ:**
 
 ```c
 while (เงื่อนไข) {
@@ -130,7 +132,8 @@ int main() {
 * เป็นลูปแบบ Pre-test Loop
 * นิยมใช้สำหรับการวนซ้ำแบบนับจำนวน
 * สามารถกำหนดค่าเริ่มต้น, เงื่อนไข, และการอัพเดต
-  ได้ภายในวงเล็บของคำสั่ง for
+  ได้ภายในวงเล็บของคำสั่ง forÎ
+
   ![for-loop-iter.jpg](files/for-loop-iter.jpg)
 
 **รูปแบบ:**

@@ -3,8 +3,9 @@
 ## ลิงก์ Github Document ของแต่ละสัปดาห์
 
 - [Lab02: Introduction to Cygwin](labs/labs02-gcc)
-- [Lab03: Debugging C Code with GDB on Windows (Cygwin)](labs/labs03-gdb)
-- [Lab04: Debugging C Code Expressions with GDB on Windows (Cygwin)](labs/labs04-gdb02)
+- [Lab03: Debugging C Code with GDB](labs/labs03-gdb)
+- [Lab04: Debugging C Code and Expressions with GDB](labs/labs04-gdb02)
+- [Lab05: For Loop](labs/labs05-loop)
 
 ## เงื่อนไขในการทำแลป
 
