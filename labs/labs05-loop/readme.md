@@ -31,8 +31,11 @@
 
 * **Pre-test Loop**: ตรวจสอบเงื่อนไขก่อนที่จะเริ่มต้นการวนซ้ำ
   หากเงื่อนไขเป็นเท็จตั้งแต่แรก ลูปจะไม่ถูกดำเนินการเลย
+  * while
+  * for
 * **Post-test Loop**: ดำเนินการชุดคำสั่งภายในลูปอย่างน้อยหนึ่งครั้ง
   จากนั้นจึงตรวจสอบเงื่อนไข หากเงื่อนไขเป็นจริง ลูปจะวนซ้ำต่อไป
+  * do while
 
 ## การควบคุมแบบนับจำนวน (Counter Control)
 
@@ -78,18 +81,23 @@ while (เงื่อนไข) {
 }
 ```
 
-**ตัวอย่าง:**
+**ตัวอย่าง:** พิมพ์ตัวเลขทั้งหมดที่น้อยกว่าค่าที่รับเข้ามา
 
 ```c
 #include <stdio.h>
+
 int main() {
-  int i = 1;
-  int sum = 0;
-  while (i <= 10) {
-    sum = sum + i;
+  int num, i = 0;
+
+  printf("Enter a number: ");
+  scanf("%d", &num);
+
+  while (i < num) {
+    printf("%d ", i);
     i++;
   }
-  printf("%d", sum); // ผลลัพธ์คือ 55
+
+  printf("\n");
   return 0;
 }
 ```
@@ -112,17 +120,26 @@ do {
 } while (เงื่อนไข);
 ```
 
-**ตัวอย่าง:**
+**ตัวอย่าง:** การขอรหัสผ่านจากผู้ใช้จนกว่าจะป้อนรหัสผ่านที่ถูกต้อง
 
 ```c
 #include <stdio.h>
+#include <string.h>
+
 int main() {
-  int i = 0;
+  char password[50];
+  const char* correct_password = "secret"; 
+
   do {
-    i++;
-    printf("%d ", i); 
-  } while (i < 10);
-  // ผลลัพธ์คือ 1 2 3 4 5 6 7 8 9 10
+    printf("Enter password: ");
+    scanf("%s", password);
+
+    if (strcmp(password, correct_password) != 0) {
+      printf("Incorrect password, try again.\n");
+    }
+  } while (strcmp(password, correct_password) != 0);
+
+  printf("Access granted.\n");
   return 0;
 }
 ```
