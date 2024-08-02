@@ -29,5 +29,9 @@
 
 รหัสเข้าคอร์สใน eJudge: `PhysicalPro`
 
-ลิงค์ Onlearn: https://onlearn.it.kmitl.ac.th/course/view.php?id=1413
+## Resources
+
+- Onlearn: https://onlearn.it.kmitl.ac.th/course/view.php?id=1413
+- Homepage: https://www.it.kmitl.ac.th/~it65070089/phypro/
+- eJudge: https://ejudge.it.kmitl.ac.th/course/226
 
