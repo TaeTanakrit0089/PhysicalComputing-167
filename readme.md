@@ -2,10 +2,17 @@
 
 ## ลิงก์ Github Document ของแต่ละสัปดาห์
 
+- [Lab01: Raptor](labs/labs01-raptor)
 - [Lab02: Introduction to Cygwin](labs/labs02-gcc)
 - [Lab03: Debugging C Code with GDB](labs/labs03-gdb)
 - [Lab04: Debugging C Code and Expressions with GDB](labs/labs04-gdb02)
 - [Lab05: Loop Structure](labs/labs05-loop)
+
+## Resources
+
+- Onlearn: https://onlearn.it.kmitl.ac.th/course/view.php?id=1413
+- Homepage: https://www.it.kmitl.ac.th/~it65070089/phypro/
+- eJudge: https://ejudge.it.kmitl.ac.th/course/226
 
 ## เงื่อนไขในการทำแลป
 
@@ -28,10 +35,3 @@
 - คะแนนจะมีให้ทั้งโจทย์แลป และการบ้าน โดยคะแนนส่วนใหญ่จะอยู่ที่การบ้าน หากทำไม่ทันแนะนำให้ทำการบ้านก่อน
 
 รหัสเข้าคอร์สใน eJudge: `PhysicalPro`
-
-## Resources
-
-- Onlearn: https://onlearn.it.kmitl.ac.th/course/view.php?id=1413
-- Homepage: https://www.it.kmitl.ac.th/~it65070089/phypro/
-- eJudge: https://ejudge.it.kmitl.ac.th/course/226
-
