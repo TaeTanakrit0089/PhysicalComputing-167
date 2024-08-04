@@ -1,10 +1,13 @@
 ## Sorting Number Arrays in C: A Comparative Guide
 
-This tutorial explores five popular sorting algorithms for numerical arrays in C: Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort. We'll delve into their implementations, analyze their time complexities, and compare their strengths and weaknesses.
+This tutorial explores five popular sorting algorithms for numerical arrays in C: Bubble Sort, Selection Sort, Insertion
+Sort, Merge Sort, and Quick Sort. We'll delve into their implementations, analyze their time complexities, and compare
+their strengths and weaknesses.
 
 ### 1. Bubble Sort
 
-**Concept:** Repeatedly steps through the array, compares adjacent elements, and swaps them if they are in the wrong order.
+**Concept:** Repeatedly steps through the array, compares adjacent elements, and swaps them if they are in the wrong
+order.
 
 **Implementation:**
 
@@ -30,7 +33,8 @@ void bubbleSort(int arr[], int n) {
 
 ### 2. Selection Sort
 
-**Concept:** Finds the minimum element in the unsorted part of the array and swaps it with the element at the beginning of the unsorted part.
+**Concept:** Finds the minimum element in the unsorted part of the array and swaps it with the element at the beginning
+of the unsorted part.
 
 **Implementation:**
 
@@ -58,7 +62,8 @@ void selectionSort(int arr[], int n) {
 
 ### 3. Insertion Sort
 
-**Concept:** Builds the sorted array one element at a time by inserting each element into its correct position within the already sorted part.
+**Concept:** Builds the sorted array one element at a time by inserting each element into its correct position within
+the already sorted part.
 
 **Implementation:**
 
