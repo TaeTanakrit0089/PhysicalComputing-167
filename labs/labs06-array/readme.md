@@ -1,7 +1,12 @@
-## Arrays in C: A Beginner's Guide
+# Arrays in C: A Beginner's Guide
 
 Arrays are fundamental data structures in C, used to store collections of elements of the same data type. This tutorial
 will guide you through the basics of using arrays in C.
+
+## Labs Tutorial
+
+- [Array-Tutorial.md](array-tutorial.md)
+- [(Slide) Lab06 - Array.pdf](files/Lab06%20-%20Array.pdf)
 
 ### 1. Declaring an Array
 

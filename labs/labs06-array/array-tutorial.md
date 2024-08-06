@@ -119,7 +119,7 @@ understanding two's complement representation for signed integers.
    (gdb) p num[5]
    $5 = -60
    (gdb) p num[6]
-   $6 = 0
+   $6 = 0  // ค่า default คือ 0
    ```
    คำสั่งด้านบนจะแสดงผลลัพธ์ของค่าของ array num และข้อมูลลำดับที่ 0, 1, 3, 5 และ 6
 
