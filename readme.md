@@ -8,6 +8,7 @@
 - [Lab04: Debugging C Code and Expressions with GDB](labs/labs04-gdb02)
 - [Lab05: Loop Structure](labs/labs05-loop)
 - [Lab06: Array](labs/labs06-array)
+- [Lab07: Function](labs/labs07-function)
 
 ## Resources
 
