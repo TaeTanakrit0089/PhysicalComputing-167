@@ -211,7 +211,7 @@ Let's solidify our understanding of `malloc` and `realloc` with these illustrati
 
 int main() {
   // Declare a pointer to an integer
-  int *ptr; 
+  int *ptr;
 
   // Allocate memory for one integer
   ptr = (int*) malloc(sizeof(int));
@@ -219,9 +219,10 @@ int main() {
   // Use the allocated memory
   *ptr = 10;
   printf("Value at allocated memory: %d\n", *ptr);
+  printf("Address of the allocated memory: %p\n", ptr);
 
-  // Free the allocated memory 
-  free(ptr); 
+  // Free the allocated memory
+  free(ptr);
 
   return 0;
 }
@@ -234,6 +235,7 @@ int main() {
 * We use `*ptr` to access and modify the value at the allocated memory location.
 * Finally, we free the memory using `free`.
 
+---
 **Example 2: Creating a dynamic array of a specific size**
 
 ```c
@@ -278,6 +280,7 @@ int main() {
 * The code populates and prints the dynamically allocated array.
 * Again, `free` is used to release the allocated memory.
 
+---
 **Example 3: Resizing an array using realloc**
 
 **Problem:** Write a program that reads an unknown number of integers from the user until they enter -1. Store these
@@ -334,3 +337,4 @@ int main() {
 
 These examples illustrate the basic use of `malloc` and `realloc`. By mastering these functions, you gain the power to
 manage memory dynamically, leading to more efficient and flexible C programs!
+
