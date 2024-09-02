@@ -2,10 +2,11 @@
 #include <stdlib.h>
 
 int main() {
-    while (1) {
-        char *ptr = (char *)malloc(1024 * 1024); // Allocate 1GB
-        // Memory is not freed, causing a leak
-        // Do something with ptr if needed
-    }
+    int num_elements = 100;
+    int *data = (int *)malloc(sizeof(int) * num_elements / 2); // Potential off-by-one error!
+
+    printf("%d\n", *data);
+
+    free(data);
     return 0;
 }
