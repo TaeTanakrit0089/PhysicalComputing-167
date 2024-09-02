@@ -1,95 +1,79 @@
-Dynamic Memory Allocation in C: Mastering malloc and realloc
+## Dynamic Memory Allocation in C: Mastering `malloc` and `realloc`
 
-This document serves as a comprehensive guide to understanding and using malloc and realloc, two powerful functions in C
-that allow dynamic memory allocation. We will delve into their syntax, functionality, common use cases, and potential
-pitfalls.
+This document serves as a comprehensive guide to understanding and using `malloc` and `realloc`, two powerful functions
+in C that allow dynamic memory allocation. We will delve into their syntax, functionality, common use cases, and
+potential pitfalls.
 
-Introduction
+### Introduction
 
 In C, variables typically have a fixed size determined at compile time. This works well for many scenarios but falls
 short when dealing with data structures whose size changes during program execution. Imagine creating a program to store
-student names, where the number of students is unknown beforehand. This is where dynamic memory allocation comes to the
-rescue.
+student names, where the number of students is unknown beforehand. This is where **dynamic memory allocation** comes to
+the rescue.
 
 Dynamic memory allocation allows programs to request memory from the operating system at runtime. This means you can
 create data structures that grow or shrink dynamically based on the program's needs. C provides two primary functions
-for this purpose: malloc and realloc.
+for this purpose: `malloc` and `realloc`.
 
-1. malloc: Allocating Memory Blocks
+### 1. `malloc`: Allocating Memory Blocks
 
-The malloc function allocates a block of memory of a specified size and returns a pointer to the beginning of that
+The `malloc` function allocates a block of memory of a specified size and returns a pointer to the beginning of that
 block.
 
-Syntax:
+**Syntax:**
 
+```c
 void* malloc(size_t size);
-content_copy
-Use code with caution.
-C
+```
 
-void*: The function returns a void pointer, meaning it can point to any data type. You will need to explicitly typecast
-this pointer to the desired data type.
+* **`void*`:** The function returns a `void` pointer, meaning it can point to any data type. You will need to explicitly
+  typecast this pointer to the desired data type.
+* **`size_t size`:** This argument specifies the size of the memory block to be allocated, in bytes.
 
-size_t size: This argument specifies the size of the memory block to be allocated, in bytes.
+**How to use `malloc`:**
 
-How to use malloc:
+1. **Include the `<stdlib.h>` header file:**
+   ```c
+   #include <stdlib.h> 
+   ```
+2. **Call `malloc` with the desired size:**
+   ```c
+   int *ptr = (int*) malloc(10 * sizeof(int));
+   ```
+   This code snippet allocates enough memory to store an array of 10 integers and assigns the starting address of the
+   allocated block to the pointer `ptr`.
+3. **Check for allocation success:**
+   `malloc` returns a NULL pointer if memory allocation fails (e.g., insufficient memory). Always check the returned
+   pointer before using it:
+   ```c
+   if (ptr == NULL) {
+       // Handle memory allocation failure
+       fprintf(stderr, "Memory allocation failed!\n");
+       exit(1); 
+   }
+   ```
+4. **Access and use the allocated memory:**
+   You can now use the pointer to access and modify the allocated memory:
+   ```c
+   for (int i = 0; i < 10; i++) {
+       ptr[i] = i * i; // Assign values to the array
+   }
+   ```
+5. **Free the allocated memory:**
+   After you're done using the allocated memory, it's crucial to free it using `free` to avoid memory leaks:
+   ```c
+   free(ptr); 
+   ```
 
-Include the <stdlib.h> header file:
+**Example:**
 
-#include <stdlib.h>
-content_copy
-Use code with caution.
-C
-
-Call malloc with the desired size:
-
-int *ptr = (int*) malloc(10 * sizeof(int));
-content_copy
-Use code with caution.
-C
-
-This code snippet allocates enough memory to store an array of 10 integers and assigns the starting address of the
-allocated block to the pointer ptr.
-
-Check for allocation success:
-malloc returns a NULL pointer if memory allocation fails (e.g., insufficient memory). Always check the returned pointer
-before using it:
-
-if (ptr == NULL) {
-// Handle memory allocation failure
-fprintf(stderr, "Memory allocation failed!\n");
-exit(1);
-}
-content_copy
-Use code with caution.
-C
-
-Access and use the allocated memory:
-You can now use the pointer to access and modify the allocated memory:
-
-for (int i = 0; i < 10; i++) {
-ptr[i] = i * i; // Assign values to the array
-}
-content_copy
-Use code with caution.
-C
-
-Free the allocated memory:
-After you're done using the allocated memory, it's crucial to free it using free to avoid memory leaks:
-
-free(ptr);
-content_copy
-Use code with caution.
-C
-
-Example:
-
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
-int n, i;
-int *arr;
+    int n, i;
+    int *arr;
 
     printf("Enter the number of elements: ");
     scanf("%d", &n);
@@ -119,73 +103,62 @@ int *arr;
     free(arr);
 
     return 0;
-
 }
-content_copy
-Use code with caution.
-C
+```
 
-2. realloc: Resizing Existing Memory Blocks
+### 2. `realloc`: Resizing Existing Memory Blocks
 
-The realloc function allows you to resize a previously allocated memory block. This is particularly useful for dynamic
+The `realloc` function allows you to resize a previously allocated memory block. This is particularly useful for dynamic
 data structures like linked lists or dynamic arrays that need to grow or shrink based on the program's needs.
 
-Syntax:
+**Syntax:**
 
+```c
 void* realloc(void* ptr, size_t new_size);
-content_copy
-Use code with caution.
-C
+```
 
-void* ptr: This argument is a pointer to the memory block previously allocated using malloc, calloc, or realloc.
+* **`void* ptr`:** This argument is a pointer to the memory block previously allocated using `malloc`, `calloc`, or
+  `realloc`.
+* **`size_t new_size`:** This argument specifies the new desired size of the memory block in bytes.
 
-size_t new_size: This argument specifies the new desired size of the memory block in bytes.
+**How to use `realloc`:**
 
-How to use realloc:
+1. **Call `realloc` with the original pointer and the new size:**
+   ```c
+   int *new_ptr = (int*) realloc(ptr, 20 * sizeof(int)); 
+   ```
+   This code attempts to resize the memory block pointed to by `ptr` to hold 20 integers.
+2. **Check for reallocation success:**
+   Like `malloc`, `realloc` can also fail if it cannot resize the block (e.g., insufficient contiguous memory). Always
+   check the returned pointer:
+   ```c
+   if (new_ptr == NULL) {
+       // Handle reallocation failure
+       fprintf(stderr, "Memory reallocation failed!\n");
+       // Important: 'ptr' still points to the old memory block!
+       // Do not free 'ptr' here if reallocation failed.
+       exit(1); 
+   } else {
+       // Update the pointer if reallocation succeeded
+       ptr = new_ptr;
+   }
+   ```
 
-Call realloc with the original pointer and the new size:
+**Key points to remember when using `realloc`:**
 
-int *new_ptr = (int*) realloc(ptr, 20 * sizeof(int));
-content_copy
-Use code with caution.
-C
+* If `realloc` succeeds, it returns a pointer to the resized memory block. This block might be at the same memory
+  location or a new location if resizing requires moving the block.
+* If `new_size` is 0, `realloc` behaves like `free`, and the memory block pointed to by `ptr` is freed.
+* If `ptr` is NULL, `realloc` behaves like `malloc` and allocates a new block of memory of size `new_size`.
 
-This code attempts to resize the memory block pointed to by ptr to hold 20 integers.
+**Example:**
 
-Check for reallocation success:
-Like malloc, realloc can also fail if it cannot resize the block (e.g., insufficient contiguous memory). Always check
-the returned pointer:
-
-if (new_ptr == NULL) {
-// Handle reallocation failure
-fprintf(stderr, "Memory reallocation failed!\n");
-// Important: 'ptr' still points to the old memory block!
-// Do not free 'ptr' here if reallocation failed.
-exit(1);
-} else {
-// Update the pointer if reallocation succeeded
-ptr = new_ptr;
-}
-content_copy
-Use code with caution.
-C
-
-Key points to remember when using realloc:
-
-If realloc succeeds, it returns a pointer to the resized memory block. This block might be at the same memory location
-or a new location if resizing requires moving the block.
-
-If new_size is 0, realloc behaves like free, and the memory block pointed to by ptr is freed.
-
-If ptr is NULL, realloc behaves like malloc and allocates a new block of memory of size new_size.
-
-Example:
-
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
-int *arr, i, n, new_n;
+    int *arr, i, n, new_n;
 
     printf("Enter the initial size of the array: ");
     scanf("%d", &n);
@@ -216,14 +189,127 @@ int *arr, i, n, new_n;
     free(arr);
 
     return 0;
-
 }
-content_copy
-Use code with caution.
-C
-Conclusion
+```
 
-Dynamic memory allocation with malloc and realloc provides significant flexibility when working with data structures
+### Conclusion
+
+Dynamic memory allocation with `malloc` and `realloc` provides significant flexibility when working with data structures
 that can change size during program execution. By understanding their functionalities, potential pitfalls, and best
 practices, you can write more efficient and dynamic C programs. Always remember to free dynamically allocated memory
-using free to avoid memory leaks and ensure proper memory management.
+using `free` to avoid memory leaks and ensure proper memory management.
+
+## Dynamic Memory Problem Solving Examples
+
+Let's solidify our understanding of `malloc` and `realloc` with these illustrative examples:
+
+**Example 1: Dynamic Array Input**
+
+**Problem:** Write a program that reads an unknown number of integers from the user until they enter -1. Store these
+integers in a dynamically allocated array and then print the array.
+
+**Solution:**
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *arr = NULL;
+    int size = 0;
+    int capacity = 10; // Initial capacity
+    int num;
+
+    // Allocate initial memory
+    arr = (int*)malloc(capacity * sizeof(int));
+
+    printf("Enter integers (-1 to stop): ");
+    while (1) {
+        scanf("%d", &num);
+        if (num == -1)
+            break;
+
+        // Resize array if needed
+        if (size == capacity) {
+            capacity *= 2; // Double the capacity
+            int *temp = (int*)realloc(arr, capacity * sizeof(int));
+            arr = temp;
+        }
+        arr[size++] = num; // Add element to the array
+    }
+
+    printf("You entered: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    free(arr);
+    return 0;
+}
+```
+
+**Explanation:**
+
+1. We start with an initial array capacity and dynamically allocate memory using `malloc`.
+2. As the user inputs integers, we check if the array is full (`size == capacity`).
+3. If full, we double the capacity using `realloc` to accommodate more elements.
+4. The input is stored in the array, and the `size` is updated.
+5. Finally, the array is printed, and the allocated memory is freed using `free`.
+
+**Example 2: String Concatenation**
+
+**Problem:** Write a function that takes two strings as input and returns a new string that is the concatenation of the
+two input strings. Use dynamic memory allocation to store the concatenated string.
+
+**Solution:**
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* concatenateStrings(const char* str1, const char* str2) {
+    if (str1 == NULL || str2 == NULL) {
+        return NULL; // Handle NULL input
+    }
+
+    size_t len1 = strlen(str1);
+    size_t len2 = strlen(str2);
+    size_t totalLen = len1 + len2 + 1; // +1 for null terminator
+
+    char* result = (char*)malloc(totalLen * sizeof(char));
+    if (result == NULL) {
+        return NULL; // Handle allocation failure
+    }
+
+    strcpy(result, str1);  // Copy first string
+    strcat(result, str2);  // Concatenate second string
+
+    return result;
+}
+
+int main() {
+    char str1[] = "Hello, ";
+    char str2[] = "world!";
+    char *combinedStr = concatenateStrings(str1, str2);
+
+    if (combinedStr != NULL) {
+        printf("Concatenated string: %s\n", combinedStr);
+        free(combinedStr);
+    } 
+
+    return 0;
+}
+```
+
+**Explanation:**
+
+1. We calculate the total length required for the concatenated string.
+2. We allocate memory dynamically using `malloc` to store the new string.
+3. We use `strcpy` and `strcat` from the `string.h` library to copy and concatenate the strings.
+4. The function returns the pointer to the concatenated string.
+5. In `main`, we free the allocated memory after using the concatenated string.
+
+These examples demonstrate how `malloc` and `realloc` enable you to create dynamic data structures in C, making your
+programs more versatile and efficient.

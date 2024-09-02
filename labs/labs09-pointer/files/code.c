@@ -1,26 +1,36 @@
 #include <stdio.h>
-#include <string.h>
-void reverseString(char *str);
+#include <stdlib.h>
 
 int main() {
-    char str[60];
-    scanf("%[^\n]s", str);
-    reverseString(str);
-    printf("Reversed string: %s\n", str); // Output: olleh
-    return 0;
-}
+    int *arr = NULL;
+    int size = 0;
+    int capacity = 10; // Initial capacity
+    int num;
 
-void reverseString(char *str) {
-    char *start = str;          // Pointer to the beginning
-    char *end = str + strlen(str) - 1; // Pointer to the end (excluding null terminator)
-    char temp;
+    // Allocate initial memory
+    arr = (int*)malloc(capacity * sizeof(int));
 
-    while (start < end) {       // Loop until pointers cross or meet
-        temp = *start;          // Swap characters
-        *start = *end;
-        *end = temp;
+    printf("Enter integers (-1 to stop): ");
+    while (1) {
+        scanf("%d", &num);
+        if (num == -1)
+            break;
 
-        start++;              // Move pointers towards each other
-        end--;
+        // Resize array if needed
+        if (size == capacity) {
+            capacity *= 2; // Double the capacity
+            int *temp = (int*)realloc(arr, capacity * sizeof(int));
+            arr = temp;
+        }
+        arr[size++] = num; // Add element to the array
     }
+
+    printf("You entered: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    free(arr);
+    return 0;
 }
