@@ -1,36 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+char* concatenateStrings(const char* str1, const char* str2) {
+    size_t len1 = strlen(str1);
+    size_t len2 = strlen(str2);
+    size_t totalLen = len1 + len2 + 1; // +1 for null terminator
+
+    char* result = (char*)malloc(totalLen * sizeof(char));
+    if (result == NULL) {
+        return NULL; // Handle allocation failure
+    }
+
+    strcpy(result, str1);  // Copy first string
+    strcat(result, str2);  // Concatenate second string
+
+    return result;
+}
 
 int main() {
-    int *arr = NULL;
-    int size = 0;
-    int capacity = 10; // Initial capacity
-    int num;
+    char str1[] = "Hello, ";
+    char str2[] = "world!";
+    char *combinedStr = concatenateStrings(str1, str2);
 
-    // Allocate initial memory
-    arr = (int*)malloc(capacity * sizeof(int));
-
-    printf("Enter integers (-1 to stop): ");
-    while (1) {
-        scanf("%d", &num);
-        if (num == -1)
-            break;
-
-        // Resize array if needed
-        if (size == capacity) {
-            capacity *= 2; // Double the capacity
-            int *temp = (int*)realloc(arr, capacity * sizeof(int));
-            arr = temp;
-        }
-        arr[size++] = num; // Add element to the array
+    if (combinedStr != NULL) {
+        printf("Concatenated string: %s\n", combinedStr);
+        free(combinedStr);
     }
 
-    printf("You entered: ");
-    for (int i = 0; i < size; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    free(arr);
     return 0;
 }
