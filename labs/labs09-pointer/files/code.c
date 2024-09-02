@@ -2,35 +2,38 @@
 #include <stdlib.h>
 
 int main() {
-    int *arr, i, n, new_n;
+    char *str = NULL; // Start with a null pointer
+    int size, i = 0;
 
-    printf("Enter the initial size of the array: ");
-    scanf("%d", &n);
+    printf("Enter the initial size of the string: ");
+    scanf("%d", &size);
 
-    arr = (int*) malloc(n * sizeof(int));
-    if (arr == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        return 1;
+    // Allocate memory dynamically using malloc
+    str = (char*) malloc(size * sizeof(char));
+
+    printf("Enter the string: ");
+    // Consume the newline left in the buffer from previous scanf
+    getchar();
+
+    // Read characters one by one until newline is encountered
+    while ((str[i++] = getchar()) != '\n') {
+        if (i == size) {
+            // Reallocate memory if needed
+            size *= 2;
+            str = (char*) realloc(str, size * sizeof(char));
+            if (str == NULL) {
+                printf("Memory reallocation failed!\n");
+                return 1;
+            }
+        }
     }
 
-    // ... (Populate the array) ...
+    // Null-terminate the string
+    str[i - 1] = '\0';
 
-    printf("Enter the new size of the array: ");
-    scanf("%d", &new_n);
+    printf("You entered: %s\n", str);
 
-    // Reallocate memory for the new size
-    int *temp = (int*) realloc(arr, new_n * sizeof(int));
-
-    if (temp == NULL) {
-        fprintf(stderr, "Memory reallocation failed\n");
-        // 'arr' still points to the old memory block
-    } else {
-        arr = temp; // Update the pointer
-    }
-
-    // ... (Work with the resized array) ...
-
-    free(arr);
-
+    // Free the dynamically allocated memory
+    free(str);
     return 0;
 }
