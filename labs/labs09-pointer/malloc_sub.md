@@ -1,9 +1,15 @@
 ## The Crazy and Dangerous Side of malloc() in C
 
+### Memory Leak Use Cases
+
+https://youtu.be/JuqWp8WJjRk?si=1bw_KQTKijo7Tx3o&t=90
+
+### Malloc
+
 `malloc()` is a fundamental function in C for dynamic memory allocation. While powerful, it comes with inherent risks if
 not handled carefully. Here's a breakdown of some "crazy" and dangerous aspects:
 
-**1. Manual Memory Management:**
+**1. Memory Leaks (Manual Memory Management):**
 
 - **The Crazy:** Unlike garbage-collected languages, C requires you to explicitly free memory allocated with `malloc()`.
   Forgetting to free memory leads to **memory leaks**. These leaks accumulate over time, consuming resources and

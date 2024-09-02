@@ -2,7 +2,7 @@
 
 ## Lecture Slide
 
-- [lecture_slide.md](lecture_slide.md)
+- [lecture_slide.md](files/lecture_slide.md)
 - [PC-Chapter 7 - Lecture Note.pdf](files/PC-Chapter%207%20-%20Lecture%20Note.pdf)
 
 ## Dynamic Memory Allocation in C: Mastering `malloc` and `realloc`
