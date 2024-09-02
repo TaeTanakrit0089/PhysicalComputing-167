@@ -1,11 +1,15 @@
-# Lab07 Function
+# Lab09 Pointer
 
 ## Lecture Slide
 
 - [lecture_slide.md](lecture_slide.md)
 - [PC-Chapter 7 - Lecture Note.pdf](files/PC-Chapter%207%20-%20Lecture%20Note.pdf)
 
-# Pointer Examples
+## Dynamic Memory Allocation in C: Mastering `malloc` and `realloc`
+
+- [malloc.md](malloc.md)
+
+## Pointer Examples
 
 1. **Reversing String**
 

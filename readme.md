@@ -9,6 +9,7 @@
 - [Lab05: Loop Structure](labs/labs05-loop)
 - [Lab06: Array](labs/labs06-array)
 - [Lab07: Function](labs/labs07-function)
+- [Lab09: Pointer](labs/labs09-pointer)
 
 ## Resources
 

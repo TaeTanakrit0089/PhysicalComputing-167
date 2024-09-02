@@ -1,5 +1,7 @@
 ## Physical Computing ครั้งที่ 9: Pointers
 
+- [PC67-09_Pointer.pdf](files/PC67-09_Pointer.pdf)
+
 ### RAM ( หน่วยความจำ )
 
 RAM ประกอบด้วยส่วนที่เรียกว่า **Address (ตำแหน่ง)** และ **Values (ค่าข้อมูล)** โดย Address
