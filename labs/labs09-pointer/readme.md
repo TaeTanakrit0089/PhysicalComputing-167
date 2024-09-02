@@ -102,3 +102,98 @@
       pointer to the beginning of that block. It's crucial to multiply by `sizeof(type)` to allocate enough space for
       elements of the desired data type.
     - `free(ptr)`: Deallocates the memory previously allocated by `malloc()`, preventing memory leaks.
+
+## Debugging C Dynamic Array Resizing with GDB
+
+This document guides you through debugging the provided C code snippet using GDB. The code demonstrates resizing a
+dynamically allocated array using `realloc()`. We'll focus on inspecting memory, variable values, and potential issues.
+
+### 1. Compile for Debugging
+
+Compile the code with debugging symbols (`-g` flag):
+
+```bash
+gcc -g -o resize_array resize_array.c
+```
+
+### 2. Start GDB
+
+Load the program into GDB:
+
+```bash
+gdb resize_array
+```
+
+### 3. Set Breakpoints
+
+Set breakpoints at critical points to pause execution and examine the program state:
+
+```gdb
+break 12     // Break before memory allocation
+break 25     // Break before reallocation
+break 36     // Break before freeing memory
+```
+
+### 4. Run the Program
+
+Start running the program within GDB:
+
+```gdb
+run
+```
+
+### 5. Inspecting Memory Allocation (Breakpoint 1)
+
+The program pauses at the first breakpoint. Use the following commands:
+
+- `print n`: Display the initial array size.
+- `print arr`: Display the address where `arr` points (should be `NULL` initially).
+- `next`: Execute the `malloc()` call.
+- `print arr`: Observe that `arr` now points to a valid memory address.
+- `x/10i arr`: Examine the first 10 elements of the allocated memory (they might contain garbage values).
+
+### 6. Populate the Array
+
+Continue execution and provide input for populating the array:
+
+```gdb
+continue
+```
+
+- Input the initial size and array elements as prompted.
+
+### 7. Inspecting Reallocation (Breakpoint 2)
+
+The program pauses before `realloc()`. Use these commands:
+
+- `print new_n`: Display the desired new size.
+- `print arr`: Check the current memory address of `arr`.
+- `x/10i arr`: Examine the current array elements.
+- `next`: Execute the `realloc()` call.
+- `print temp`: Check the address returned by `realloc()`.
+    - If the address is different from `arr`, reallocation allocated a new memory block.
+    - If the address is the same, `realloc()` resized the existing block in place (if possible).
+- `print arr`: Observe if `arr` has been updated to point to the new memory location.
+- `x/10i arr`: Inspect the array elements, noting if data was preserved during reallocation.
+
+### 8. Handling Reallocation Failure
+
+- Intentionally provide a very large value for the new size to potentially trigger a `realloc()` failure.
+- If `temp` is `NULL` after `realloc()`, the code correctly handles the failure.
+
+### 9. Inspecting Memory Deallocation (Breakpoint 3)
+
+- `continue`: Resume execution until the `free()` call.
+- `print arr`: Observe the address being passed to `free()`.
+- `next`: Execute the `free()` call.
+
+### 10. Additional Debugging Tips
+
+- Use `watch arr` to monitor changes in `arr`'s value throughout the program.
+- Employ `step` instead of `next` to step into function calls (like `malloc()`, `realloc()`, `free()`) for deeper
+  analysis.
+- Leverage GDB's memory examination commands (`x`, `dump memory`) to analyze the heap and detect potential memory leaks
+  or corruption.
+
+By carefully stepping through the code with GDB, you can gain a thorough understanding of how dynamic memory allocation
+and reallocation work in C, and identify potential pitfalls in your code. 
