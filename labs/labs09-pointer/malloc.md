@@ -203,130 +203,6 @@ using `free` to avoid memory leaks and ensure proper memory management.
 
 Let's solidify our understanding of `malloc` and `realloc` with these illustrative examples:
 
-## Dynamic Memory Problem Solving Examples
-
-Let's solidify our understanding of `malloc` and `realloc` with these illustrative examples:
-
-**Example 1: Dynamic Array Input**
-
-**Problem:** Write a program that reads an unknown number of integers from the user until they enter -1. Store these
-integers in a dynamically allocated array and then print the array.
-
-**Solution:**
-
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-int main() {
-    int *arr = NULL;
-    int size = 0;
-    int capacity = 10; // Initial capacity
-    int num;
-
-    // Allocate initial memory
-    arr = (int*)malloc(capacity * sizeof(int));
-    if (arr == NULL) {
-        fprintf(stderr, "Memory allocation failed!\n");
-        return 1;
-    }
-
-    printf("Enter integers (-1 to stop): ");
-    while (1) {
-        scanf("%d", &num);
-        if (num == -1) {
-            break;
-        }
-
-        // Resize array if needed
-        if (size == capacity) {
-            capacity *= 2; // Double the capacity
-            int *temp = (int*)realloc(arr, capacity * sizeof(int));
-            if (temp == NULL) {
-                fprintf(stderr, "Memory reallocation failed!\n");
-                free(arr);
-                return 1;
-            }
-            arr = temp;
-        }
-
-        arr[size++] = num; // Add element to the array
-    }
-
-    printf("You entered: ");
-    for (int i = 0; i < size; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    free(arr); 
-    return 0;
-}
-```
-
-**Explanation:**
-
-1. We start with an initial array capacity and dynamically allocate memory using `malloc`.
-2. As the user inputs integers, we check if the array is full (`size == capacity`).
-3. If full, we double the capacity using `realloc` to accommodate more elements.
-4. The input is stored in the array, and the `size` is updated.
-5. Finally, the array is printed, and the allocated memory is freed using `free`.
-
-**Example 2: String Concatenation**
-
-**Problem:** Write a function that takes two strings as input and returns a new string that is the concatenation of the
-two input strings. Use dynamic memory allocation to store the concatenated string.
-
-**Solution:**
-
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-char* concatenateStrings(const char* str1, const char* str2) {
-    if (str1 == NULL || str2 == NULL) {
-        return NULL; // Handle NULL input
-    }
-
-    size_t len1 = strlen(str1);
-    size_t len2 = strlen(str2);
-    size_t totalLen = len1 + len2 + 1; // +1 for null terminator
-
-    char* result = (char*)malloc(totalLen * sizeof(char));
-    if (result == NULL) {
-        return NULL; // Handle allocation failure
-    }
-
-    strcpy(result, str1);  // Copy first string
-    strcat(result, str2);  // Concatenate second string
-
-    return result;
-}
-
-int main() {
-    char str1[] = "Hello, ";
-    char str2[] = "world!";
-    char *combinedStr = concatenateStrings(str1, str2);
-
-    if (combinedStr != NULL) {
-        printf("Concatenated string: %s\n", combinedStr);
-        free(combinedStr);
-    } 
-
-    return 0;
-}
-```
-
-**Explanation:**
-
-1. We calculate the total length required for the concatenated string.
-2. We allocate memory dynamically using `malloc` to store the new string.
-3. We use `strcpy` and `strcat` from the `string.h` library to copy and concatenate the strings.
-4. The function returns the pointer to the concatenated string.
-5. In `main`, we free the allocated memory after using the concatenated string.
-   Here are some even simpler examples focusing on `malloc` and `realloc`, gradually increasing in complexity:
-
 **Example 1: Allocating space for a single integer**
 
 ```c
@@ -339,12 +215,6 @@ int main() {
 
   // Allocate memory for one integer
   ptr = (int*) malloc(sizeof(int));
-
-  // Check if allocation was successful
-  if (ptr == NULL) {
-    printf("Memory allocation failed!\n");
-    return 1; // Indicate an error
-  }
 
   // Use the allocated memory
   *ptr = 10;
@@ -371,38 +241,34 @@ int main() {
 #include <stdlib.h>
 
 int main() {
-  int size, i;
-  int *arr;
+    int size, i;
+    int *arr;
 
-  printf("Enter the desired size of the array: ");
-  scanf("%d", &size);
+    printf("Enter the desired size of the array: ");
+    scanf("%d", &size);
 
-  // Allocate memory for the array
-  arr = (int*) malloc(size * sizeof(int));
+    // Allocate memory for the array
+    arr = (int*) malloc(size * sizeof(int));
 
-  // Error handling
-  if (arr == NULL) {
-    printf("Memory allocation failed!\n");
-    return 1;
-  }
+    // Populate the array
+    for (i = 0; i < size; i++)
+        arr[i] = i + 1;
 
-  // Populate the array
-  for (i = 0; i < size; i++) {
-    arr[i] = i + 1;
-  }
+    // Print the array in reverse using pointers
+    printf("Array elements in reverse: ");
+    int *ptr = arr + size - 1;  // Point to the last element of the array
+    for (i = 0; i < size; i++) {
+        printf("%d ", *ptr);
+        ptr--;  // Move the pointer to the previous element
+    }
+    printf("\n");
 
-  // Print the array
-  printf("Array elements: ");
-  for (i = 0; i < size; i++) {
-    printf("%d ", arr[i]);
-  }
-  printf("\n");
+    // Free the allocated memory
+    free(arr);
 
-  // Free the allocated memory
-  free(arr);
-
-  return 0;
+    return 0;
 }
+
 ```
 
 **Explanation:**
@@ -413,61 +279,6 @@ int main() {
 * Again, `free` is used to release the allocated memory.
 
 **Example 3: Resizing an array using realloc**
-
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-int main() {
-  int *arr = NULL;
-  int size = 2; 
-  int i;
-
-  // Initial allocation
-  arr = (int*) malloc(size * sizeof(int));
-
-  // Error handling
-  if (arr == NULL) {
-    printf("Memory allocation failed!\n");
-    return 1;
-  }
-
-  printf("Initial array: ");
-  for (i = 0; i < size; i++) {
-    arr[i] = i + 10;
-    printf("%d ", arr[i]);
-  }
-  printf("\n");
-
-  // Resize the array to hold 5 elements
-  size = 5;
-  arr = (int*) realloc(arr, size * sizeof(int));
-
-  // Error handling
-  if (arr == NULL) {
-    printf("Memory reallocation failed!\n");
-    return 1; 
-  }
-
-  printf("Resized array: ");
-  for (i = 0; i < size; i++) {
-    printf("%d ", arr[i]);
-  } 
-  printf("\n");
-
-  free(arr);
-  return 0;
-}
-```
-
-**Explanation:**
-
-* We initially allocate an array of size 2.
-* We use `realloc` to resize the array to hold 5 integers.
-* Notice that `realloc` can potentially move the array to a new memory location, so we update `arr` with the returned
-  pointer.
-
-**Example 4: Dynamic Array Input**
 
 **Problem:** Write a program that reads an unknown number of integers from the user until they enter -1. Store these
 integers in a dynamically allocated array and then print the array.

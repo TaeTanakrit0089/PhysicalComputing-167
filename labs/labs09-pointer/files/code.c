@@ -1,32 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-char* concatenateStrings(const char* str1, const char* str2) {
-    size_t len1 = strlen(str1);
-    size_t len2 = strlen(str2);
-    size_t totalLen = len1 + len2 + 1; // +1 for null terminator
-
-    char* result = (char*)malloc(totalLen * sizeof(char));
-    if (result == NULL) {
-        return NULL; // Handle allocation failure
-    }
-
-    strcpy(result, str1);  // Copy first string
-    strcat(result, str2);  // Concatenate second string
-
-    return result;
-}
 
 int main() {
-    char str1[] = "Hello, ";
-    char str2[] = "world!";
-    char *combinedStr = concatenateStrings(str1, str2);
+    int size, i;
+    int *arr;
 
-    if (combinedStr != NULL) {
-        printf("Concatenated string: %s\n", combinedStr);
-        free(combinedStr);
+    printf("Enter the desired size of the array: ");
+    scanf("%d", &size);
+
+    // Allocate memory for the array
+    arr = (int*) malloc(size * sizeof(int));
+
+    // Populate the array
+    for (i = 0; i < size; i++)
+        arr[i] = i + 1;
+
+    // Print the array in reverse using pointers
+    printf("Array elements in reverse: ");
+    int *ptr = arr + size - 1;  // Point to the last element of the array
+    for (i = 0; i < size; i++) {
+        printf("%d ", *ptr);
+        ptr--;  // Move the pointer to the previous element
     }
+    printf("\n");
+
+    // Free the allocated memory
+    free(arr);
 
     return 0;
 }
