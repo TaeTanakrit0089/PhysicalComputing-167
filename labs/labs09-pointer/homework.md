@@ -1,6 +1,108 @@
 # Homeworks
 
-## HW 09.01 - Reversing String using Pointer
+## HW 09.01 - Traversing Through String with Pointer
+
+This tutorial explains a C program that takes a string of length `<n>` and an integer `<m>` as input and prints every
+`<m>`-th character of the string.
+
+### Code Explanation
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, m, i;
+    char *str, *ptr;
+
+    // Get the string length (n) and interval (m) from the user
+    printf("Enter the length of the string (n): ");
+    scanf("%d", &n);
+    printf("Enter the value of m: ");
+    scanf("%d", &m);
+
+    // Allocate memory for the string dynamically
+    str = (char *)malloc((n + 1) * sizeof(char));
+    if (str == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    // Get the string from the user
+    printf("Enter the string: ");
+    scanf(" %[^\n]s", str);
+
+    // Print every m-th character
+    ptr = str; // Initialize a pointer to the beginning of the string
+    printf("Characters at every %d positions:\n", m);
+    for (i = 0; i < (n/m); i++) {
+        printf("%c", *ptr);
+        ptr += m; // Move the pointer to the next character
+    }
+
+    printf("\n");
+    // Free the allocated memory
+    free(str);
+
+    return 0;
+}
+```
+
+### Step-by-Step Breakdown
+
+1. **Include Header Files:**
+    - `stdio.h`: Provides standard input/output functions like `printf` and `scanf`.
+    - `stdlib.h`: Provides memory allocation functions like `malloc` and `free`.
+
+2. **Declare Variables:**
+    - `n`: Stores the length of the string.
+    - `m`: Stores the interval for printing characters.
+    - `i`: Loop counter variable.
+    - `str`: Character pointer to store the string.
+    - `ptr`:  Character pointer used for traversing the string.
+
+3. **Get Input from the User:**
+    - The program prompts the user to enter the length of the string (`n`) and the interval (`m`).
+
+4. **Dynamic Memory Allocation:**
+    - Memory is allocated dynamically for the string using `malloc`.
+    - The size allocated is `(n + 1)` to accommodate the string characters and the null terminator (`\0`).
+    - The `if` statement checks if memory allocation was successful. If not, an error message is printed, and the
+      program exits.
+
+5. **Get String Input:**
+    - The program prompts the user to enter the string.
+    - `scanf(" %[^\n]s", str);` reads the entire string, including spaces, until a newline character is encountered. The
+      leading space in the format specifier consumes any leading whitespace.
+
+6. **Print Every M-th Character:**
+    - `ptr` is initialized to point to the beginning of the string (`str`).
+    - A `for` loop iterates from 0 to `(n/m)`, ensuring that characters within the string length are accessed.
+        - Inside the loop:
+            - `printf("%c", *ptr);` prints the character pointed to by `ptr`.
+            - `ptr += m;` moves the pointer `m` positions ahead, effectively skipping over characters.
+
+7. **Free Allocated Memory:**
+    - `free(str);` deallocates the memory previously allocated for the string, preventing memory leaks.
+
+8. **Return 0:**
+    - Indicates successful program execution.
+
+### Example
+
+Let's assume the user inputs the string "HelloWorld" (`n = 10`) and the interval `m = 3`. The program will print the
+characters at positions 0, 3, 6, and 9:
+
+```
+Hlod
+```
+
+This tutorial explained a C program that efficiently extracts and prints every `<m>`-th character of a string,
+demonstrating dynamic memory allocation and string manipulation in C.
+
+---
+
+## HW 09.02 - Reversing String using Pointer
 
 ### โจทย์ (Problem Statement)
 
@@ -97,7 +199,7 @@ This program demonstrates how to reverse a string using pointers without relying
 dynamic memory allocation and pointer manipulation in C.
 ---
 
-## HW 09.02 - Character Counter
+## HW 09.03 - Character Counter
 
 ### โจทย์ (Problem Statement)
 
@@ -151,7 +253,7 @@ int main() {
 
 ---
 
-## HW 09.03 - String Collector
+## HW 09.04 - String Collector
 
 This tutorial demonstrates how to construct a string in C by continuously reading characters from the input until a '-'
 character is encountered. We'll achieve this without using arrays, relying solely on pointers for memory management.
