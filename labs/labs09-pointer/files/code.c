@@ -1,36 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Comparison function for qsort (ascending order)
+int compare(const void *a, const void *b);
+
 int main() {
-    int size, i;
-    int *arr;
+    int *arr = NULL;
+    int size = 0;
+    int capacity = 10; // Initial capacity
+    int num;
 
-    scanf("%d", &size);
+    // Allocate initial memory
+    arr = (int*)malloc(capacity * sizeof(int));
 
-    // Allocate memory for the array
-    arr = (int*) malloc(size * sizeof(int));
+    while (1) {
+        scanf(" %d", &num);
+        if (num == -1)
+            break;
 
-    // Populate the array
-    for (i = 0; i < size; i++)
-        *(arr + i) = i + 1;
+        // Resize array if needed
+        if (size >= capacity) {
+            capacity *= 2; // Double the capacity
+            int *temp = (int*) realloc(arr, capacity * sizeof(int));
+            arr = temp;
+        }
 
-    int *ptr = arr;  // Point to the first element of the array
+        // Add element to the array
+        *(arr + size++) = num;
+    }
 
-    // Print the array in order using pointers
-    printf("Array elements in order: ");
+    printf("You entered: ");
+
+    int *ptr = arr;
     while (ptr < (arr+size))
         printf("%d ", *ptr++);
-
     printf("\n");
 
-    // Print the array in reverse using pointers
-    printf("Array elements in reverse: ");
-    while (ptr > arr)
-        printf("%d ", *--ptr);  // Move the pointer to the previous element
+    // Sort the array using qsort
+    qsort(arr, size, sizeof(int), compare);
+
+    // Print to sorted array
+    ptr = arr;
+    printf("Sorted array: ");
+    while (ptr < (arr+size))
+        printf("%d ", *ptr++);
     printf("\n");
 
-    // Free the allocated memory
     free(arr);
-
     return 0;
+}
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
 }

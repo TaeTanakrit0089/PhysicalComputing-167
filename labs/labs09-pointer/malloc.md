@@ -267,10 +267,8 @@ int main() {
     // Print the array in reverse using pointers
     printf("Array elements in reverse: ");
     int *ptr = arr + size - 1;  // Point to the last element of the array
-    for (i = 0; i < size; i++) {
-        printf("%d ", *ptr);
-        ptr--;  // Move the pointer to the previous element
-    }
+    while (ptr > arr)
+        printf("%d ", *--ptr);  // Move the pointer to the previous element
     printf("\n");
 
     // Free the allocated memory
@@ -331,6 +329,9 @@ integers in a dynamically allocated array and then print the array.
 #include <stdio.h>
 #include <stdlib.h>
 
+// Comparison function for qsort (ascending order)
+int compare(const void *a, const void *b);
+
 int main() {
     int *arr = NULL;
     int size = 0;
@@ -350,12 +351,20 @@ int main() {
         if (size == capacity) {
             capacity *= 2; // Double the capacity
             int *temp = (int*)realloc(arr, capacity * sizeof(int));
+            if (temp == NULL) { // Check for realloc failure
+                printf("Memory allocation failed!\n");
+                free(arr);
+                return 1;
+            }
             arr = temp;
         }
         arr[size++] = num; // Add element to the array
     }
 
-    printf("You entered: ");
+    // Sort the array using qsort
+    qsort(arr, size, sizeof(int), compare);
+
+    printf("Sorted array: ");
     for (int i = 0; i < size; i++) {
         printf("%d ", arr[i]);
     }
@@ -364,15 +373,96 @@ int main() {
     free(arr);
     return 0;
 }
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
 ```
 
 **Explanation:**
 
-1. We start with an initial array capacity and dynamically allocate memory using `malloc`.
-2. As the user inputs integers, we check if the array is full (`size == capacity`).
-3. If full, we double the capacity using `realloc` to accommodate more elements.
-4. The input is stored in the array, and the `size` is updated.
-5. Finally, the array is printed, and the allocated memory is freed using `free`.
+This code demonstrates dynamic memory allocation in C, along with sorting an array of integers using the `qsort`
+function. Here's a breakdown:
+
+1. Header Files:
+
+    - `#include <stdio.h>`: Provides standard input/output functions like `printf` and `scanf`.
+    - `#include <stdlib.h>`:  Includes functions for memory allocation (`malloc`, `realloc`, `free`) and sorting (
+      `qsort`).
+
+2. `compare` Function (For Sorting):
+
+    - `int compare(const void *a, const void *b)`: This function is crucial for `qsort`. It compares two elements of the
+      array and determines their relative order.
+        - It takes two void pointers (`a` and `b`) because `qsort` works with any data type.
+        - Inside the function:
+            - `(int *)a` and `(int *)b`: Cast the void pointers to integer pointers.
+            - `*(int *)a` and `*(int *)b`: Dereference the pointers to get the actual integer values.
+            - The difference `(*(int *)a - *(int *)b)` is returned:
+                - Negative: if `a` should come before `b`
+                - Zero: if `a` and `b` are equal
+                - Positive: if `a` should come after `b`
+
+3. `main` Function:
+
+    - `int *arr = NULL;`: Declares an integer pointer `arr`, initially set to `NULL`. This will store the address of our
+      dynamic array.
+    - `int size = 0;`: Keeps track of the number of elements currently in the array.
+    - `int capacity = 10;`: The initial capacity (number of elements the array can hold).
+
+4. Memory Allocation:
+
+    - `arr = (int*)malloc(capacity * sizeof(int));`: Allocates a block of memory large enough to store `capacity` (10)
+      integers.
+        - `malloc()` returns a void pointer, so we cast it to `(int*)` to store it in `arr`.
+
+5. Input Loop:
+
+    - `while (1) { ... }`: An infinite loop that continues until the user enters `-1`.
+        - `scanf("%d", &num);`: Reads an integer from the user and stores it in the `num` variable.
+        - `if (num == -1) break;`: If the user enters `-1`, the loop breaks.
+
+6. Resizing the Array:
+
+    - `if (size == capacity) { ... }`: Checks if the array is full (number of elements `size` equals the `capacity`).
+        - `capacity *= 2;`: If full, the capacity is doubled.
+        - `int *temp = (int*)realloc(arr, capacity * sizeof(int));`:  `realloc` attempts to resize the memory block
+          pointed
+          to by `arr` to the new `capacity`.
+            - If successful:  `realloc` returns the pointer to the potentially resized block.
+            - If unsuccessful (memory allocation fails): `realloc` returns `NULL`.
+        - Error Handling: We check if `temp` is `NULL`. If it is, an error message is printed, the previously allocated
+          memory is freed (`free(arr);`), and the program exits with an error code (`return 1;`).
+        - `arr = temp;`: Update `arr` to point to the potentially resized memory block.
+    - `arr[size++] = num;`: Adds the entered number (`num`) to the array at the next available index (`size`) and then
+      increments `size`.
+
+7. Printing the Original Array:
+
+    - The code uses a `for` loop to iterate through the elements of the array (`arr`) from index 0 to `size - 1` and
+      prints
+      each element.
+
+8. Sorting with `qsort`:
+
+    - `qsort(arr, size, sizeof(int), compare);`: Sorts the array `arr` in ascending order.
+        - `arr`: The array to sort.
+        - `size`: Number of elements.
+        - `sizeof(int)`: Size of each element in bytes.
+        - `compare`: Pointer to the comparison function.
+
+9. Printing the Sorted Array:
+
+    - The code iterates through the now-sorted array and prints each element, similar to printing the original array.
+
+10. Freeing Memory:
+
+    - `free(arr);`:  Releases the dynamically allocated memory pointed to by `arr` back to the operating system. This is
+      essential to prevent memory leaks.
+
+11. Return 0:
+
+    - Indicates that the program executed successfully.
 
 These examples illustrate the basic use of `malloc` and `realloc`. By mastering these functions, you gain the power to
 manage memory dynamically, leading to more efficient and flexible C programs!
