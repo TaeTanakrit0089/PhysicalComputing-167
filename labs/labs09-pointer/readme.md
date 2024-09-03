@@ -102,14 +102,6 @@ pointed to by these pointers, effectively swapping the contents of the variables
 Practice working with pointers, and you'll gain a deeper understanding of how C interacts with memory, leading to more
 efficient and powerful programs.
 
-## Dynamic Memory Allocation in C: Mastering `malloc` and `realloc`
-
-- [malloc.md](malloc.md)
-
-## Dynamic Memory Allocation in C: Mastering `malloc` and `realloc`
-
-- [malloc.md](malloc.md)
-
 ## Pointer Examples
 
 1. **Reversing String**
@@ -204,3 +196,6 @@ efficient and powerful programs.
       elements of the desired data type.
     - `free(ptr)`: Deallocates the memory previously allocated by `malloc()`, preventing memory leaks.
 
+## Dynamic Memory Allocation in C: Mastering `malloc` and `realloc`
+
+- [malloc.md](malloc.md)

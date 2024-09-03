@@ -56,13 +56,13 @@ void* malloc(size_t size);
    You can now use the pointer to access and modify the allocated memory:
    ```c
    for (int i = 0; i < 10; i++) {
-       *(ptr+i) = i * i;        // Assign values to the array using pointer
-       ptr[i] = i * i;          // Assign values to the array using array
+       *(ptr+i) = i * i;        // Assign values using pointer
+       ptr[i] = i * i;          // Assign values using array
    }
    
    for (int i = 0; i < 10; i++) {
-        printf("%d ", *(ptr+i));    // Access values to the array using pointer
-        printf("%d ", ptr[i]);      // Access values to the array using array
+        printf("%d ", *(ptr+i));    // Access values using pointer
+        printf("%d ", ptr[i]);      // Access values using array
    }
    ```
     1. **`*(ptr + i)`: Pointer Arithmetic and Dereferencing**
@@ -96,17 +96,17 @@ int main() {
    int *ptr = (int*) malloc(10 * sizeof(int));
 
    for (int i = 0; i < 10; i++) {
-       *(ptr+i) = i * i;        // Assign values to the array using pointer arithmetic
-       ptr[i] = i * i;          // Assign values to the array using array indexing
+       *(ptr+i) = i * i;        // Assign values using pointer arithmetic
+       ptr[i] = i * i;          // Assign values using array indexing
    }
 
    for (int i = 0; i < 10; i++) {
-        printf("%d ", *(ptr+i));    // Access values to the array using pointer arithmetic
-        printf("%d ", ptr[i]);      // Access values to the array using array indexing
+        printf("%d ", *(ptr+i));    // Access values using pointer arithmetic
+        // printf("%d ", ptr[i]);   // Access values using array indexing
     }
-   
+
    free(ptr);
-   
+
    printf("\n");
    return 0;
 }
@@ -264,11 +264,11 @@ int main() {
     for (i = 0; i < size; i++)
         arr[i] = i + 1;
 
-    // Print the array in reverse using pointers
+   // Print the array in reverse using pointers
     printf("Array elements in reverse: ");
     int *ptr = arr + size - 1;  // Point to the last element of the array
-    while (ptr > arr)
-        printf("%d ", *--ptr);  // Move the pointer to the previous element
+    while (ptr >= arr)
+        printf("%d ", *ptr--);  // Move the pointer to the previous element
     printf("\n");
 
     // Free the allocated memory

@@ -1,0 +1,9 @@
+void swap(int *a=AA, int *b=BB)
+	int temp = *a:10;
+	*a = *b:20 ;
+	*b = temp:10 ;
+
+int main() {
+  int x = 10, y = 20;
+  swap(&x, &y);
+}
