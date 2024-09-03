@@ -95,6 +95,61 @@ Reversed string: !dlroW olleH
 
 This program demonstrates how to reverse a string using pointers without relying on arrays, highlighting key concepts of
 dynamic memory allocation and pointer manipulation in C.
+---
+
+## HW 09.02 - Character Counter
+
+### โจทย์ (Problem Statement)
+
+จงเขียนโปรแกรมรับข้อความ แล้วนับจำนวนตัวอักษรพิมพ์เล็ก พิมพ์ใหญ่ และตัวเลขในข้อความ (Write a program that takes a
+string as input and counts the number of lowercase letters, uppercase letters, and digits in the string).
+
+**ข้อห้าม:** ห้ามใช้ Array โดยเด็ดขาด (Do not use arrays).
+
+### Solution and Explanation
+
+```c
+#include <stdio.h>
+
+int main() {
+  char *str, *p;
+  int lowercase = 0, uppercase = 0, digits = 0;
+
+  // Allocate memory for the string dynamically
+  str = (char *)malloc(100 * sizeof(char)); // Assuming a maximum of 100 characters
+  if (str == NULL) {
+    printf("Memory allocation failed!\n");
+    return 1;
+  }
+
+  printf("Enter a string: ");
+  scanf(" %[^\n]s", str); // Read the string with spaces
+
+  // Initialize the pointer to traverse the string
+  p = str;
+
+  while (*p != '\0') {
+    if (*p >= 'a' && *p <= 'z') {
+      lowercase++;
+    } else if (*p >= 'A' && *p <= 'Z') {
+      uppercase++;
+    } else if (*p >= '0' && *p <= '9') {
+      digits++;
+    }
+    p++; // Move the pointer to the next character
+  }
+
+  printf("Lowercase letters: %d\n", lowercase);
+  printf("Uppercase letters: %d\n", uppercase);
+  printf("Digits: %d\n", digits);
+
+  free(str); // Free the allocated memory
+
+  return 0;
+}
+```
+
+---
 
 ## HW 09.03 - String Collector
 
