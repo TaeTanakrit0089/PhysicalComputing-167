@@ -1,35 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main() {
-    int n, m, i;
-    char *str, *ptr;
+    char *str;
 
-    // Get the string length (n) and interval (m) from the user
-    scanf("%d", &n);
-    scanf("%d", &m);
+    // Allocate memory for the string "Porsche Arnold" (including null terminator)
+    str = (char*) malloc(15 * sizeof(char));
 
-    // Allocate memory for the string dynamically
-    str = (char *)malloc((n + 1) * sizeof(char));
-    if (str == NULL) {
-        printf("Memory allocation failed!\n");
-        return 1;
-    }
+    // Copy "Porsche Arnold" into the allocated memory
+    strcpy(str, "Porsche Arnold");
 
-    // Get the string from the user
-    scanf(" %[^\n]s", str);
+    // Print the string
+    char *ptr = str;
+    while (*ptr)
+        printf("%c", *ptr++);
+    // printf("%s", str);
 
-    // Print every m-th character
-    ptr = str; // Initialize a pointer to the beginning of the string
-    for (i = 0; i < (n/m); i++) {
-//        if (*ptr == '\0') continue;
-        printf("%c", *ptr);
-        ptr += m; // Move the pointer to the next character
-    }
-
-    printf("\n");
     // Free the allocated memory
     free(str);
 
+    printf("\n");
     return 0;
 }

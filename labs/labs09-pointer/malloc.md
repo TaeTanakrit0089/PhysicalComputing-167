@@ -112,6 +112,8 @@ int main() {
 }
 ```
 
+---
+
 ### 2. `realloc`: Resizing Existing Memory Blocks
 
 The `realloc` function allows you to resize a previously allocated memory block. This is particularly useful for dynamic
@@ -171,7 +173,7 @@ int main() {
     for (int i = 0; i < 10; i++)
         *(ptr + i) = i * i;             // Assign values using pointer arithmetic
 
-    printf("Initial array:\n");
+    printf("Initial array (%p):\t\t\t", ptr);
     for (int i = 0; i < 10; i++)
         printf("%d ", *(ptr + i));      // Access values using pointer arithmetic
     printf("\n");
@@ -183,12 +185,17 @@ int main() {
     for (int i = 10; i < 15; i++)
         *(ptr + i) = i * i;             // Assign values using pointer arithmetic
 
-    printf("Array after reallocation:\n");
+    printf("Array after reallocation (%p):\t", ptr);
     for (int i = 0; i < 15; i++)
         printf("%d ", *(ptr + i));      // Access values using pointer arithmetic
     printf("\n");
 
     free(ptr);
+
+    printf("Array after freed (%p):\t\t", ptr);
+    for (int i = 0; i < 15; i++)
+        printf("%d ", *(ptr + i));      // Access values using pointer arithmetic
+    printf("\n");
     return 0;
 }
 ```
@@ -282,7 +289,38 @@ int main() {
 * Again, `free` is used to release the allocated memory.
 
 ---
-**Example 3: Resizing an array using realloc**
+**Example 3: Traversing through String `Porsche Arnold` with pointer**
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    char *str;
+
+    // Allocate memory for the string "Porsche Arnold" (including null terminator)
+    str = (char*) malloc(15 * sizeof(char));
+
+    // Copy "Porsche Arnold" into the allocated memory
+    strcpy(str, "Porsche Arnold");
+
+    // Print the string
+    char *ptr = str;
+    while (*ptr)
+        printf("%c", *ptr++);
+    // printf("%s", str);
+
+    // Free the allocated memory
+    free(str);
+
+    printf("\n");
+    return 0;
+}
+```
+
+---
+**Example 4: Resizing an array using realloc**
 
 **Problem:** Write a program that reads an unknown number of integers from the user until they enter -1. Store these
 integers in a dynamically allocated array and then print the array.
