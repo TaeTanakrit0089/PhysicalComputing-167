@@ -2,38 +2,32 @@
 #include <stdlib.h>
 
 int main() {
-    char *str = NULL; // Start with a null pointer
-    int size, i = 0;
+  char c, *str, *temp;
+  int len = 0;
 
-    printf("Enter the initial size of the string: ");
-    scanf("%d", &size);
+  str = (char *)malloc(sizeof(char));
 
-    // Allocate memory dynamically using malloc
-    str = (char*) malloc(size * sizeof(char));
+  do {
+    scanf(" %c", &c);
 
-    printf("Enter the string: ");
-    // Consume the newline left in the buffer from previous scanf
-    getchar();
+    if (c != '-') {
+      len++;
 
-    // Read characters one by one until newline is encountered
-    while ((str[i++] = getchar()) != '\n') {
-        if (i == size) {
-            // Reallocate memory if needed
-            size *= 2;
-            str = (char*) realloc(str, size * sizeof(char));
-            if (str == NULL) {
-                printf("Memory reallocation failed!\n");
-                return 1;
-            }
-        }
+      temp = (char *)realloc(str, (len + 1) * sizeof(char));
+
+      str = temp;
+
+      // Added charactor into string
+      *(str + len - 1) = c;
+      *(str + len) = '\0';
     }
 
-    // Null-terminate the string
-    str[i - 1] = '\0';
+  } while (c != '-');
 
-    printf("You entered: %s\n", str);
+  printf("%s\n", str);
 
-    // Free the dynamically allocated memory
-    free(str);
-    return 0;
+  // Free up the memory
+  free(str);
+
+  return 0;
 }
