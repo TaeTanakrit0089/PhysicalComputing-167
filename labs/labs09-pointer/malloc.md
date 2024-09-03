@@ -56,9 +56,30 @@ void* malloc(size_t size);
    You can now use the pointer to access and modify the allocated memory:
    ```c
    for (int i = 0; i < 10; i++) {
-       ptr[i] = i * i; // Assign values to the array
+       *(ptr+i) = i * i;        // Assign values to the array using pointer
+       ptr[i] = i * i;          // Assign values to the array using array
+   }
+   
+   for (int i = 0; i < 10; i++) {
+        printf("%d ", *(ptr+i));    // Access values to the array using pointer
+        printf("%d ", ptr[i]);      // Access values to the array using array
    }
    ```
+    1. **`*(ptr + i)`: Pointer Arithmetic and Dereferencing**
+
+        - **`ptr + i`**:  This part performs pointer arithmetic. It calculates the memory address of the `i`-th element
+          relative to the starting address stored in `ptr`. The calculation considers the data type `ptr` points to (in
+          this
+          case, `int`), so the address is incremented by `i * sizeof(int)`.
+        - **`*(...)`**: The asterisk dereferences the calculated address. It means "go to the memory location pointed to
+          by
+          `(ptr + i)` and retrieve the value stored there."
+
+    2. **`ptr[i]`: Array Indexing**
+
+        - This notation is more concise and reads like accessing an array element directly.
+        - However, under the hood, C translates this notation into pointer arithmetic. `ptr[i]` is equivalent to
+          `*(ptr + i)`.
 5. **Free the allocated memory:**
    After you're done using the allocated memory, it's crucial to free it using `free` to avoid memory leaks:
    ```c
@@ -72,37 +93,22 @@ void* malloc(size_t size);
 #include <stdlib.h>
 
 int main() {
-    int n, i;
-    int *arr;
+   int *ptr = (int*) malloc(10 * sizeof(int));
 
-    printf("Enter the number of elements: ");
-    scanf("%d", &n);
+   for (int i = 0; i < 10; i++) {
+       *(ptr+i) = i * i;        // Assign values to the array using pointer arithmetic
+       ptr[i] = i * i;          // Assign values to the array using array indexing
+   }
 
-    // Allocate memory for 'n' integers
-    arr = (int*) malloc(n * sizeof(int)); 
-
-    if (arr == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        return 1;
+   for (int i = 0; i < 10; i++) {
+        printf("%d ", *(ptr+i));    // Access values to the array using pointer arithmetic
+        printf("%d ", ptr[i]);      // Access values to the array using array indexing
     }
-
-    // Read and store elements
-    printf("Enter %d integers:\n", n);
-    for (i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
-
-    // Print the array elements
-    printf("Array elements are: ");
-    for (i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-
-    // Free the allocated memory
-    free(arr);
-
-    return 0;
+   
+   free(ptr);
+   
+   printf("\n");
+   return 0;
 }
 ```
 
@@ -135,6 +141,7 @@ void* realloc(void* ptr, size_t new_size);
    if (new_ptr == NULL) {
        // Handle reallocation failure
        fprintf(stderr, "Memory reallocation failed!\n");
+   
        // Important: 'ptr' still points to the old memory block!
        // Do not free 'ptr' here if reallocation failed.
        exit(1); 
@@ -158,36 +165,30 @@ void* realloc(void* ptr, size_t new_size);
 #include <stdlib.h>
 
 int main() {
-    int *arr, i, n, new_n;
+    int *ptr = NULL;
+    ptr = (int*) realloc(ptr, 15 * sizeof(int));
 
-    printf("Enter the initial size of the array: ");
-    scanf("%d", &n);
+    for (int i = 0; i < 10; i++)
+        *(ptr + i) = i * i;             // Assign values using pointer arithmetic
 
-    arr = (int*) malloc(n * sizeof(int));
-    if (arr == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        return 1;
-    }
+    printf("Initial array:\n");
+    for (int i = 0; i < 10; i++)
+        printf("%d ", *(ptr + i));      // Access values using pointer arithmetic
+    printf("\n");
 
-    // ... (Populate the array) ...
+    // Reallocate memory for 15 integers
+    ptr = (int*) realloc(ptr, 15 * sizeof(int));
 
-    printf("Enter the new size of the array: ");
-    scanf("%d", &new_n);
+    // Assign values to the newly allocated memory
+    for (int i = 10; i < 15; i++)
+        *(ptr + i) = i * i;             // Assign values using pointer arithmetic
 
-    // Reallocate memory for the new size
-    int *temp = (int*) realloc(arr, new_n * sizeof(int));
+    printf("Array after reallocation:\n");
+    for (int i = 0; i < 15; i++)
+        printf("%d ", *(ptr + i));      // Access values using pointer arithmetic
+    printf("\n");
 
-    if (temp == NULL) {
-        fprintf(stderr, "Memory reallocation failed\n");
-        // 'arr' still points to the old memory block
-    } else {
-        arr = temp; // Update the pointer 
-    }
-
-    // ... (Work with the resized array) ...
-
-    free(arr);
-
+    free(ptr);
     return 0;
 }
 ```
