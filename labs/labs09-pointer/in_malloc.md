@@ -130,34 +130,40 @@ In this example:
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, char *argv[]) {
-    // Check if the user provided a string argument
-    if (argc < 2) {
-        printf("Usage: %s <string>\n", argv[0]);
-        return 1;
-    }
-
+void string_malloc(char input[]) {
     // Get the length of the input string
-    size_t length = strlen(argv[1]);
+    int length = strlen(input);
     
     // Allocate memory to hold the input string plus null terminator
     char *str = (char *)malloc((length + 1) * sizeof(char));
     if (str == NULL) {
         printf("Memory allocation failed\n");
-        return 1;
+        return;
     }
 
     // Copy the input string into the allocated memory
-    strcpy(str, argv[1]);
+    strcpy(str, input);
 
     // Print the string
     printf("You entered: %s\n", str);
 
     // Free the allocated memory
     free(str);
+}
+
+int main() {
+    char input[100];
+
+    // Prompt the user for input
+    printf("Enter a string: ");
+    scanf("%99s", input); // Read up to 99 characters into input array
+
+    // Call the function with the user input
+    string_malloc(input);
 
     return 0;
 }
+
 
 ```
 ## Fixed-size Array
