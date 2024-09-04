@@ -2,8 +2,8 @@
 
 ## Lecture Slide
 
-- [lecture_slide.md](files/lecture_slide.md)
-- [PC-Chapter 7 - Lecture Note.pdf](files/PC-Chapter%207%20-%20Lecture%20Note.pdf)
+- [lecture-slide.md](lecture-slide.md)
+- [PC67-09_Pointer.pdf](files/PC67-09_Pointer.pdf)
 
 ## Pointers
 
