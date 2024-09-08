@@ -1,6 +1,13 @@
-## Structs in C: Your Guide to Custom Data Structures
+## Lab 10: C Struct
 
 This tutorial introduces you to `struct`, a powerful tool in C for organizing your data effectively.
+
+### More Informations:
+- [Week09 Recap](recap_week09.md)
+- [Lecture Slides](lecture-slide.md)
+- [Linked List (Recap)](linked-list-recap.md)
+- [Linked List (Lab)](linked-list.md)
+
 
 ### What is a `struct`?
 
@@ -377,5 +384,50 @@ Let me know if you'd like to dive deeper into any of these examples or explore o
 - **Data Structures:** Pointers to `struct`s are essential for building complex data structures like linked lists,
   trees, and graphs.
 
-**Remember:** When working with dynamically allocated memory, always free it using `free()` to avoid memory leaks. 
+### Typedef with Structs
 
+You can use `typedef` with `struct` to create more concise type names. This improves code readability and makes it
+easier to work with your custom data types.
+
+**Example (Not Using typedef):**
+
+```c
+struct Product {
+  char name[50];
+  float price;
+}; 
+
+int main() {
+  struct Product item1;  
+}
+```
+
+**Example (Using typedef):**
+
+```c
+typedef struct {
+  char name[50];
+  float price;
+} Product; // Now 'Product' is an alias for the struct
+
+int main() {
+  Product item1;  // No need to write 'struct Product'
+}
+```
+
+**Explanation:**
+
+1. **`typedef struct { ... } Product;`**: This statement combines the `struct` definition with a `typedef`. It creates a
+   new type alias `Product` for the `struct`.
+2. **`Product item1;`**:  You can now declare variables of type `Product` directly without using the `struct` keyword.
+
+**Benefits of using `typedef` with `struct`s:**
+
+- **Code Readability:** Makes your code cleaner and more concise.
+- **Reduced Redundancy:** Avoid repeatedly writing `struct` before the structure name.
+- **Easier Maintenance:** If you need to change the `struct` definition later, you only need to modify it in one place (
+  the `typedef`).
+
+**Remember:** When working with dynamically allocated memory, always free it using `free()` to avoid memory leaks.
+
+```
