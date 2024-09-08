@@ -3,7 +3,7 @@
 This tutorial introduces you to `struct`, a powerful tool in C for organizing your data effectively.
 
 ### More Informations:
-- [Week09 Recap](recap_week09.md)
+- [Lab09 Recap](recap_week09.md)
 - [Lecture Slides](lecture-slide.md)
 - [Linked List (Recap)](linked-list-recap.md)
 - [Linked List (Lab)](linked-list.md)

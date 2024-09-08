@@ -1,283 +1,229 @@
-## Physical Computing Labs 10: Linked List
+## การบ้านเรื่อง Linked List
 
-This document provides instructions and code examples for implementing a singly linked list in C.
+การบ้านนี้ประกอบด้วย 4 ข้อ โดยแต่ละข้อจะต่อยอดจากข้อก่อนหน้า โปรดเก็บโค้ดจากข้อก่อนหน้าไว้ใช้ในข้อถัดไป
 
-**Linked List Recap**
+### ข้อ 1: Create DataNode
 
-* [linked-list-recap.md](linked-list-recap.md)
+**คำอธิบาย:**
 
-**Table of Contents**
+ในข้อนี้ ให้เขียนโปรแกรมเพื่อสร้าง DataNode ซึ่งเป็นส่วนประกอบพื้นฐานของ Singly Linked List
+โครงสร้างข้อมูลชนิดนี้มีลักษณะเป็นสายโซ่ของโหนดที่เชื่อมต่อกันในทิศทางเดียว
+โดยแต่ละโหนดจะเก็บข้อมูลและหมายเลขอ้างอิงไปยังโหนดถัดไป
 
-* [01: Create DataNode](#01-create-datanode)
-* [02: Singly Linked List (Traversal and Insert Last)](#02-singly-linked-list-traversal-and-insert-last)
-* [03: Singly Linked List (Insert Front)](#03-singly-linked-list-insert-front)
-* [04: Singly Linked List (Insert Before)](#04-singly-linked-list-insert-before)
-* [05: Singly Linked List (Delete)](#05-singly-linked-list-delete)
+**คุณลักษณะของ DataNode:**
 
-### 01: Create DataNode
+* **`data`:**  ข้อมูลของโหนด (เก็บข้อมูลเป็น String ความยาวไม่เกิน 100 ตัว)
+    * รับค่าข้อมูลผ่านฟังก์ชัน `createDataNode(char* data)`
+* **`next`:** Pointer ชี้ไปที่ Address ของ Node ถัดไป
+    * ค่าเริ่มต้นคือ NULL
 
-**Objective:** Implement a `DataNode` class to represent a node in a singly linked list.
-
-**Attributes:**
-
-* `data`: The data stored in the node (integer).
-* `next`: A pointer to the next node in the list (DataNode*).
-
-**Example Usage:**
+**ตัวอย่างโค้ด:**
 
 ```c
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-// DataNode structure
-struct DataNode {
+// DataNode structure using typedef
+typedef struct DataNode {
   char* data;
   struct DataNode* next;
-};
+} DataNode;
+
+DataNode* createDataNode(char* data);
 
 // Create a new DataNode
-struct DataNode* createDataNode(char* data) {
-  struct DataNode* newNode = (struct DataNode*)malloc(sizeof(struct DataNode));
-  newNode->data = data;
+DataNode* createDataNode(char* data) {
+  // Allocate memory for the node
+  DataNode* newNode = (DataNode*)malloc(sizeof(DataNode));
+
+  // Allocate memory for the string and copy the data
+  newNode->data = (char*)malloc(strlen(data) + 1);
+  strcpy(newNode->data, data);
+
   newNode->next = NULL;
   return newNode;
 }
 
 int main() {
+  char data[101];
+  scanf("%[^\n]s", data);
+
   // Create a new DataNode
-  struct DataNode* pNew = createDataNode("Tawan");
+  DataNode* pNew = createDataNode(data);
 
   // Print the data and next pointer
-  printf("%s\n", pNew->data); // Output: Tawan
-  printf("%p\n", (void*)pNew->next); // Output: NULL (or equivalent)
+  printf("%s\n", pNew->data);
+  printf("%p\n", (void*)pNew->next);
 
+  // Free allocated memory for data
+  free(pNew->data);
+  free(pNew);
   return 0;
 }
 ```
 
-### 02: Singly Linked List (Traversal and Insert Last)
+**หมายเหตุ:**  eJudge ทำงานบน CentOS (Linux distribution (Unix-like OS))  เวลาปริ้น NULL Pointer ออกมาจะแสดงว่า `(nil)`
 
-**Objective:** Implement a `SinglyLinkedList` class with traversal and insertion at the end functionality.
+### ข้อ 2:  Traversal และ Insert Last
 
-**Attributes:**
+**คำอธิบาย:**
 
-* `count`: Number of nodes in the list (int).
-* `head`: Pointer to the first node (DataNode*).
+ให้สร้างโครงสร้างของ Linked List โดยมีฟังก์ชันสำหรับจัดการ DataNode ดังนี้
 
-**Methods:**
+* **`traverse(mylist)`:** ท่องเข้าไปใน Linked List และแสดงข้อมูลตามลำดับทั้งหมดใน Linked List
+    * เชื่อมต่อกันด้วย `->`  เช่น  `ฉงน -> ละอองดาว`
+    * กรณีที่ Linked List ว่าง ให้แสดงข้อความ “This is an empty list.”
+* **`insert_last(mylist, data)`:** สร้าง DataNode และแทรกไปที่ส่วนท้ายของ Linked List
+    * เช่น  `insert_last(mylist, "สกาวเดือน")`  ผลลัพธ์จะออกมาเป็น  `traverse(mylist) = ฉงน -> ละอองดาว -> สกาวเดือน`
 
-* `traverse()`: Prints the data of all nodes in the list, separated by "->". If the list is empty, print "This is an
-  empty list."
-* `insert_last(data)`: Creates a new node with the given data and inserts it at the end of the list.
+**คุณลักษณะของ LinkedList:**
 
-**Example Usage:**
+* **`count`:**  จำนวนโหนดใน Linked List มีค่าเริ่มต้นเป็น 0 และอัปเดตทุกครั้งที่มีการเพิ่มหรือลบโหนด
+* **`head`:** หมายเลขอ้างอิงถึงโหนดแรกสุด (Head Node)  เริ่มต้นจะไม่มีข้อมูลอ้างอิง
+
+**ตัวอย่างโค้ด:**
 
 ```c
-// ... (DataNode structure and createDataNode function from Lab 05.01)
+// SinglyLinkedList structure using typedef
+typedef struct SinglyLinkedList {
+  unsigned int count;
+  DataNode* head;
+} SinglyLinkedList;
 
-// SinglyLinkedList structure
-struct SinglyLinkedList {
-  int count;
-  struct DataNode* head;
-};
+// Function prototypes
+DataNode *createDataNode(char *data);
+SinglyLinkedList *createSinglyLinkedList();
+void traverse(SinglyLinkedList *list);
+void insert_last(SinglyLinkedList *list, char *data);
+
+int main() {
+    // ...  โค้ดสำหรับรันเทสเคส
+}
 
 // Create a new SinglyLinkedList
-struct SinglyLinkedList* createSinglyLinkedList() {
-  struct SinglyLinkedList* newList = (struct SinglyLinkedList*)malloc(sizeof(struct SinglyLinkedList));
-  newList->count = 0;
-  newList->head = NULL;
-  return newList;
+SinglyLinkedList* createSinglyLinkedList() {
+    // ... โค้ดสำหรับสร้าง SinglyLinkedList
 }
 
 // Traverse the list and print data
-void traverse(struct SinglyLinkedList* list) {
-  if (list->count == 0) {
-    printf("This is an empty list.\n");
-    return;
-  }
-  struct DataNode* current = list->head;
-  while (current != NULL) {
-    printf("%s", current->data);
-    if (current->next != NULL) {
-      printf(" -> ");
+void traverse(SinglyLinkedList* list) {
+    if (list->count == 0) {
+        printf("This is an empty list.\n");
+        return;
     }
-    current = current->next;
-  }
-  printf("\n");
+    struct DataNode* pointer = list->head;
+    while (pointer->next != NULL) {
+        // ปริ้นข้อมูลและขยับ pointer ไปเรื่อยๆ จนถึงโหนดตัวสุดท้าย
+    }
+    printf("%s\n", pointer->data);
 }
 
 // Insert a new node at the end of the list
-void insert_last(struct SinglyLinkedList* list, char* data) {
-  struct DataNode* newNode = createDataNode(data);
-  if (list->count == 0) {
-    list->head = newNode;
-  } else {
-    struct DataNode* current = list->head;
-    while (current->next != NULL) {
-      current = current->next;
+void insert_last(SinglyLinkedList* list, char* data) {
+    struct DataNode* pNew = createDataNode(data);
+    if (list->count == 0) {
+        // ... ถ้า Linked List ว่างให้เปลี่ยนตำแหน่ง list->head ไปที่ pNew
+    } else {
+        // ... ถ้า Linked List ไม่ว่างให้สร้าง Pointer ตัวใหม่และขยับไปที่โหนดสุดท้ายและเปลี่ยน pointer->next เป็น pNew
     }
-    current->next = newNode;
-  }
-  list->count++;
-}
-
-int main() {
-  // Create a new SinglyLinkedList
-  struct SinglyLinkedList* mylist = createSinglyLinkedList();
-
-  // Insert data
-  insert_last(mylist, "Tawan");
-  insert_last(mylist, "Sanja");
-  insert_last(mylist, "Nados");
-
-  // Traverse the list
-  traverse(mylist); // Output: Tawan -> Sanja -> Nados
-
-  return 0;
-}
-```
-
-### 03: Singly Linked List (Insert Front)
-
-**Objective:** Implement the `insert_front(data)` method in the `SinglyLinkedList` class.
-
-**Functionality:**
-
-* Creates a new node with the given data and inserts it at the beginning of the list.
-
-**Example Usage:**
-
-```c
-// ... (previous code from Lab 05.01 and 05.02)
-
-// Insert a new node at the beginning of the list
-void insert_front(struct SinglyLinkedList* list, char* data) {
-  struct DataNode* newNode = createDataNode(data);
-  newNode->next = list->head;
-  list->head = newNode;
-  list->count++;
-}
-
-int main() {
-  // ... (previous code from Lab 05.02)
-
-  // Insert data at the front
-  insert_front(mylist, "Nados");
-
-  // Traverse the list
-  traverse(mylist); // Output: Nados -> Tawan -> Sanja -> Nados
-
-  return 0;
-}
-```
-
-### .04: Singly Linked List (Insert Before)
-
-**Objective:** Implement the `insert_before(node, data)` method in the `SinglyLinkedList` class.
-
-**Functionality:**
-
-* Creates a new node with the given data and inserts it before the specified node.
-* If the specified node is not found, print "Cannot insert, <node> does not exist."
-
-**Example Usage:**
-
-```c
-// ... (previous code from Lab 05.01, 05.02, and 05.03)
-
-// Insert a new node before the specified node
-void insert_before(struct SinglyLinkedList* list, char* nodeData, char* data) {
-  struct DataNode* newNode = createDataNode(data);
-  if (list->head == NULL) {
-    printf("Cannot insert, %s does not exist.\n", nodeData);
-    return;
-  }
-  if (strcmp(list->head->data, nodeData) == 0) {
-    newNode->next = list->head;
-    list->head = newNode;
     list->count++;
-    return;
-  }
-  struct DataNode* current = list->head;
-  while (current->next != NULL && strcmp(current->next->data, nodeData) != 0) {
-    current = current->next;
-  }
-  if (current->next == NULL) {
-    printf("Cannot insert, %s does not exist.\n", nodeData);
-    return;
-  }
-  newNode->next = current->next;
-  current->next = newNode;
-  list->count++;
-}
-
-int main() {
-  // ... (previous code from Lab 05.02 and 05.03)
-
-  // Insert data before "Sanja"
-  insert_before(mylist, "Sanja", "Nados");
-
-  // Traverse the list
-  traverse(mylist); // Output: Tawan -> Nados -> Sanja -> Nados
-
-  return 0;
 }
 ```
 
-### 05: Singly Linked List (Delete)
+### ข้อ 3:  Insert Front
 
-**Objective:** Implement the `delete(data)` method in the `SinglyLinkedList` class.
+**คำอธิบาย:**
 
-**Functionality:**
+ให้เพิ่มฟังก์ชัน `insert_front` เข้าไปในโค้ดจากข้อ 2
 
-* Deletes the first occurrence of a node with the given data.
-* If the specified data is not found, print "Cannot delete, <data> does not exist."
+* **`insert_front(mylist, data)`:** สร้าง DataNode และแทรกไปที่ส่วนหน้าของ Linked List
+    * เช่น `insert_front(mylist, "สกาวเดือน")`  ผลลัพธ์จะออกมาเป็น  `traverse(mylist) = สกาวเดือน -> ฉงน -> ละอองดาว`
 
-**Example Usage:**
+**ตัวอย่างโค้ด:**
 
 ```c
-// ... (previous code from Lab 05.01, 05.02, 05.03, and 05.04)
-
-// Delete the first occurrence of a node with the given data
-void delete(struct SinglyLinkedList* list, char* data) {
-  if (list->head == NULL) {
-    printf("Cannot delete, %s does not exist.\n", data);
-    return;
-  }
-  if (strcmp(list->head->data, data) == 0) {
-    struct DataNode* temp = list->head;
-    list->head = list->head->next;
-    free(temp);
-    list->count--;
-    return;
-  }
-  struct DataNode* current = list->head;
-  while (current->next != NULL && strcmp(current->next->data, data) != 0) {
-    current = current->next;
-  }
-  if (current->next == NULL) {
-    printf("Cannot delete, %s does not exist.\n", data);
-    return;
-  }
-  struct DataNode* temp = current->next;
-  current->next = current->next->next;
-  free(temp);
-  list->count--;
-}
+// ...  โค้ดจากข้อที่แล้ว
+void insert_front(SinglyLinkedList* list, char* data); // <-- สร้างตัวนี้
 
 int main() {
-  // ... (previous code from Lab 05.02, 05.03, and 05.04)
+    // ...  โค้ดสำหรับรันเทสเคส
+}
 
-  // Delete "Tawan"
-  delete(mylist, "Tawan");
+// ...  โค้ดจากข้อที่แล้ว
 
-  // Traverse the list
-  traverse(mylist); // Output: Nados -> Sanja -> Nados
-
-  return 0;
+void insert_front(SinglyLinkedList* list, char* data) {
+    DataNode* pNew = createDataNode(data);
+    if (list->count == 0) {
+        // ...  ถ้า Linked List ว่างให้เปลี่ยนตำแหน่ง list->head ไปที่ pNew
+    } else {
+        // ...  เปลี่ยนตำแหน่งของ pNew.next ไปที่โหนดตัวแรกสุดและเปลี่ยนตำแหน่ง head node ไปที่ pNew
+    }
+    list->count++;
 }
 ```
 
-This document provides a comprehensive guide to implementing a singly linked list in C. Each lab builds upon the
-previous one, culminating in a fully functional linked list implementation. Remember to test your code thoroughly after
-each step.
+### ข้อ 4:  Delete
+
+**คำอธิบาย:**
+
+ให้เพิ่มเมธอด `delete` เข้าไปในคลาสที่คุณเขียนจากข้อก่อนหน้า
+
+* **`delete(mylist, data)`:** ลบ DataNode ออกจาก Linked List
+    * กรณีที่ไม่มีโหนดใน Linked List ให้แสดงข้อความ “Cannot delete, <data> does not exist.”
+    * เช่น  `delete(mylist, "ฉงน")`  ผลลัพธ์จะออกมาเป็น  `traverse(mylist) = ละอองดาว`
+
+**ตัวอย่างโค้ด:**
+
+```c
+DataNode* createDataNode(char* data);
+SinglyLinkedList* createSinglyLinkedList();
+void traverse(SinglyLinkedList* list);
+void insert_last(SinglyLinkedList* list, char* data);
+void insert_front(SinglyLinkedList* list, char* data);
+void delete(SinglyLinkedList* list, char* data); // <-- สร้างตัวนี้
+```
+
+**ให้นำโค้ดนี้ไปใช้รันเทสเคส:**
+
+```c
+int main() {
+    SinglyLinkedList* mylist = createSinglyLinkedList();
+    int n;
+    char condition;
+    char data[100]; // Assuming a maximum string length of 99 characters
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        scanf(" %c: %[^\n]s", &condition, data); // Read condition and string data
+
+        if (condition == 'F') {
+            insert_front(mylist, data);
+        } else if (condition == 'L') {
+            insert_last(mylist, data);
+        } else if (condition == 'D') {
+            delete(mylist, data);
+        } else {
+            printf("Invalid Condition!\n");
+        }
+    }
+
+    traverse(mylist);
+    // Remember to free allocated memory for each node's data
+    DataNode* current = mylist->head;
+    while (current != NULL) {
+        free(current->data);
+        DataNode* temp = current;
+        current = current->next;
+        free(temp);
+    }
+    free(mylist);
+    return 0;
+}
+```
+
+**หมายเหตุ:**
+
+* โปรดตรวจสอบโค้ดในส่วนที่ต้องเติมให้ครบถ้วน
+* อย่าลืมจัดการหน่วยความจำอย่างเหมาะสมโดยการใช้ `malloc` และ `free`
+* ส่งโค้ดผ่าน eJudge เพื่อตรวจสอบความถูกต้อง
