@@ -1,7 +1,10 @@
 ## Physical Computing Labs 10: Linked List
 
-
 This document provides instructions and code examples for implementing a singly linked list in C.
+
+**Linked List Recap**
+
+* [linked-list-recap.md](linked-list-recap.md)
 
 **Table of Contents**
 

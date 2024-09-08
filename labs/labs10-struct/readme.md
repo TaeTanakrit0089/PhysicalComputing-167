@@ -227,7 +227,7 @@ This creates a `struct Product` dynamically on the heap, and you can access its 
 - **By Reference (using pointers):**  Passing a pointer to the `struct` is more efficient, as only the pointer's value (
   the memory address) is copied.
 
-**Example (Passing by Reference):**
+**1. Example (Passing by Reference):**
 
 ```c
 #include <stdio.h>
@@ -251,6 +251,124 @@ int main() {
   return 0;
 }
 ```
+
+**2. Modifying a `struct` Within a Function (By Value vs. By Reference):**
+
+```c
+#include <stdio.h>
+
+struct Product {
+  char name[50];
+  float price;
+};
+
+// Pass by value (makes a copy)
+void update_price_copy(struct Product prod, float new_price) {
+  prod.price = new_price; 
+  printf("Inside update_price_copy: %.2f\n", prod.price); 
+}
+
+// Pass by reference (using a pointer)
+void update_price_ref(struct Product *prod, float new_price) {
+  prod->price = new_price; 
+  printf("Inside update_price_ref: %.2f\n", prod->price);
+}
+
+int main() {
+  struct Product item = {"Coffee", 4.99};
+
+  update_price_copy(item, 5.99); 
+  printf("After update_price_copy: %.2f\n", item.price); // Price unchanged!
+
+  update_price_ref(&item, 5.99); 
+  printf("After update_price_ref: %.2f\n", item.price); // Price updated!
+
+  return 0;
+}
+```
+
+**Explanation:** `update_price_copy` receives a copy of the `struct`, so the original `item` remains unchanged.
+`update_price_ref` receives a pointer, allowing direct modification of the original `item`.
+
+**3. Array of `struct`s and Pointers:**
+
+```c
+#include <stdio.h>
+
+struct Student {
+  int id;
+  char name[50];
+};
+
+int main() {
+  struct Student students[3] = {
+    {101, "Alice"},
+    {102, "Bob"},
+    {103, "Charlie"}
+  };
+
+  struct Student *ptr = students; // Pointer to the first student
+
+  for (int i = 0; i < 3; i++) {
+    printf("ID: %d, Name: %s\n", (ptr + i)->id, (ptr + i)->name);
+  }
+
+  return 0;
+}
+```
+
+**Explanation:**  We create an array of `Student` structs. The pointer `ptr` iterates through the array, accessing each
+`Student`'s data using pointer arithmetic and the `->` operator.
+
+**4. Linked List (Simple Example):**
+
+```c
+#include <stdio.h>
+#include <stdlib.h> // For malloc and free
+
+struct Node {
+  int data;
+  struct Node *next;
+};
+
+int main() {
+  struct Node *new_node01 = (struct Node*)malloc(sizeof(struct Node));
+  new_node01->data = 10;
+  new_node01->next = NULL;
+
+  struct Node *new_node02 = (struct Node*)malloc(sizeof(struct Node));
+  new_node02->data = 20;
+  new_node02->next = NULL;
+  new_node01->next = new_node02;
+
+  struct Node *new_node03 = (struct Node*)malloc(sizeof(struct Node));
+  new_node03->data = 30;
+  new_node03->next = NULL;
+  new_node02->next = new_node03;
+
+  struct Node *p_new = new_node01;
+  while (p_new != NULL) {
+        printf("%d ", p_new->data);
+        p_new = p_new->next;
+  }
+  printf("\n");
+  // Free the list
+  p_new = new_node01;
+  struct Node *next_node;
+
+  while (p_new != NULL) {
+        next_node = p_new->next; // Save the next node
+        free(p_new); // Free the current node
+        p_new = next_node; // Move to the next node
+  }
+  return 0;
+}
+```
+
+**Explanation:**  This snippet demonstrates the fundamental building block of a linked list. Each `Node` contains data
+and a pointer (`next`) to the next node. Pointers are crucial for connecting nodes in a linked list.
+
+Let me know if you'd like to dive deeper into any of these examples or explore other data structures like trees!
 
 ### Benefits of Using Pointers with `struct`s
 

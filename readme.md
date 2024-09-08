@@ -10,6 +10,7 @@
 - [Lab06: Array](labs/labs06-array)
 - [Lab07: Function](labs/labs07-function)
 - [Lab09: Pointer](labs/labs09-pointer)
+- [Lab10: Struct](labs/labs10-struct)
 
 ## Resources
 
