@@ -3,11 +3,11 @@
 This tutorial introduces you to `struct`, a powerful tool in C for organizing your data effectively.
 
 ### More Informations:
+
 - [Lab09 Recap](recap_week09.md)
 - [Lecture Slides](lecture-slide.md)
 - [Linked List (Recap)](linked-list-recap.md)
 - [Linked List (Lab)](linked-list.md)
-
 
 ### What is a `struct`?
 
@@ -25,9 +25,37 @@ A `struct` lets you group these related variables under a single name:
 ```c
 struct Student {
   char name[50];
-  int age;
-  int id;
+  unsigned int id;
+  float gpa;
 };
+
+struct Student student01 = {"Mr.ARNUPHAP MONGKOLSUKTAVI", 66070224, 3.50};
+struct Student student02 = {"Mr.PANAVAT THAMCHAROEN", 66070113, 3.63};
+struct Student student03 = {"Miss.SONRASAMON MEEPASEE", 66070200, 3.75};
+
+printf("%s %d %f\n", student01.name, student01.id, student01.gpa);
+printf("%s %d %f\n", student02.name, student02.id, student02.gpa);
+printf("%s %d %f\n", student03.name, student03.id, student03.gpa);
+```
+
+Imagine without struct
+
+```c
+char name1[50] = "Mr.ARNUPHAP MONGKOLSUKTAVI";
+unsigned int id1 = 66070224;
+float gpa1 = 3.50;
+
+char name2[50] = "Mr.PANAVAT THAMCHAROEN";
+unsigned int id2 = 66070113;
+float gpa2 = 3.63;
+
+char name3[50] = "Miss.SONRASAMON MEEPASEE";
+unsigned int id3 = 66070200;
+float gpa3 = 3.75;
+
+printf("%s %d %f\n", name1, id1, gpa1);
+printf("%s %d %f\n", name2, id2, gpa2);
+printf("%s %d %f\n", name3, id3, gpa3);
 ```
 
 Now, `Student` is a new data type representing a student's information.
@@ -88,7 +116,7 @@ You can initialize a `struct` during declaration:
 struct Product cheese = {"Cheese", 4.99, 1};
 ```
 
-### Working with `struct`s
+### Working with `struct`
 
 Here's a complete example demonstrating how to define, declare, access, and work with `struct`s:
 
@@ -116,14 +144,32 @@ int main() {
 }
 ```
 
-### Key Takeaways
+It's easy to get confused between structs and objects, especially if you're new to programming! They seem similar at
+first, but there's a key difference. Here's a simplified explanation tailored for students:
 
-- **Organization:** `struct`s group related data, making your code clearer and easier to manage.
-- **Custom Data Types:** Create your own data types to model real-world entities or concepts in your programs.
-- **Flexibility:** Combine different data types within a `struct` for versatile data representation.
+**Structs:  The Basics**
 
-This tutorial is an introduction to `struct`s in C. They can be used in more complex ways, including nested structures,
-arrays of structures, and pointers to structures. Happy coding!
+* Think of a struct as a **blueprint** to create custom data types. It lets you group different variables (like `name`,
+  `age`, `grade`) under a single name (like `Student`).
+* **Focus on data:** Structs mainly focus on storing and organizing data.
+* **Example:** Imagine a physical form with labeled boxes for "Name", "Age", and "Grade". A struct is like that form –
+  it just holds the information.
+
+**Objects: Taking Structs Further**
+
+* Objects are built upon the idea of structs, but they add more capabilities.
+* **Data AND Actions:** Objects not only store data (like structs) but also have **functions (called methods) that can
+  directly act on that data**.
+* **Example:** Instead of just a form, think of an object as an actual student who can fill out their own form (
+  `writeName()`, `calculateAge()`, `getGrade()`), answer questions about their information, etc.
+
+**In Simple Terms**
+
+* **Struct:** A container to hold related pieces of data.
+* **Object:** A more advanced container that holds data AND has actions it can perform on that data.
+
+**Important Note:** C primarily uses structs. The concept of objects as described above is more central to
+object-oriented programming languages like C++, Java, and Python.
 
 ---
 
@@ -162,66 +208,93 @@ printf("Price: %.2f\n", ptr_product->price);
 
 The `->` operator dereferences the pointer (accesses the value at the memory location) and then accesses the member.
 
-- **`*` (Asterisk):**
-    - **Dereference operator:**  It accesses the value stored at the memory address held by a pointer.
-    - **Usage:**  Used with pointers to access the variable they point to.
-    - **Example:**
-        ```c
-        int x = 10;
-        int *ptr = &x;
-        printf("%d\n", *ptr); // Output: 10 (accessing the value of x)
-        ```
+### C Struct Member Access
 
-- **`->` (Arrow operator):**
-    - **Member access operator (for pointers to structs):**  Combines dereferencing and member access in a single
-      operation.
-    - **Usage:**  Specifically designed to access members of a `struct` through a pointer to that `struct`.
-    - **Example:**
-        ```c
-        struct Product milk = {"Milk", 3.99};
-        struct Product *ptr = &milk;
-        printf("%s\n", ptr->name); // Output: Milk 
-        ```
+Assuming that we have declare `juice` as a variable struct and `ptr_product` is a pointer.
 
-**In essence:**
+```c
+struct Product {
+    char name[50];
+    double price;
+    int quantity;
+};
 
-- Use `*` to dereference a pointer and get the value it points to (regardless of the data type).
-- Use `->` specifically to access members of a `struct` using a pointer to that `struct`.
+struct Product juice = {"Orange Juice", 2.49, 5};
+struct Product *ptr_product = &juice;
+```
 
-Think of `->` as a shorthand for:  `(*ptr).member` (where `ptr` is your pointer and `member` is the struct member you
-want to access).
+`juice` is a Product struct, and `ptr_product` is a pointer that holds the memory address of `juice`. To access the
+members (
+name, price, quantity) of the juice struct, you have three main operators:
 
-### The difference between `.` and `->` in struct
+**1. The Dot Operator (`.`)**
 
-- **`milk.price`**
-    - **Direct member access:** Used when `milk` is a `struct` variable, not a pointer.
-    - **Accesses the `price` member directly within the `milk` struct.**
+* **Purpose:** Used to access members of a struct directly when you have the struct variable itself.
+* **Syntax:**  `struct_variable.member_name`
+* **Example:**
+  ```c
+  printf("Product Name: %s\n", juice.name); 
+  printf("Quantity: %d\n", juice.quantity);
+  ```
+* **Key Point:**  The dot operator assumes you are working with the actual struct variable, not a pointer to it.
 
-- **`milk->price`**
-    - **Member access through pointer:** Used when `milk` is a *pointer* to a `struct`.
-    - **Dereferences the pointer `milk` and then accesses the `price` member of the struct it points to.**
+**2. The Asterisk Operator (*)**
 
-**In short:**
+* **Purpose:**
+    * **Dereference Operator:** When used with a pointer, it accesses the value stored at the memory location the
+      pointer points to.
+* **Syntax:** `*pointer_variable`
+* **Example (Dereferencing):**
+    - Create a pointer name `ptr_product`:
+  ```c
+  struct Product current_product = *ptr_product;  // Dereference to get the struct
+  printf("Price: %.2f\n", current_product.price); // Now use '.'
+  
+  // or
+  
+  printf("Price: %.2f\n", *(ptr_product).price);
+  ```
+* **Key Point:** Dereferencing a pointer to a struct gives you a copy of the struct data. Changes made to this copy
+  won't affect the original struct.
 
-- Use `.` when you have a struct variable.
-- Use `->` when you have a pointer to a struct.
+**3. The Arrow Operator (`->`)**
 
-### Dynamic Memory Allocation with `struct`s
+* **Purpose:**  Provides a concise way to access members of a struct through a pointer.
+* **Syntax:**  `pointer_to_struct->member_name`
+* **Example:**
+  ```c
+  struct Product *ptr_product = &juice;
+  
+  printf("Product Name: %s\n", ptr_product->name);
+  ptr_product->quantity -= 1; // Modify the original struct directly 
+  ```
+* **Key Point:** The arrow operator combines dereferencing and member access in one step. It directly modifies the
+  original struct.
+* Think of `->` as a shorthand for:  `(*ptr).member` (where `ptr` is your pointer and `member` is the struct member you
+  want to access).
+
+**In Essence:**
+
+* Use `.` when you have the struct variable itself.
+* Use `*` to dereference a pointer to get the struct data (creates a copy).
+* Use `->` to access members of a struct through a pointer (modifies the original).
+
+---
+
+## Dynamic Memory Allocation with `struct`
 
 You can dynamically allocate memory for `struct`s using `malloc`:
 
 ```c
-struct Product *new_product = malloc(sizeof(struct Product));
+struct Product *new_product = (struct Product*) malloc(sizeof(struct Product));
 
-if (new_product == NULL) {
-  // Handle memory allocation error
-} else {
-  strcpy(new_product->name, "Bread");
-  new_product->price = 2.50;
-  new_product->quantity = 1;
+strcpy(new_product->name, "Bread");
+new_product->price = 2.50;
+new_product->quantity = 1;
 
-  // ... use the 'new_product'
-  free(new_product); // Remember to free the allocated memory
+// ... use the 'new_product'
+
+free(new_product); // Remember to free the allocated memory
 }
 ```
 

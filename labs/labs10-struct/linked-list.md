@@ -222,6 +222,39 @@ int main() {
 }
 ```
 
+วิธีการเขียน delete ในภาษา Python
+
+```Python
+def delete(self, data):
+  current = self.head
+  previous = None
+
+  # Empty list check
+  if self.count == 0:
+    print(f"Cannot delete, {data} does not exist.")
+    return
+
+  # Iterate to find the node to delete
+  while current is not None and current.data != data:
+    previous = current
+    current = current.next
+
+  # Node not found
+  if current is None:
+    print(f"Cannot delete, {data} does not exist.")
+    return
+
+  # If the node is the head, update head
+  if current == self.head:
+    self.head = current.next
+  else:
+    # Connect the previous node to the next node
+    previous.next = current.next
+
+  # No need to explicitly free memory in Python, garbage collector handles it
+  self.count -= 1
+```
+
 **หมายเหตุ:**
 
 * โปรดตรวจสอบโค้ดในส่วนที่ต้องเติมให้ครบถ้วน
