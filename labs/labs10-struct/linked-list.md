@@ -1,4 +1,121 @@
-## การบ้านเรื่อง Linked List
+## Mastering C Structs, Pointers, and Linked Lists: A Deep Dive
+
+This tutorial will guide you through the fundamentals of C structs, pointers, and linked lists, culminating in the
+creation of a singly linked list implementation.
+
+**1. Structs: Building Blocks of Data**
+
+Structs in C allow you to group related data of different types under a single name. Think of them as blueprints for
+creating custom data types.
+
+```c
+struct DataNode {
+    int data;
+    struct DataNode *next;
+};
+```
+
+This code defines a struct named `DataNode`. It contains:
+
+* `data`: An integer variable to store the actual data.
+* `next`: A pointer to another `DataNode`. This is crucial for linking nodes together.
+
+**2. Pointers: Navigating Memory**
+
+Pointers are variables that store memory addresses. They are essential for working with structs and linked lists.
+
+```c
+struct DataNode *pNew = NULL;
+```
+
+Here, `head` is a pointer to a `DataNode`. Initially, it's set to `NULL`, indicating an empty list.
+
+**3. Linked Lists: Chains of Data**
+
+A linked list is a dynamic data structure where elements (nodes) are linked together using pointers. Each node contains
+data and a pointer to the next node in the sequence.
+
+**3.1 Singly Linked List: One-Way Street**
+
+In a singly linked list, each node points only to the next node.
+
+**3.2 Implementing a Singly Linked List**
+
+Let's build a `SinglyLinkedList` struct to manage our list:
+
+```c
+struct SinglyLinkedList {
+    struct DataNode *head;
+};
+```
+
+This struct simply holds a pointer to the first node (`head`) of the list.
+
+**4. Core Operations**
+
+Let's implement some essential operations for our `SinglyLinkedList`:
+
+**4.1 Creating a New Node**
+
+```c
+struct DataNode* createNode(int value) {
+    struct DataNode* newNode = (struct DataNode*)malloc(sizeof(struct DataNode));
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+```
+
+This function allocates memory for a new `DataNode`, sets its data, and initializes its `next` pointer to `NULL`.
+
+**4.2 Inserting a Node at the Beginning**
+
+```c
+void insertAtBeginning(struct SinglyLinkedList* list, int value) {
+    struct DataNode* newNode = createNode(value);
+    newNode->next = list->head;
+    list->head = newNode;
+}
+```
+
+This function creates a new node and inserts it at the beginning of the list by updating the `head` pointer.
+
+**4.3 Printing the List**
+
+```c
+void printList(struct SinglyLinkedList* list) {
+    struct DataNode* current = list->head;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+    printf("\n");
+}
+```
+
+This function iterates through the list, printing the data of each node.
+
+**5. Putting it All Together: Example Usage**
+
+```c
+int main() {
+    struct SinglyLinkedList list;
+    list.head = NULL;
+
+    insertAtBeginning(&list, 3);
+    insertAtBeginning(&list, 1);
+    insertAtBeginning(&list, 2);
+
+    printf("Linked List: ");
+    printList(&list);
+
+    return 0;
+}
+```
+
+This code creates a `SinglyLinkedList`, inserts three nodes, and then prints the list.
+
+# การบ้านเรื่อง Linked List
 
 การบ้านนี้ประกอบด้วย 4 ข้อ โดยแต่ละข้อจะต่อยอดจากข้อก่อนหน้า โปรดเก็บโค้ดจากข้อก่อนหน้าไว้ใช้ในข้อถัดไป
 
@@ -226,33 +343,33 @@ int main() {
 
 ```Python
 def delete(self, data):
-  current = self.head
-  previous = None
+    current = self.head
+    previous = None
 
-  # Empty list check
-  if self.count == 0:
-    print(f"Cannot delete, {data} does not exist.")
-    return
+    # Empty list check
+    if self.count == 0:
+        print(f"Cannot delete, {data} does not exist.")
+        return
 
-  # Iterate to find the node to delete
-  while current is not None and current.data != data:
-    previous = current
-    current = current.next
+    # Iterate to find the node to delete
+    while current is not None and current.data != data:
+        previous = current
+        current = current.next
 
-  # Node not found
-  if current is None:
-    print(f"Cannot delete, {data} does not exist.")
-    return
+    # Node not found
+    if current is None:
+        print(f"Cannot delete, {data} does not exist.")
+        return
 
-  # If the node is the head, update head
-  if current == self.head:
-    self.head = current.next
-  else:
-    # Connect the previous node to the next node
-    previous.next = current.next
+    # If the node is the head, update head
+    if current == self.head:
+        self.head = current.next
+    else:
+        # Connect the previous node to the next node
+        previous.next = current.next
 
-  # No need to explicitly free memory in Python, garbage collector handles it
-  self.count -= 1
+    # No need to explicitly free memory in Python, garbage collector handles it
+    self.count -= 1
 ```
 
 **หมายเหตุ:**
