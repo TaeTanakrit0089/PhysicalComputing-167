@@ -1,6 +1,7 @@
 ## Introduction to Linear Lists: Arrays and Linked Lists
 
-This recap is created from Data Structures and Algorithms Lecture Slide: [02_Array and Linkedlist_STD.pdf](files/02_Array%20and%20Linkedlist_STD.pdf)
+This recap is created from Data Structures and Algorithms Lecture
+Slide: [02_Array and Linkedlist_STD.pdf](files/02_Array%20and%20Linkedlist_STD.pdf)
 
 This document provides a comprehensive tutorial on linear lists, focusing on two primary implementations: arrays and
 linked lists.
@@ -95,10 +96,10 @@ The data stored in a linked list node can be simple or complex:
 **1. Define the Node Structure:**
 
 ```c
-struct Person {
-    string name;
-    Person *next; // Pointer to the next node
-};
+typedef struct DataNode {
+  char* data;
+  struct DataNode* next;
+} DataNode;
 ```
 
 **2. Create the Head Node:**

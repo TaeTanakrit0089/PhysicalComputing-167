@@ -503,4 +503,8 @@ int main() {
 
 **Remember:** When working with dynamically allocated memory, always free it using `free()` to avoid memory leaks.
 
+## Struct with Singly Linked List
 
+- [Link List Lab](linked-list.md)
+
+[//]: # (- [Link List Recap]&#40;linked-list-recap.md&#41;)
