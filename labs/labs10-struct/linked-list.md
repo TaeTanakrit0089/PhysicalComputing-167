@@ -37,19 +37,6 @@ typedef struct DataNode {
 
 DataNode* createDataNode(char* data);
 
-// Create a new DataNode
-DataNode* createDataNode(char* data) {
-  // Allocate memory for the node
-  DataNode* newNode = (DataNode*)malloc(sizeof(DataNode));
-
-  // Allocate memory for the string and copy the data
-  newNode->data = (char*)malloc(strlen(data) + 1);
-  strcpy(newNode->data, data);
-
-  newNode->next = NULL;
-  return newNode;
-}
-
 int main() {
   char data[101];
   scanf("%[^\n]s", data);
@@ -65,6 +52,19 @@ int main() {
   free(pNew->data);
   free(pNew);
   return 0;
+}
+
+// Create a new DataNode
+DataNode* createDataNode(char* data) {
+  // Allocate memory for the node
+  DataNode* newNode = (DataNode*)malloc(sizeof(DataNode));
+
+  // Allocate memory for the string and copy the data
+  newNode->data = (char*)malloc(strlen(data) + 1);
+  strcpy(newNode->data, data);
+
+  newNode->next = NULL;
+  return newNode;
 }
 ```
 
