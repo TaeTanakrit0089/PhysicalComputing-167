@@ -459,7 +459,70 @@ void loop() {
 
 ## ตัวช่วย
 
-[LED_Metrix.xlsx](files/LED_Metrix.xlsx)
+- [LED Matrix Excel](files/LED_Matrix.xlsx)
+
+[//]: # (- [LED Matrix tool]&#40;https://ledmatrix-editor.arduino.cc/&#41;)
+
+## Animate the frame
+
+เราสามารถสร้าง Array ที่ใช้เก็บภาพได้หลายๆ ตัวและเรียกฟังก์ชัน `loadFrame()` ใหม่เพื่อเปลี่ยนภาพที่แสดงผล
+
+![heart-border3.png](files/img/heart-border3.png)
+
+```cpp
+#include "Arduino_LED_Matrix.h"
+
+ArduinoLEDMatrix matrix;
+
+uint32_t heart_border[3] = {0x3184A44E, 0x42081100, 0xA0040000};
+uint32_t heart_filled[3] = {0x3187BC7F, 0xC3F81F00, 0xE0040000};
+
+void setup() {
+  matrix.begin();
+}
+
+void loop() {
+  matrix.loadFrame(heart_border);
+  delay(1000);
+
+  matrix.loadFrame(heart_filled);
+  delay(1000);
+}
+```
+
+หรือสร้างภาพหน้ายิ้มขึ้นมาสลับกันไปเรื่อยๆ
+
+```cpp
+#include "Arduino_LED_Matrix.h"
+
+ArduinoLEDMatrix matrix;
+
+uint32_t frame1[3] = {0xFFF80199, 0x9801A059, 0xF9801FFF};
+uint32_t frame2[3] = {0xFFF80199, 0x98018019, 0xF9801FFF};
+uint32_t frame3[3] = {0xFFF80199, 0x98019F9A, 0x05801FFF};
+
+void setup() {
+  matrix.begin();
+}
+
+void loop() {
+  int interval = 1000;
+
+  matrix.loadFrame(frame1);
+  delay(interval);
+  matrix.loadFrame(frame2);
+  delay(interval);
+  matrix.loadFrame(frame3);
+  delay(interval);
+  matrix.loadFrame(frame2);
+  delay(interval);
+}
+```
+## Exercise
+
+1. ให้สร้างเป็นตัวอักษรแรกของชื่อเล่นของตัวเองเป็นภาษาอังกฤษออกทาง LCD Matrix โดยแต่ละตัวอักษรต้องอยู่คนละเฟรม เช่น
+   - **TAE:** ให้แสดงเป็น `T`, `A` และ `E` 
+     ![ex01.png](files/img/ex01.png)
 
 ## อ้างอิง
 
