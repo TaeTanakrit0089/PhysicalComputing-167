@@ -1,18 +1,17 @@
 # Using the Arduino UNO R4 WiFi LED Matrix
 
-Get off the ground with the Arduino UNO R4 WiFi built-in LED matrix. Learn the different techniques for controlling it,
-create animations, graphics or even games.
+เริ่มต้นใช้งาน Arduino UNO R4 WiFi ด้วยเมทริกซ์ LED ในตัว เรียนรู้เทคนิคต่างๆ ในการควบคุม สร้างแอนิเมชัน กราฟิก
+หรือแม้แต่เกม
 
-The **Arduino UNO R4 WiFi** comes with a built in 12x8 LED Matrix, that is available to be programmed to display
-graphics,
-animations, act as an interface, or even play games on.
+**Arduino UNO R4 WiFi** มาพร้อมกับเมทริกซ์ LED 12x8 ในตัว ซึ่งสามารถตั้งโปรแกรมเพื่อแสดงกราฟิก แอนิเมชัน
+ทำหน้าที่เป็นส่วนเชื่อมต่อ หรือแม้แต่เล่นเกมได้
 
 ## Goals
 
-The matrix and its API are developed to be programmed in a few different ways, each suited for different applications.
-This guide will walk you through the basic concepts for programming the LED matrix, and get you started with creating
-your own animations, while highlighting two different ways of handling the LEDs to create animations and images. This
-makes it easier for you to decide what method fits your needs best!
+เมทริกซ์และ API ได้รับการพัฒนาให้ตั้งโปรแกรมได้หลายวิธี แต่ละวิธีเหมาะสำหรับแอปพลิเคชันที่แตกต่างกัน
+คู่มือนี้นำเสนอแนวคิดพื้นฐานสำหรับการเขียนโปรแกรมเมทริกซ์ LED และช่วยให้คุณเริ่มต้นสร้างแอนิเมชันของคุณเอง
+พร้อมเน้นย้ำถึงสองวิธีในการจัดการ LED เพื่อสร้างแอนิเมชันและรูปภาพ
+ทำให้คุณตัดสินใจได้ง่ายขึ้นว่าวิธีใดเหมาะสมกับความต้องการของคุณที่สุด!
 
 ![matrix-closeup.png](files/img/matrix-closeup.png)
 
@@ -24,23 +23,22 @@ makes it easier for you to decide what method fits your needs best!
 
 ## Initializing Your Arduino LED Matrix with Arduino_LED_Matrix Library
 
-This document explains the essential steps to start using an 12x8 LED Matrix with your Arduino and the
-`Arduino_LED_Matrix` library.
+เอกสารนี้อธิบายขั้นตอนสำคัญในการเริ่มต้นใช้งานเมทริกซ์ LED 12x8 กับ Arduino ของคุณและไลบรารี `Arduino_LED_Matrix`
 
 **Step 1: Include the Library**
 
-At the very beginning of your Arduino sketch (`.ino` file), add the following line:
+ที่จุดเริ่มต้นของสเก็ตช์ Arduino (ไฟล์ `.ino`) ให้เพิ่มบรรทัดต่อไปนี้:
 
 ```cpp
 #include "Arduino_LED_Matrix.h"
 ```
 
-This line incorporates the necessary functions and definitions from the `Arduino_LED_Matrix` library into your project.
-This library simplifies the process of controlling and displaying graphics on the LED Matrix.
+บรรทัดนี้รวมฟังก์ชันและคำจำกัดความที่จำเป็นจากไลบรารี `Arduino_LED_Matrix` ไว้ในโปรเจกต์
+ไลบรารีนี้ช่วยลดความยุ่งยากในกระบวนการควบคุมและแสดงกราฟิกบนเมทริกซ์ LED
 
 **Step 2: Create a Matrix Object**
 
-Right below the `#include` statement, create an instance of the `ArduinoLEDMatrix` class like this:
+ด้านล่างคำสั่ง `#include` ให้สร้างอินสแตนซ์ของคลาส `ArduinoLEDMatrix` ดังนี้:
 
 ```cpp
 ArduinoLEDMatrix matrix;
@@ -51,13 +49,12 @@ send commands and display content on the matrix.
 
 **Step 3: Initialize the Matrix in `setup()`**
 
-In your Arduino sketch's `setup()` function, which runs once at the beginning of your program, initialize the LED
-Matrix:
+ในฟังก์ชัน `setup()` จะทำงานครั้งเดียวเมื่อเริ่มต้นโปรแกรม ให้ประกาศเพื่อเริ่มต้นใช้งาน Matrix LED:
 
 ```cpp
 void setup() {
-  Serial.begin(115200); // Optional, for debugging
-  matrix.begin();        // Initialize the LED Matrix
+  Serial.begin(115200);   // ตัวเลือก สำหรับการดีบัก
+  matrix.begin();         // เริ่มต้นใช้งานเมทริกซ์ LED
 }
 ```
 
@@ -83,13 +80,13 @@ void loop() {
 }
 ```
 
-With these three steps, your LED Matrix is initialized and ready to display graphics or text controlled by your code
-within the `loop()` function.
+ด้วยสามขั้นตอนนี้ LED Matrix จะแสดงกราฟิกหรือข้อความที่ควบคุมโดยโค้ดของเรา โดยที่เราจะต้องเขียนคำสั่งภายในฟังก์ชัน
+`loop()` เพื่อใช้ในการควบคุม LED Matrix
 
 ## Create an image using Frame Gallery
 
-We've designed a gallery of frames and animations that are included in the library! You may load and display them on
-your UNO R4 WiFi with the following code snippet:
+ผู้พัฒนาได้ออกแบบแกลเลอรีของเฟรมและแอนิเมชันที่รวมอยู่ในไลบรารีแล้ว โดยที่เราสามารถโหลดและแสดงบน UNO R4 WiFi
+ได้เลย:
 
 ```cpp
 #include "Arduino_LED_Matrix.h"   // Include the LED_Matrix library
@@ -108,7 +105,7 @@ void loop() {
 }
 ```
 
-By changing the parameter in matrix.loadFrame() in the loop, you can choose among the available frames we designed.
+โดยการเปลี่ยนพารามิเตอร์ใน `matrix.loadFrame()` ในลูปก็สามารถเลือกเฟรมที่มีให้เลือกใช้ได้
 
 The available **frames** are:
 
@@ -177,7 +174,7 @@ void loop() {
 
 ## Heart Bitmap Display on Arduino LED Matrix
 
-This code displays a heart-shaped bitmap image on an 8x12 Arduino LED matrix using the Arduino_LED_Matrix library.
+โค้ดนี้จะแสดงรูปภาพ Bitmap รูปหัวใจบนเมทริกซ์ LED 8x12 ของ Arduino โดยใช้ไลบรารี Arduino_LED_Matrix
 
 **1. Include Header File:**
 
@@ -185,15 +182,11 @@ This code displays a heart-shaped bitmap image on an 8x12 Arduino LED matrix usi
 #include "Arduino_LED_Matrix.h"
 ```
 
-Includes the necessary header file for the `Arduino_LED_Matrix` library.
-
 **2. Create Matrix Object:**
 
 ```cpp
 ArduinoLEDMatrix matrix;
 ```
-
-Creates an instance of the `ArduinoLEDMatrix` class named `matrix`.
 
 **3. Define Bitmap Image:**
 
@@ -212,34 +205,34 @@ byte image[8][12] = {
 
 ![heart-border.png](files/img/heart-border.png)
 
-Defines a two-dimensional byte array `image` representing the heart bitmap. Each element corresponds to an LED in the
-matrix, with `1` representing an illuminated LED and `0` representing an off LED.
+กำหนดอาร์เรย์ไบต์สองมิติ `image` ที่แสดงรูปหัวใจ แต่ละองค์ประกอบสอดคล้องกับ LED ในเมทริกซ์ โดยที่
+
+- `1` แทนการเปิด LED
+- `0` แทนการปิด LED
 
 **4. Setup Function:**
 
 ```cpp
 void setup() {
-  Serial.begin(115200); // Optional: Initialize serial communication
-  matrix.begin(); // Initialize the LED matrix
+  Serial.begin(115200);     // Optional: Initialize serial communication
+  matrix.begin();           // Initialize the LED matrix
 }
 ```
-
-Initializes the serial communication (optional) and the LED matrix using `matrix.begin()`.
 
 **5. Loop Function:**
 
 ```cpp
 void loop() {
-  matrix.renderBitmap(image, 8, 12); // Display the heart bitmap
+  matrix.renderBitmap(image, 8, 12); // แสดง Bitmap รูปหัวใจ
   
-  delay(100); // Wait for 100 milliseconds
+  delay(100); // รอ 100 มิลลิวินาที
 }
 ```
 
-Continuously displays the heart bitmap on the LED matrix using `matrix.renderBitmap(image, 8, 12)`. The `delay(100)`
-function introduces a short pause between each display cycle, preventing flickering.
+แสดง Bitmap รูปหัวใจบน LED Matrix อย่างต่อเนื่องโดยใช้ `matrix.renderBitmap(image, 8, 12)` และฟังก์ชัน `delay(100)`
+จะหยุดชั่วคราวระหว่างแต่ละรอบการแสดงผล เพื่อป้องกันการกะพริบของภาพ
 
-**How it Works:**
+**วิธีการทำงาน:**
 
 The code first defines a heart-shaped bitmap image using a two-dimensional array. In the `loop()` function, it
 repeatedly calls `matrix.renderBitmap()`, which takes the bitmap image and its dimensions as arguments. This function
@@ -278,11 +271,17 @@ void loop() {
 
 ```
 
-We can change the values in the image array by accessing it. Assuming that we want to add 2 more dots at the lower right conor into our bitmap image.
+---
+
+## ถ้าต้องการเปลี่ยนหรือแก้ไขรูป
+
+เราสามารถเปลี่ยนค่าในอาร์เรย์ `image` ได้โดยการเข้าถึง สมมติว่าเราต้องการเพิ่มจุดอีก 2 จุดที่มุมล่างขวาในรูปภาพ Bitmap
+ของเรา
 
 ![heart-border2.png](files/img/heart-border2.png)
 
-You can see that the new 2 dots is located at column 9, 10 and both in row 6. By accessing the array elements, you can use the array access methods in C
+จุดใหม่ 2 จุดอยู่ที่คอลัมน์ 9, 10 และทั้งคู่ในแถว 6
+โดยการเข้าถึงองค์ประกอบอาร์เรย์สามารถใช้วิธีการเข้าถึงอาร์เรย์แบบปกติได้
 
 ```cpp
 void loop() {
@@ -301,7 +300,7 @@ void loop() {
 }
 ```
 
-Or you can change the whole array:
+หรือสามารถเปลี่ยนอาร์เรย์ทั้งหมด (จาก 0 -> 1 และ 1 -> 0):
 
 ```cpp
 void loop() {
@@ -326,13 +325,139 @@ void loop() {
 }
 ```
 
-## Heart Bitmap Display on Arduino LED Matrix using HEX
+### Question:
 
-Image
+ถ้าต้องการ Fill ภาพหัวใจ ควรใช้วิธีไหนดี
 
+![heart-border3.png](files/img/heart-border3.png)
 
+1. สร้าง Array Bitmap ใหม่
+2. แก้ไขค่าใน `void loop()`
+3. ... ?
 
-## References
+## LED Matrix Bit Pattern
+
+อธิบายแนวคิดในการแสดงผลของ LED Matrix เป็นรูปแบบ**บิต**โดยแสดงตัวอย่างของขอบรูป Heart Border และ Filled Heart
+
+### Understanding the Basics
+
+- **LED Matrix:** ตารางของหลอดไฟ LED ที่จัดเรียงเป็นแถวและคอลัมน์ โดยสามารถควบคุมได้ทีละอันเพื่อแสดงอักขระ,
+  สัญลักษณ์หรือรูปภาพ
+- **Bit Pattern:** ลำดับของ 0 และ 1 โดยที่แต่ละบิตแสดงถึงสถานะเปิด/ปิดของ LED ในเมทริกซ์
+    - `1` หมายถึง LED ที่เปิด
+    - `0` หมายถึง LED ที่ปิด
+
+### LED Matrix Size
+
+![bit01.png](files/img/bit01.png)
+
+แต่ละ LED ในเมทริกซ์สามารถควบคุมได้ด้วยบิตเดียว เนื่องจากใน LED Matrix มี LED 96 ดวง (8 แถว x 12 คอลัมน์)
+จึงต้องใช้จำนวนบิตทั้งหมด 96 บิตเพื่อแสดงภาพทั้งหมด
+
+เรารู้แล้วว่า LED Matrix นั้นใช้ตัวเลขบิตทั้งหมด 96 ตัวในการเก็บข้อมูลเราจึงจะสามารถใช้ชนิดข้อมูลประเภท `int`
+ในการเก็บตัวเลขทั้งหมด
+
+- `int` ในคอมพิวเตอร์ปกติจะมีขนาดอยู่ที่ 4 bytes หรือ 32 bits
+
+เราต้องการเก็บข้อมูลทั้งหมด 96 bits ก็สามารถใช้ข้อมูล `int` ทั้งหมด 3 ตัวในการเก็บได้
+
+- `int` **1 ตัว**มีขนาด 32 bits
+- `int` **3 ตัว**มีขนาด 32x3 = **96 bits**
+
+### **(สำคัญมากๆๆๆ)** Fixed-Width Integer Types:
+
+Arduino Uno ใช้ชิป ATmega328 ซึ่งเป็น 8-bit microcontroller ทำให้ค่า `int` โดยปกติของ Arduino Uno มีขนาดอยู่ที่
+**16 bit**
+
+ฟังก์ชันในการแสดงผลบน LED Matrix รับค่าเป็น int ขนาด 32 bit เท่านั้นทำให้เราต้องใช้ตัวแปรประเภท **Fixed-Width Integer
+Types**
+
+- **16-bit Types:** `int`, `unsigned int`, `short`, `unsigned short`, `int16_t`, `uint16_t`
+- **32-bit Types:** `long`, `unsigned long`, `int32_t`, `uint32_t`
+- **8-bit Types:** `int8_t`, `uint8_t`
+
+น้องๆ อาจจะเห็นว่า 32-bit Types สามารถใช้ long ได้ แต่ว่าฟังก์ชันถูกประกาศว่าให้รับเป็น `uint32_t` (unsigned 32-bit
+integer) ดังนั้นถ้าน้องไม่ใช้ `uint32_t` แล้วมันจะ Compile ไม่ผ่าน
+
+![bit-function.png](files/img/bit-function.png)
+
+### BIN To HEX:
+
+เราต้องใช้ตัวแปรชนิด `uint32_t` (unsigned 32-bit integer) ในการเก็บข้อมูลภาพที่จะใช้แสดงผล
+จากข้างบนที่เราต้องเก็บข้อมูลประเภทนี้ทั้งหมด 3 ตัว เราเลยต้องสร้างมาเป็น Array ขนาด 3 ช่องขึ้นมา
+
+```cpp
+uint32_t heart_border[3] = {
+  // Binary: 00110001100001001010010001001110, 
+  // Binary: 01000010000010000001000100000000, 
+  // Binary: 10100000000001000000000000000000
+};
+```
+
+![bit02.png](files/img/bit02.png)
+
+เราไม่สามารถเก็บค่าฐาน 2 หรือ Binary Number ในตัว Source Code ได้เราจึงจะต้อง**แปลงให้เป็นเลขฐาน 10 หรือไม่ก็ฐาน 16 ก่อน
+**
+ซึ่งในการแปลงเลขนั้นการแปลงเป็นเลขฐาน 16 จะสะดวกสุดเพราะว่าการแปลงจากฐาน 2 ไปฐาน 16 สามารถทำได้โดยการจัดกลุ่มเลข 4
+บิตในฐาน 2 เป็นกลุ่มเดียว แล้วแปลงแต่ละกลุ่มเป็นเลขฐาน 16 ซึ่งทำให้การแปลงทำได้อย่างรวดเร็วและตรงไปตรงมา
+
+เราจะแบ่งเลขฐาน 2 ออกเป็นกลุ่มๆ โดยแต่ละกลุ่มจะมีเลขอยู่ 4 ตัวแล้วจึงแปลงแต่ละกลุ่มไปเป็นเลขฐาน 16
+
+   ```
+   0011 0001 1000 0100 1010 0100 0100 1110  
+   0100 0010 0000 1000 0001 0001 0000 0000 
+   1010 0000 0000 0100 0000 0000 0000 0000 
+   ```
+
+แปลงเลขแต่ละกลุ่มเลข จาก Bin ให้เป็น Hex
+
+| Binary | Hex |  | Binary | Hex |  | Binary | Hex |  | Binary | Hex |
+|--------|:---:|--|--------|:---:|--|--------|:---:|--|--------|:---:|
+| 0000   |  0  |  | 0100   |  4  |  | 1000   |  8  |  | 1100   |  C  |
+| 0001   |  1  |  | 0101   |  5  |  | 1001   |  9  |  | 1101   |  D  |
+| 0010   |  2  |  | 0110   |  6  |  | 1010   |  A  |  | 1110   |  E  |
+| 0011   |  3  |  | 0111   |  7  |  | 1011   |  B  |  | 1111   |  F  |
+
+รวมเลขแต่ละตัวเพื่อสร้างเลขฐาน 16 ที่สมบูรณ์
+
+ ```
+ 0011 0001 1000 0100 1010 0100 0100 1110  ->  0x3184A44E
+ 0100 0010 0000 1000 0001 0001 0000 0000  ->  0x42081100
+ 1010 0000 0000 0100 0000 0000 0000 0000  ->  0xA0040000 
+ ```
+
+ดังนั้นรูปแบบไบนารีที่แสดงรูป Heart Border สามารถจัดเก็บในรูปแบบเลขฐานสิบหกได้ดังนี้:
+
+```cpp
+uint32_t heart_border[3] = {0x3184A44E, 0x42081100, 0xA0040000};
+```
+
+![bit03.png](files/img/bit03.png)
+
+## วิธีการใช้งาน LED Matrix Bit Pattern
+
+```cpp
+#include "Arduino_LED_Matrix.h"
+
+ArduinoLEDMatrix matrix;
+
+uint32_t heart_border[3] = {0x3184A44E, 0x42081100, 0xA0040000};
+
+void setup() {
+  matrix.begin();
+}
+
+void loop() {
+  matrix.loadFrame(heart_border);
+  delay(100);
+}
+```
+
+โค้ดนี้ทำหน้าที่แสดงรูปทรงหัวใจบน LED Matrix โดยใช้ข้อมูลในอาร์เรย์ `heart_border`
+โดยจะโหลดกรอบนี้อย่างต่อเนื่องในวงรอบของฟังก์ชัน loop() ซึ่งทำให้ภาพหัวใจถูกแสดงอยู่ตลอดเวลา ในขณะที่ delay(100);
+จะทำให้มีการอัปเดตภาพทุกๆ 100 มิลลิวินาที
+
+## อ้างอิง
 
 - https://docs.arduino.cc/tutorials/uno-r4-wifi/led-matrix/
 - https://www.youtube.com/watch?v=aWScX8IOEfw
