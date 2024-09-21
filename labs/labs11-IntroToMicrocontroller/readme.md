@@ -1,5 +1,14 @@
 # Week 11 - Introduction to Microcontroller
 
+## Today Topics
+
+1. [Intro to Arduino-R4-WiFi](Arduino-R4-WiFi.md)
+2. [LED Matrix](LED_Matrix.md)
+
+## Today Exercises
+
+1. [LED Matrix](LED_Matrix.md#exercise)
+
 ## How to install Arduino
 
 Go to https://www.arduino.cc/en/software
