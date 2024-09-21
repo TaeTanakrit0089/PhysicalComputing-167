@@ -2,12 +2,14 @@
 
 ## Today Topics
 
-1. [Intro to Arduino-R4-WiFi](Arduino-R4-WiFi.md)
-2. [LED Matrix](LED_Matrix.md)
+1. [Intro to Arduino-R4-WiFi](01.Arduino-R4-WiFi)
+2. [LED Matrix](02.LED_Matrix)
+3. [RGB LED](03.RGB%20LED.md)
+4. [7 Segment](04.7%20Segment.md)
 
 ## Today Exercises
 
-1. [LED Matrix](LED_Matrix.md#exercise)
+1. [LED Matrix](02.LED_Matrix#exercise)
 
 ## How to install Arduino
 
