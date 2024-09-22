@@ -11,6 +11,7 @@
 - [Lab07: Function](labs/labs07-function)
 - [Lab09: Pointer](labs/labs09-pointer)
 - [Lab10: Struct](labs/labs10-struct)
+- [Lab11: Arduino Intro](labs/labs11-IntroToMicrocontroller)
 
 ## Resources
 

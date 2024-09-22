@@ -2,8 +2,8 @@
 
 ## Today Topics
 
-1. [Intro to Arduino-R4-WiFi](01.Arduino-R4-WiFi)
-2. [LED Matrix](02.LED_Matrix)
+1. [Intro to Arduino-R4-WiFi](01.Arduino-R4-WiFi.md)
+2. [LED Matrix](02.LED_Matrix.md)
 3. [RGB LED](03.RGB%20LED.md)
 4. [7 Segment](04.7%20Segment.md)
 
