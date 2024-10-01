@@ -2,8 +2,8 @@
 
 ## Today Topics
 
-1. [01.Input Button](01.Input.md)
-1. [02.Keypad and Key Matrices](02.KeyMatrices.md)
+1. [Input Button](01.Input.md)
+1. [Keypad and Key Matrices](02.KeyMatrices.md)
 
 ## Today Exercises
 
