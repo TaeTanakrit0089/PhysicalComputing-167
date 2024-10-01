@@ -4,7 +4,7 @@
 
 1. [Input Button](01.Input.md)
 2. [Keypad and Key Matrices](02.KeyMatrices.md)
-3. [Keypad and Key Matrices](03.Analog%20Signal.md)
+3. [Analog Signal](03.Analog%20Signal.md)
 
 ## Today Exercises
 
