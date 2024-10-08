@@ -21,12 +21,13 @@ void setup() {
   // Connect to Wi-Fi
   connectToWiFi();
 
-  // Initialize the R4HttpClient with the client and server details
+  // Login Kerio
   http.begin(client, serverUrl, serverPort);
   login_kerio();
 }
 
 void loop() {
+
 }
 
 void login_kerio() {

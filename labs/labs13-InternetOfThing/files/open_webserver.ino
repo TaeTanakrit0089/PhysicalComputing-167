@@ -61,11 +61,7 @@ void loop() {
             client.println();
 
             // the content of the HTTP response follows the header:
-            client.print("<body background='https://www.it.kmitl.ac.th/~pattarachai/PIC/BG/stone.gif'>");
-            client.print("<p style=\"font-size:7vw;\">Click <a href=\"/H\">here</a> turn the LED on<br></p>");
-            client.print("<p style=\"font-size:7vw;\">Click <a href=\"/L\">here</a> turn the LED off<br></p>");
-            client.print("<div align='right'><img src='https://www.it.kmitl.ac.th/~pattarachai/PIC/ICON/emailspin.gif' alt='[MAIL]' border='0'><br>arduino<img src='https://www.it.kmitl.ac.th/~pattarachai/PIC/ICON/at_sign.gif'>it.kmitl.ac.th<br>Any problem with downloading, feel free to contact me.</div>");
-            client.print("</body>");
+            client.print("<style>body{font-family:'Tahoma',sans-serif;}</style><body background='https://www.it.kmitl.ac.th/~pattarachai/PIC/BG/stone.gif'><p style=\"font-size:7vw;\">Click <a href=\"/H\">here</a> turn the LED on<br></p><p style=\"font-size:7vw;\">Click <a href=\"/L\">here</a> turn the LED off<br></p><div align='right'><img src='https://www.it.kmitl.ac.th/~pattarachai/PIC/ICON/emailspin.gif' alt='[MAIL]' border='0'><br>arduino<img src='https://www.it.kmitl.ac.th/~pattarachai/PIC/ICON/at_sign.gif'>it.kmitl.ac.th<br>Any problem with downloading, feel free to contact me.</div></body>");
 
             // The HTTP response ends with another blank line:
             client.println();
