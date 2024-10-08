@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/69ecb91c-8b3d-40ed-b1ef-efb43f98328f)# Week 12 - Digital To Analog
+# Week 12 - Digital To Analog
 
 ## Today Topics
 
