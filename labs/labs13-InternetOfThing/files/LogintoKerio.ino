@@ -6,8 +6,8 @@ const char* ssid = "ITFORGE_UFO";  // Your SSID
 const char* password = "";         // No password for open networks
 
 // Server details (replace with your target server)
-const char* serverUrl = "https://portal.it.kmitl.ac.th/internal/dologin.php";  // Your target URL
-const int serverPort = 4081;                                                         // Port for the target URL (use 443 for HTTPS)
+const char* serverUrl = "https://portal.it.kmitl.ac.th/internal/dologin.php";
+const int serverPort = 4081;
 
 // Create an instance of WiFiSSLClient (for HTTPS, use WiFiClientSecure)
 WiFiSSLClient client;
@@ -23,10 +23,13 @@ void setup() {
 
   // Initialize the R4HttpClient with the client and server details
   http.begin(client, serverUrl, serverPort);
+  login_kerio();
 }
 
 void loop() {
-  // Example POST request
+}
+
+void login_kerio() {
   String payload = "kerio_username=maxhub+peer+tutor2&kerio_password=";  // Your POST data
   int responseCode = http.POST(payload);
 
@@ -39,10 +42,7 @@ void loop() {
     Serial.print("Error making POST request: ");
     Serial.println(responseCode);  // Print the actual error code
   }
-
-
   http.close();  // Close the connection
-  delay(5000);   // Wait for 5 seconds before next request
 }
 
 // Function to connect to your WiFi network
