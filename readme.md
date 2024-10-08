@@ -13,6 +13,7 @@
 - [Lab10: Struct](labs/labs10-struct)
 - [Lab11: Arduino Intro](labs/labs11-IntroToMicrocontroller)
 - [Lab12: Digital To Analog](labs/labs12-DigitalToAnalog)
+- [Lab13: Internet Of Things](labs/labs13-InternetOfThing)
 
 ## Resources
 

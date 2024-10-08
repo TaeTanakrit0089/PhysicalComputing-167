@@ -5,15 +5,17 @@
 1. [MQTT Broker](01.MQTT%20Broker.md)
 2. [Connect to ITKMITL WiFi](02.Connect%20To%20ITKMITL%20WiFi.md)
 3. [Connect to Personal WiFi](03.Connect%20to%20Personal%20WiFi.md)
-4.
+4. [Arduino With MQTT.md](04.Arduino%20With%20MQTT.md)
 
 ## Today Exercises
 
 **เข็คส่งงาน:** https://bit.ly/PhyCom2024Score
 
-| ข้อ                | รายละเอียด                                                 | ตัวอย่าง                                                            |
-|--------------------|------------------------------------------------------------|---------------------------------------------------------------------|
-| **1. Web Server:** | ให้นำโค้ดนี้ไปรันและเปิด Web Server ผ่านตัว Arduino ให้ได้ | ![](https://www.it.kmitl.ac.th/~pattarachai/PIC/ICON/emailspin.gif) |
+| ข้อ                        | รายละเอียด                                                                                                                                                                                                                                                                                                                                 | ตัวอย่าง                                                            |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| **1. Web Server:**         | ให้นำโค้ดนี้ไปรันและเปิด Web Server ผ่านตัว Arduino ให้ได้                                                                                                                                                                                                                                                                                 | ![](https://www.it.kmitl.ac.th/~pattarachai/PIC/ICON/emailspin.gif) |
+| **2. MQTT Potentiometer:** | ต่อตัวต้านทานปรับค่าได้และส่งค่าของตัวต้านทานไปที่ HiveMQ                                                                                                                                                                                                                                                                                  | ![img.png](files/img/ex2.png)                                       |
+| **3. MQTT LED:**           | ให้ publish ค่า 0-255 แล้วไปสั่งให้ หลอด LED หรี่, สว่างค่าที่ส่งมา <br/> <br/> - 0 คือดับ <br/> - 255 คือสว่างสุด <br/> <br/> ในฟังก์ชั่น messageHandler เพิ่มโปรแกรม `void messageHandler(String &topic, String &payload)` จะต้องเปลี่ยน payload จาก String ให้เป็น Interger ก่อน <br/> <br/> `val = XXX.toInt();` `analogWrite(9,val);` | ![img.png](files/img/ex3.png)                                       |
 
 สไลด์ Lecture: [PC67-15_Micro03.pdf](files%2FPC67-15_Micro03.pdf)
 
