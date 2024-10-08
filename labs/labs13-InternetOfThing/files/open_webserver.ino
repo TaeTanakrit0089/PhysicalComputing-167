@@ -4,6 +4,7 @@
 
 ArduinoLEDMatrix matrix;
 uint32_t frame_off[3] = { 0, 0, 0 };
+uint32_t frame_on[3] = { 0x0E011011, 0x01F01001, 0x800F0000 };
 
 // WiFi credentials
 const char* ssid = "ITFORGE_UFO";  // Your SSID
@@ -80,7 +81,7 @@ void loop() {
         // Check to see if the client request was "GET /H" or "GET /L":
         if (currentLine.endsWith("GET /H")) {
           digitalWrite(LED_BUILTIN, HIGH);  // GET /H turns the LED on
-          matrix.loadFrame(LEDMATRIX_EMOJI_HAPPY);
+          matrix.loadFrame(frame_on);
         }
         if (currentLine.endsWith("GET /L")) {
           digitalWrite(LED_BUILTIN, LOW);  // GET /L turns the LED off
