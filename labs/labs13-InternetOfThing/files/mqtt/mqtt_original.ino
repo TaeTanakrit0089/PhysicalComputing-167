@@ -11,15 +11,14 @@ const char WIFI_SSID[] = "YOUR_WIFI_SSID";          // CHANGE TO YOUR WIFI SSID
 const char WIFI_PASSWORD[] = "YOUR_WIFI_PASSWORD";  // CHANGE TO YOUR WIFI PASSWORD
 
 const char MQTT_BROKER_ADRRESS[] = "mqtt-dashboard.com";  // CHANGE TO MQTT BROKER'S ADDRESS
-//const char MQTT_BROKER_ADRRESS[] = "192.168.0.11";  // CHANGE TO MQTT BROKER'S IP ADDRESS
 const int MQTT_PORT = 1883;
 const char MQTT_CLIENT_ID[] = "arduino-uno-r4-client";  // CHANGE IT AS YOU DESIRE
 const char MQTT_USERNAME[] = "";                        // CHANGE IT IF REQUIRED, empty if not required
 const char MQTT_PASSWORD[] = "";                        // CHANGE IT IF REQUIRED, empty if not required
 
 // The MQTT topics that Arduino should publish/subscribe
-const char PUBLISH_TOPIC[] = "arduino-uno-r4/send";       // CHANGE IT AS YOU DESIRE
-const char SUBSCRIBE_TOPIC[] = "arduino-uno-r4/receive";  // CHANGE IT AS YOU DESIRE
+const char PUBLISH_TOPIC[] = "phycom";    // CHANGE IT AS YOU DESIRE
+const char SUBSCRIBE_TOPIC[] = "phycom";  // CHANGE IT AS YOU DESIRE
 
 const int PUBLISH_INTERVAL = 5000;  // 5 seconds
 
@@ -92,15 +91,16 @@ void sendToMQTT() {
   int val = millis();
   //int val = analogRead(A0);
   String val_str = String(val);
+
+  // Convert the string to a char array for MQTT publishing
   char messageBuffer[10];
   val_str.toCharArray(messageBuffer, 10);
 
+  // Publish the message to the MQTT topic
   mqtt.publish(PUBLISH_TOPIC, messageBuffer);
-  Serial.println("Arduino UNO R4 - sent to MQTT:");
-  Serial.print("- topic: ");
-  Serial.println(PUBLISH_TOPIC);
-  Serial.print("- payload:");
-  Serial.println(messageBuffer);
+
+  // Print debug information to the Serial Monitor in one line
+  Serial.println("Arduino UNO R4 - sent to MQTT: topic: " + String(PUBLISH_TOPIC) + " | payload: " + String(messageBuffer));
 }
 
 // void sendToMQTT() {
@@ -122,10 +122,7 @@ void sendToMQTT() {
 // }
 
 void messageHandler(String &topic, String &payload) {
-  Serial.println("Arduino UNO R4 - received from MQTT:");
-  Serial.println("- topic: " + topic);
-  Serial.println("- payload:");
-  Serial.println(payload);
+  Serial.println("Arduino UNO R4 - received from MQTT: topic: " + topic + " | payload: " + payload);
 
   // You can process the incoming data , then control something
   /*
