@@ -147,7 +147,7 @@ void sendToMQTT() {
 }
 
 void messageHandler(String& topic, String& payload) {
-  Serial.println("Arduino UNO R4 - received from MQTT: topic: " + topic + " | payload: " + payloda);
+  Serial.println("Arduino UNO R4 - received from MQTT: topic: " + topic + " | payload: " + payload);
 
   // You can process the incoming data , then control something
   /*
