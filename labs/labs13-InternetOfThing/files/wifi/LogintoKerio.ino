@@ -31,7 +31,7 @@ void loop() {
 }
 
 void login_kerio() {
-  String payload = "kerio_username=maxhub+peer+tutor2&kerio_password=";  // Your POST data
+  String payload = "kerio_username=iot&kerio_password=iot";  // Your POST data
   int responseCode = http.POST(payload);
 
   if (responseCode > 0) {
