@@ -103,6 +103,24 @@ void sendToMQTT() {
   Serial.println(messageBuffer);
 }
 
+// void sendToMQTT() {
+//   // Check if there's data available to read from the Serial Monitor
+//   if (Serial.available() > 0) {
+//     // Read the input from the Serial Monitor as a string
+//     String val_str = Serial.readStringUntil('\n');
+
+//     // Convert the string to a char array for MQTT publishing
+//     char messageBuffer[10];
+//     val_str.toCharArray(messageBuffer, 10);
+
+//     // Publish the message to the MQTT topic
+//     mqtt.publish(PUBLISH_TOPIC, messageBuffer);
+
+//     // Print debug information to the Serial Monitor in one line
+//     Serial.println("Arduino UNO R4 - sent to MQTT: topic: " + String(PUBLISH_TOPIC) + " | payload: " + String(messageBuffer));
+//   }
+// }
+
 void messageHandler(String &topic, String &payload) {
   Serial.println("Arduino UNO R4 - received from MQTT:");
   Serial.println("- topic: " + topic);
