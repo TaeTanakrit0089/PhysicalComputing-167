@@ -12,9 +12,9 @@ const char WIFI_PASSWORD[] = "YOUR_WIFI_PASSWORD";  // CHANGE TO YOUR WIFI PASSW
 
 const char MQTT_BROKER_ADRRESS[] = "mqtt-dashboard.com";  // CHANGE TO MQTT BROKER'S ADDRESS
 const int MQTT_PORT = 1883;
-const char MQTT_CLIENT_ID[] = "arduino-uno-r4-client";  // CHANGE IT AS YOU DESIRE
-const char MQTT_USERNAME[] = "";                        // CHANGE IT IF REQUIRED, empty if not required
-const char MQTT_PASSWORD[] = "";                        // CHANGE IT IF REQUIRED, empty if not required
+const char MQTT_CLIENT_ID[] = "เปลี่ยนเป็นอะไรก็ได้ที่ไม่ซ้ำกับเพื่อนและห้ามซ้ำกับในเว็ป";  // CHANGE IT AS YOU DESIRE
+const char MQTT_USERNAME[] = "";                                            // CHANGE IT IF REQUIRED, empty if not required
+const char MQTT_PASSWORD[] = "";                                            // CHANGE IT IF REQUIRED, empty if not required
 
 // The MQTT topics that Arduino should publish/subscribe
 const char PUBLISH_TOPIC[] = "phycom";    // CHANGE IT AS YOU DESIRE
