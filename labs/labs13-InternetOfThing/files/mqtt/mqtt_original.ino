@@ -20,7 +20,7 @@ const char MQTT_PASSWORD[] = "";                                            // C
 const char PUBLISH_TOPIC[] = "phycom";    // CHANGE IT AS YOU DESIRE
 const char SUBSCRIBE_TOPIC[] = "phycom";  // CHANGE IT AS YOU DESIRE
 
-const int PUBLISH_INTERVAL = 5000;  // 5 seconds
+const int PUBLISH_INTERVAL = 50000;  // 50 seconds
 
 WiFiClient network;
 MQTTClient mqtt = MQTTClient(256);
