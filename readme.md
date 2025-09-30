@@ -2,8 +2,9 @@
 
 ## ลิงก์ Github Document ของแต่ละสัปดาห์
 
-- [Lab11: Arduino Intro](labs/labs12-IntroToMicrocontroller)
-- [Lab12: Digital Input](labs/labs13-DigitalInput)
+- [Lab12: Arduino Intro](labs/labs12-IntroToMicrocontroller)
+- [Lab13: Digital Input](labs/labs13-DigitalInput)
+- [Lab14: Analog](labs/labs14-Analog)
 
 [//]: # (- [Lab12: Digital To Analog]&#40;labs/labs12-DigitalToAnalog&#41;)
 
