@@ -1,4 +1,4 @@
-# Week 12 - Introduction to Microcontroller
+# Lab 12 - Introduction to Microcontroller
 
 ## Today Topics
 
