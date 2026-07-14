@@ -2,7 +2,7 @@
 
 ## ลิงก์ Github Document ของแต่ละสัปดาห์
 
-- [Lab03: GDB](labs/lab03-gdb/)
+- [Lab03: GDB](labs/labs03-gdb)
 
 ## Resources
 
