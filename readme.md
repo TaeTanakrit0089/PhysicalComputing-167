@@ -2,21 +2,14 @@
 
 ## ลิงก์ Github Document ของแต่ละสัปดาห์
 
-- [Lab12: Arduino Intro](labs/labs12-IntroToMicrocontroller)
-- [Lab13: Digital Input](labs/labs13-DigitalInput)
-- [Lab14: Analog](labs/labs14-Analog)
-
-[//]: # (- [Lab12: Digital To Analog]&#40;labs/labs12-DigitalToAnalog&#41;)
-
-[//]: # (- [Lab13: Internet Of Things]&#40;labs/labs13-InternetOfThing&#41;)
+- [Lab03: GDB](labs/labs03-GDB)
 
 ## Resources
 
-- Onlearn: https://onlearn.it.kmitl.ac.th/course/view.php?id=1587
+- eJudge: https://ejudge.it.kmitl.ac.th/course/246
+- Onlearn: https://onlearn.it.kmitl.ac.th/course/view.php?id=1770
 
 [//]: # (- Homepage: https://www.it.kmitl.ac.th/~it65070089/phypro/)
-
-[//]: # (- eJudge: https://ejudge.it.kmitl.ac.th/course/226)
 
 ## เงื่อนไขในการทำแลป
 
