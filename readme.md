@@ -4,11 +4,13 @@
 
 - [Lab03: GDB](labs/labs03-gdb)
 - [Lab04: GDB with expression](labs/labs04-gdb02)
+- [Lab12: Introduction to Microcontroller](labs/labs12-IntroToMicrocontroller)
 
 ## Resources
 
 - eJudge: https://ejudge.it.kmitl.ac.th/course/246
 - Onlearn: https://onlearn.it.kmitl.ac.th/course/view.php?id=1770
+- Google Sheets: https://docs.google.com/spreadsheets/d/1xQlxN1a3C70LCMTHaKBb0TtkZ5BFR1AWwqTLaZSSvcM/edit?usp=sharing
 
 [//]: # (- Homepage: https://www.it.kmitl.ac.th/~it65070089/phypro/)
 
