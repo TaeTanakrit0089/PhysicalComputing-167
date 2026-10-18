@@ -5,6 +5,9 @@
 - [Lab03: GDB](labs/labs03-gdb)
 - [Lab04: GDB with expression](labs/labs04-gdb02)
 - [Lab12: Introduction to Microcontroller](labs/labs12-IntroToMicrocontroller)
+- [Lab13: Digital Read and Analog Signal](labs/labs13-Digital_Read_and_Analog_Signal)
+- [Lab14: Sensor and LCD](labs/labs14-Sensor_and_LCD)
+- [Lab15: Internet of Things](labs/labs15-internet_of_things)
 
 ## Resources
 
